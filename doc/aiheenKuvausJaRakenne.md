@@ -4,7 +4,7 @@
 Toteutetaan [Nethackin Sokoban](http://nethack.wikia.com/wiki/Sokoban)-tasot omaksi pieneksi peliksi. Pelissä on tarkoitus manipuloida liikkuvia kivijärkäleitä ja täyttää niillä kuoppia jotta pelaaja voi edetä tason loppuun. Sovellukseen kuuluu vain tämän ongelmaratkaisuaspektin tekeminen, ei niinkään Nethackin ominaispiirteiden (kuten huijaamisen yms.) toteuttaminen.
 
 ## Käyttäjät
-*Pelaaja
+* Pelaaja
 
 ### Pelaajan toiminnot
 * Uudet pelin aloittaminen
