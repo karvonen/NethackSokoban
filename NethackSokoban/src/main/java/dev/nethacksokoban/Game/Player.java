@@ -21,12 +21,16 @@ public class Player {
         return y;
     }
 
+    public int getMoves() {
+        return moves;
+    }
+    
+    
     public void move(int newX, int newY) {
         x = newX;
         y = newY;
-    
+        moves++;
     }
-    
     
     
     

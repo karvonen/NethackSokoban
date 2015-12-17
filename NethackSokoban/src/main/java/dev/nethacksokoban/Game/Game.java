@@ -10,12 +10,14 @@ public class Game {
     private Player player;
     private ArrayList<Level> levels;
     private Level currentLevel;
+    private boolean victory;
+    private boolean quit;
 
     private char[][] testlevel = new char[][]{
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
         {'#', '.', '#', '.', '.', '.', '.', '.', '.', '#'},
         {'#', '.', '@', '.', '.', '.', '#', '#', '.', '#'},
-        {'#', '.', '.', '.', '#', '.', '#', '#', '.', '#'},
+        {'#', '.', '.', '.', '#', '.', '#', '#', '<', '#'},
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
 
     public Game(InputScanner inputScanner) {
@@ -23,7 +25,8 @@ public class Game {
     }
 
     public void startGame() {
-
+        victory = false;
+        quit = false;
         initialiseLevel();
         initialisePlayer();
         run();
@@ -32,10 +35,17 @@ public class Game {
     private void run() {
         while (true) {
             updateConsole();
+            if (victory) {
+                System.out.println("Victory!");
+                System.out.println("Moves used: " + player.getMoves());
+                break;
+            }
+            if (quit) {
+                break;
+            }
             char command = inputScanner.readChar();
             execute(command);
         }
-
     }
 
     private void initialisePlayer() {
@@ -44,7 +54,6 @@ public class Game {
     }
 
     private void initialiseLevel() {
-
         currentLevel = new Level(testlevel);
         boolean validStartingPosition = false;
         for (int i = 0; i < currentLevel.getMap().length; i++) {
@@ -78,7 +87,9 @@ public class Game {
     private void execute(char command) {
         int newX = player.getX();
         int newY = player.getY();
-        if (command == '1') {
+        if (command == 'x') {
+            quit = true;
+        } else if (command == '1') {
             newY++;
             newX--;
         } else if (command == '2') {
@@ -99,16 +110,26 @@ public class Game {
             newX++;
             newY--;
         }
-
         playerMove(newX, newY);
 
     }
 
     private void playerMove(int newX, int newY) {
-        System.out.println("trying to move to : " + newX + " / " + newY + ", at that location: " + currentLevel.getMap()[newY][newX]);
-        if (currentLevel.getMap()[newY][newX] == '.') {
-            player.move(newX, newY);
+//        System.out.println("trying to move to : " + newX + " / " + newY + ", at that location: " + currentLevel.getMap()[newY][newX]);
+        if (!checkVictory(newX, newY)) {
+            if (currentLevel.getMap()[newY][newX] == '.') {
+                player.move(newX, newY);
+            }
         }
+    }
+
+    private boolean checkVictory(int newX, int newY) {
+        if (currentLevel.getMap()[newY][newX] == '<') {
+            player.move(newX, newY);
+            victory = true;
+            return true;
+        }
+        return false;
     }
 
 }
