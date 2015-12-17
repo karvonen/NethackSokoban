@@ -110,8 +110,9 @@ public class Game {
             newX++;
             newY--;
         }
-        playerMove(newX, newY);
-
+        if (newX != player.getX() || newY != player.getY()) {
+            playerMove(newX, newY);
+        }
     }
 
     private void playerMove(int newX, int newY) {
