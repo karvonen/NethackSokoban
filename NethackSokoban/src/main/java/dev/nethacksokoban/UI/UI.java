@@ -2,15 +2,18 @@ package dev.nethacksokoban.UI;
 
 import dev.nethacksokoban.Game.Level;
 import dev.nethacksokoban.Game.Player;
+import dev.nethacksokoban.Util.InputScanner;
 
 public class UI {
 
     private Level level;
     private Player player;
+    private InputScanner inputScanner;
 
-    public UI(Level level, Player player) {
+    public UI(Level level, Player player, InputScanner inputScanner) {
         this.level = level;
         this.player = player;
+        this.inputScanner = inputScanner;
     }
 
     public void update() {
@@ -28,6 +31,10 @@ public class UI {
         }
     }
 
+    public char readCommand() {
+        return inputScanner.readChar();
+    }
+    
     public void victory() {
         System.out.println("Victory!");
         System.out.println("Moves used: " + player.getMoves());

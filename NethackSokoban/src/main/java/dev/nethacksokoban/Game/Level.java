@@ -20,6 +20,7 @@ public class Level {
         this.boxes = new ArrayList<>();
         this.height = map.length;
         this.width = map[0].length;
+        initialise();
     }
 
     public int getHeight() {
@@ -38,6 +39,32 @@ public class Level {
         return boxes;
     }
 
+
+    private void initialise() {
+        for (int i = 0; i < getHeight(); i++) {
+            for (int j = 0; j < getWidth(); j++) {
+                if (map[i][j] == '@') {
+                    setPlayerStartingPosition(new Point(i, j));
+                    eraseStartingMarker(i, j);
+                }
+                if (map[i][j] == '0') {
+                    addBox(new Box(j, i));
+                    replaceBox(i, j);
+                }
+            }
+        }
+    }
+
+    /**
+     * Method searches for the right Box object which is in a certain row/col
+     * location. Called when it is known there's a box in that location and it
+     * needs to be manipulated.
+     *
+     * @param row row of the box
+     * @param col column of the box
+     *
+     * @return The box at parameters' location.
+     */
     public Box getBoxInLocation(int row, int col) {
         for (Box box : boxes) {
             if (box.getRow() == row && box.getCol() == col) {
@@ -49,10 +76,6 @@ public class Level {
 
     public void deleteBox(Box box) {
         boxes.remove(box);
-    }
-
-    public void deleteBoxIndex(int index) {
-        boxes.remove(index);
     }
 
     public void setPlayerStartingPosition(Point startPosition) {

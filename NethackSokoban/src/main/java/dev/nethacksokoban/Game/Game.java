@@ -14,6 +14,7 @@ public class Game {
     private boolean victory;
     private boolean quit;
     private UI ui;
+    private boolean testMode;
 
     private char[][] testlevel1 = new char[][]{
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
@@ -35,27 +36,44 @@ public class Game {
         {'#', '.', '.', '#', '#', '#', '#', '#', '.', '.', '.', '.', '.', '.', '#'},
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
 
-    public Game(InputScanner inputScanner) {
+    private char[][] testLevel999 = new char[][]{
+        {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+        {'#', '.', '@', '.', '.', '.', '#', '.', '.', '#'},
+        {'#', '.', '0', '.', '0', '.', '^', '^', '.', '#'},
+        {'#', '.', '.', '.', '.', '.', '#', '#', '<', '#'},
+        {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
+
+    public Game(InputScanner inputScanner, boolean testMode) {
         this.inputScanner = inputScanner;
         this.levels = new HashMap<>();
+        this.testMode = testMode;
     }
 
     public void startGame() {
         while (true) {
-            levels.clear();
             resetLevels();
             victory = false;
             quit = false;
-            initialiseLevel(inputScanner.selectLevel(levels.size()));
+            Integer chosenLevelIndex = inputScanner.selectLevel(levels.size());
+            if (chosenLevelIndex == 999) {
+                break;
+            }
+            char[][] chosenLevel = levels.get(chosenLevelIndex);
+            initialiseLevel(chosenLevel);
             initialisePlayer();
-            ui = new UI(currentLevel, player);
+            ui = new UI(currentLevel, player, inputScanner);
             run();
         }
     }
 
     private void resetLevels() {
-        levels.put(1, testlevel1);
-        levels.put(2, testlevel2);
+        levels.clear();
+        if (testMode) {
+            levels.put(1, testLevel999);
+        } else {
+            levels.put(1, testlevel1);
+            levels.put(2, testlevel2);
+        }
     }
 
     private void run() {
@@ -68,8 +86,7 @@ public class Game {
                 ui.victory();
                 break;
             }
-            char command = inputScanner.readChar();
-            executeGameCommand(command);
+            executeGameCommand(ui.readCommand());
         }
     }
 
@@ -78,20 +95,8 @@ public class Game {
         player = new Player(startingPosition.x, startingPosition.y);
     }
 
-    private void initialiseLevel(int key) {
-        currentLevel = new Level(levels.get(key));
-        for (int i = 0; i < currentLevel.getHeight(); i++) {
-            for (int j = 0; j < currentLevel.getWidth(); j++) {
-                if (currentLevel.getMap()[i][j] == '@') {
-                    currentLevel.setPlayerStartingPosition(new Point(i, j));
-                    currentLevel.eraseStartingMarker(i, j);
-                }
-                if (currentLevel.getMap()[i][j] == '0') {
-                    currentLevel.addBox(new Box(j, i));
-                    currentLevel.replaceBox(i, j);
-                }
-            }
-        }
+    private void initialiseLevel(char[][] level) {
+        currentLevel = new Level(level);
     }
 
     private void executeGameCommand(char command) {
@@ -171,7 +176,8 @@ public class Game {
             currentLevel.deleteBox(push);
             currentLevel.fillTrap(boxNewRow, boxNewCol);
             return true;
-        } else if (currentLevel.getMap()[boxNewRow][boxNewCol] == '*' || currentLevel.getMap()[boxNewRow][boxNewCol] == '.') {
+        } else if (currentLevel.getMap()[boxNewRow][boxNewCol] == '*'
+                || currentLevel.getMap()[boxNewRow][boxNewCol] == '.') {
             push.setRow(boxNewRow);
             push.setCol(boxNewCol);
             return true;
