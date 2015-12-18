@@ -4,4 +4,6 @@ Päivämäärä | Aika | Kuvaus
 2015-12-17 | 2h | Repo kuntoon ja aihemäärittely.
 2015-12-17 | 2h | Pelaajan liikkumislogiikka, komentojen antaminen, staattinen testikartta.
 2015-12-17 | 0.5h | Voittoruutu, voittaminen, liikkeiden laskeminen, ekat testit.
-Yhteensä | 4.5h |
+2015-12-18 | 2h | Refaktorointia ja bugifixejä
+2015-12-18 | 2h | Lisätty työnnettävä boksi, kuoppien täyttäminen bokseilla
+Yhteensä | 8.5h |
