@@ -33,8 +33,8 @@ public class PlayerTest {
 
     @Test
     public void playerConstructor() {
-        assertEquals(2, player.getX());
-        assertEquals(3, player.getY());
+        assertEquals(2, player.getRow());
+        assertEquals(3, player.getCol());
         assertEquals(0, player.getMoves());
 
     }
@@ -42,12 +42,12 @@ public class PlayerTest {
     @Test
     public void move() {
         player.move(3, 3);
-        assertEquals(3, player.getX());
-        assertEquals(3, player.getY());
+        assertEquals(3, player.getRow());
+        assertEquals(3, player.getCol());
         assertEquals(1, player.getMoves());
         player.move(2, 4);
-        assertEquals(2, player.getX());
-        assertEquals(4, player.getY());
+        assertEquals(2, player.getRow());
+        assertEquals(4, player.getCol());
         assertEquals(2, player.getMoves());
 
     }

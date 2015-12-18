@@ -1,37 +1,32 @@
-
 package dev.nethacksokoban.Game;
 
 public class Player {
-    
-    private int x;
-    private int y;
+
+    private int row;
+    private int col;
     private int moves;
-    
-    public Player(int x, int y) {
-        this.x = x;
-        this.y = y;
+
+    public Player(int row, int col) {
+        this.row = row;
+        this.col = col;
         moves = 0;
     }
-    
-    public int getX() {
-        return x;
+
+    public int getRow() {
+        return row;
     }
-    
-    public int getY() {
-        return y;
+
+    public int getCol() {
+        return col;
     }
 
     public int getMoves() {
         return moves;
     }
-    
-    
-    public void move(int newX, int newY) {
-        x = newX;
-        y = newY;
+
+    public void move(int row, int col) {
+        this.row = row;
+        this.col = col;
         moves++;
     }
-    
-    
-    
 }

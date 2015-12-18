@@ -2,26 +2,40 @@ package dev.nethacksokoban.Game;
 
 import dev.nethacksokoban.Util.InputScanner;
 import java.awt.Point;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Game {
 
     private InputScanner inputScanner;
     private Player player;
-    private ArrayList<Level> levels;
+    private HashMap<Integer, Level> levels;
     private Level currentLevel;
     private boolean victory;
     private boolean quit;
 
-    private char[][] testlevel = new char[][]{
+    private char[][] testlevel2 = new char[][]{
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-        {'#', '.', '#', '.', '.', '.', '.', '.', '.', '#'},
-        {'#', '.', '@', '.', '.', '.', '#', '#', '.', '#'},
-        {'#', '.', '.', '.', '#', '.', '#', '#', '<', '#'},
+        {'#', '.', '.', '.', '.', '.', '.', '.', '.', '#'},
+        {'#', '.', '.', '.', '0', '@', '0', '^', '^', '#'},
+        {'#', '.', '.', '.', '.', '.', '#', '#', '<', '#'},
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
+
+    private char[][] testlevel = new char[][]{
+        {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+        {'#', '<', '#', '@', '.', '.', '.', '#', '#', '#', '.', '.', '.', '.', '#'},
+        {'#', '^', '#', '#', '.', '0', '0', '.', '.', '.', '.', '0', '.', '.', '#'},
+        {'#', '^', '#', '#', '.', '.', '0', '0', '#', '.', '0', '.', '0', '.', '#'},
+        {'#', '^', '#', '#', '.', '.', '.', '.', '#', '.', '.', '.', '.', '.', '#'},
+        {'#', '^', '#', '#', '#', '#', '#', '#', '#', '0', '#', '#', '#', '#', '#'},
+        {'#', '^', '#', '#', '#', '#', '#', '#', '.', '.', '.', '.', '.', '.', '#'},
+        {'#', '^', '#', '#', '#', '#', '#', '#', '.', '.', '.', '.', '.', '.', '#'},
+        {'#', '.', '.', '^', '^', '^', '^', '0', '0', '0', '0', '.', '.', '.', '#'},
+        {'#', '.', '.', '#', '#', '#', '#', '#', '.', '.', '.', '.', '.', '.', '#'},
+        {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
 
     public Game(InputScanner inputScanner) {
         this.inputScanner = inputScanner;
+        this.levels = new HashMap<>();
     }
 
     public void startGame() {
@@ -44,7 +58,7 @@ public class Game {
                 break;
             }
             char command = inputScanner.readChar();
-            execute(command);
+            executeGameCommand(command);
         }
     }
 
@@ -55,82 +69,126 @@ public class Game {
 
     private void initialiseLevel() {
         currentLevel = new Level(testlevel);
-        boolean validStartingPosition = false;
-        for (int i = 0; i < currentLevel.getMap().length; i++) {
-            for (int j = 0; j < currentLevel.getMap()[i].length; j++) {
+        for (int i = 0; i < currentLevel.getHeight(); i++) {
+            for (int j = 0; j < currentLevel.getWidth(); j++) {
                 if (currentLevel.getMap()[i][j] == '@') {
                     currentLevel.setPlayerStartingPosition(new Point(i, j));
-                    validStartingPosition = true;
                     currentLevel.eraseStartingMarker(i, j);
+                }
+                if (currentLevel.getMap()[i][j] == '0') {
+                    currentLevel.addBox(new Box(j, i));
+                    currentLevel.replaceBox(i, j);
                 }
             }
         }
-        if (!validStartingPosition) {
-            //do something here
-        }
-
     }
 
     private void updateConsole() {
-        for (int i = 0; i < currentLevel.getMap().length; i++) {
-            for (int j = 0; j < currentLevel.getMap()[i].length; j++) {
-                if (player.getX() == j && player.getY() == i) {
+        for (int i = 0; i < currentLevel.getHeight(); i++) {
+            for (int j = 0; j < currentLevel.getWidth(); j++) {
+                if (player.getRow() == i && player.getCol() == j) {
                     System.out.print('@');
+                } else if (currentLevel.getBoxInLocation(i, j) != null) {
+                    System.out.print("0");
                 } else {
                     System.out.print(currentLevel.getMap()[i][j]);
                 }
             }
             System.out.println("");
         }
+//        for (Box box : currentLevel.getBoxes()) {
+//            System.out.println("Box, row: " + box.getRow() + " col: " + box.getCol());
+//        }
+//        System.out.println("Player, row: " + player.getRow() + " col: " + player.getCol());
     }
 
-    private void execute(char command) {
-        int newX = player.getX();
-        int newY = player.getY();
+    private void executeGameCommand(char command) {
+        int newRow = player.getRow();
+        int newCol = player.getCol();
+        int direction = 0;
         if (command == 'x') {
             quit = true;
         } else if (command == '1') {
-            newY++;
-            newX--;
+            newCol--;
+            newRow++;
         } else if (command == '2') {
-            newY++;
+            newRow++;
+            direction = 2;
         } else if (command == '3') {
-            newX++;
-            newY++;
+            newRow++;
+            newCol++;
         } else if (command == '4') {
-            newX--;
+            newCol--;
+            direction = 4;
         } else if (command == '6') {
-            newX++;
+            newCol++;
+            direction = 6;
         } else if (command == '7') {
-            newX--;
-            newY--;
+            newRow--;
+            newCol--;
         } else if (command == '8') {
-            newY--;
+            newRow--;
+            direction = 8;
         } else if (command == '9') {
-            newX++;
-            newY--;
+            newRow--;
+            newCol++;
         }
-        if (newX != player.getX() || newY != player.getY()) {
-            playerMove(newX, newY);
+        if (newRow != player.getRow() || newCol != player.getCol()) {
+            playerMove(newRow, newCol, direction);
         }
     }
 
-    private void playerMove(int newX, int newY) {
-//        System.out.println("trying to move to : " + newX + " / " + newY + ", at that location: " + currentLevel.getMap()[newY][newX]);
-        if (!checkVictory(newX, newY)) {
-            if (currentLevel.getMap()[newY][newX] == '.') {
-                player.move(newX, newY);
+    private void playerMove(int newRow, int newCol, int direction) {
+//        System.out.println("trying to move to row: " + newRow + " / col: " + newCol + ", at that location: " + currentLevel.getMap()[newRow][newCol]);
+        if (!checkVictory(newRow, newCol)) {
+            if (currentLevel.getBoxInLocation(newRow, newCol) != null) {
+                if (direction != 0) {
+                    if (boxMove(newRow, newCol, direction)) {
+                        player.move(newRow, newCol);
+                    }
+                }
+            } else if (currentLevel.getMap()[newRow][newCol] == '.' || currentLevel.getMap()[newRow][newCol] == '*') {
+                player.move(newRow, newCol);
             }
         }
     }
 
-    private boolean checkVictory(int newX, int newY) {
-        if (currentLevel.getMap()[newY][newX] == '<') {
-            player.move(newX, newY);
-            victory = true;
+    private boolean boxMove(int playerNewRow, int playerNewCol, int direction) {
+//        System.out.println("haetaan: row: " + playerNewRow + " col: " + playerNewCol);
+//        for (Box box : currentLevel.getBoxes()) {
+//            System.out.println("box: row:" + box.getRow() + " col: " + box.getCol());
+//        }
+        Box push = currentLevel.getBoxInLocation(playerNewRow, playerNewCol);
+
+        int boxNewRow = playerNewRow;
+        int boxNewCol = playerNewCol;
+        if (direction == 2) {
+            boxNewRow++;
+        } else if (direction == 4) {
+            boxNewCol--;
+        } else if (direction == 6) {
+            boxNewCol++;
+        } else if (direction == 8) {
+            boxNewRow--;
+        }
+        if (currentLevel.getMap()[boxNewRow][boxNewCol] == '^') {
+            currentLevel.deleteBox(push);
+            currentLevel.fillTrap(boxNewRow, boxNewCol);
+            return true;
+        } else if (currentLevel.getMap()[boxNewRow][boxNewCol] == '*' || currentLevel.getMap()[boxNewRow][boxNewCol] == '.') {
+            push.setRow(boxNewRow);
+            push.setCol(boxNewCol);
             return true;
         }
         return false;
     }
 
+    private boolean checkVictory(int row, int col) {
+        if (currentLevel.getMap()[row][col] == '<') {
+            player.move(row, col);
+            victory = true;
+            return true;
+        }
+        return false;
+    }
 }
