@@ -12,7 +12,11 @@ public class Level {
     private int width;
 
     public Level(char[][] map) {
-        this.map = map;
+        //Array is copied so it can be edited safely
+        this.map = new char[map.length][map[0].length];
+        for (int i = 0; i < this.map.length; i++) {
+            System.arraycopy(map[i], 0, this.map[i], 0, map[i].length);
+        }
         this.boxes = new ArrayList<>();
         this.height = map.length;
         this.width = map[0].length;

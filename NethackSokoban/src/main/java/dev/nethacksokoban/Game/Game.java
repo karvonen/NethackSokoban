@@ -15,14 +15,14 @@ public class Game {
     private boolean quit;
     private UI ui;
 
-    private char[][] testlevel2 = new char[][]{
+    private char[][] testlevel1 = new char[][]{
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
         {'#', '.', '.', '.', '.', '.', '.', '.', '.', '#'},
         {'#', '.', '.', '.', '0', '@', '0', '^', '^', '#'},
         {'#', '.', '.', '.', '.', '.', '#', '#', '<', '#'},
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
 
-    private char[][] testlevel = new char[][]{
+    private char[][] testlevel2 = new char[][]{
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
         {'#', '<', '#', '@', '.', '.', '.', '#', '#', '#', '.', '.', '.', '.', '#'},
         {'#', '^', '#', '#', '.', '0', '0', '.', '.', '.', '.', '0', '.', '.', '#'},
@@ -41,9 +41,9 @@ public class Game {
     }
 
     public void startGame() {
-        levels.put(1, testlevel);
-        levels.put(2, testlevel2);
         while (true) {
+            levels.clear();
+            resetLevels();
             victory = false;
             quit = false;
             initialiseLevel(inputScanner.selectLevel(levels.size()));
@@ -53,14 +53,19 @@ public class Game {
         }
     }
 
+    private void resetLevels() {
+        levels.put(1, testlevel1);
+        levels.put(2, testlevel2);
+    }
+
     private void run() {
         while (true) {
+            if (quit) {
+                break;
+            }
             ui.update();
             if (victory) {
                 ui.victory();
-                break;
-            }
-            if (quit) {
                 break;
             }
             char command = inputScanner.readChar();
@@ -130,7 +135,7 @@ public class Game {
         if (!checkVictory(newRow, newCol)) {
             if (currentLevel.getBoxInLocation(newRow, newCol) != null) {
                 if (direction != 0) {
-                    if (boxMove(newRow, newCol, direction)) {
+                    if (findBoxAndDirection(newRow, newCol, direction)) {
                         player.move(newRow, newCol);
                     }
                 }
@@ -140,7 +145,7 @@ public class Game {
         }
     }
 
-    private boolean boxMove(int playerNewRow, int playerNewCol, int direction) {
+    private boolean findBoxAndDirection(int playerNewRow, int playerNewCol, int direction) {
 //        System.out.println("haetaan: row: " + playerNewRow + " col: " + playerNewCol);
 //        for (Box box : currentLevel.getBoxes()) {
 //            System.out.println("box: row:" + box.getRow() + " col: " + box.getCol());
@@ -158,6 +163,10 @@ public class Game {
         } else if (direction == 8) {
             boxNewRow--;
         }
+        return moveBox(boxNewRow, boxNewCol, push);
+    }
+
+    private boolean moveBox(int boxNewRow, int boxNewCol, Box push) {
         if (currentLevel.getMap()[boxNewRow][boxNewCol] == '^') {
             currentLevel.deleteBox(push);
             currentLevel.fillTrap(boxNewRow, boxNewCol);
