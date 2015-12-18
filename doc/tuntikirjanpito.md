@@ -7,4 +7,5 @@ Päivämäärä | Aika | Kuvaus
 2015-12-18 | 2h | Refaktorointia ja bugifixejä.
 2015-12-18 | 2h | Lisätty työnnettävä boksi, kuoppien täyttäminen bokseilla.
 2015-12-18 | 1h | UI/printtaaminen omaan luokkaan. Tason valinnan peruslogiikka. Voi pelata monta peliä putkeen.
-Yhteensä | 9.5h |
+2015-12-18 | 0.5h | Tasovalinnan bugifixi. Pieni boksien liikuttamislogiikan refaktorointi.
+Yhteensä | 10h |
