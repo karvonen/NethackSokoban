@@ -63,6 +63,7 @@ public class Level {
         map[row][col] = '.';
     }
 
+    //Duplicate....
     public void replaceBox(int row, int col) {
 //        System.out.println("replacing: " + row + "  " + col);
         map[row][col] = '.';

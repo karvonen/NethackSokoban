@@ -18,4 +18,17 @@ public class InputScanner {
         return line.charAt(0);
     }
 
+    public int selectLevel(int max) {
+        int input = 0;
+        do {
+            System.out.println("Select level between 1 and " + max);
+            while (!scanner.hasNextInt()) {
+                scanner.nextLine();
+                System.out.println("Select level between 1 and " + max);
+            }
+            input = scanner.nextInt();
+        } while (input < 1 || input > max);
+
+        return input;
+    }
 }

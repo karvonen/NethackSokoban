@@ -1,5 +1,6 @@
 package dev.nethacksokoban.Game;
 
+import dev.nethacksokoban.UI.UI;
 import dev.nethacksokoban.Util.InputScanner;
 import java.awt.Point;
 import java.util.HashMap;
@@ -8,10 +9,11 @@ public class Game {
 
     private InputScanner inputScanner;
     private Player player;
-    private HashMap<Integer, Level> levels;
+    private HashMap<Integer, char[][]> levels;
     private Level currentLevel;
     private boolean victory;
     private boolean quit;
+    private UI ui;
 
     private char[][] testlevel2 = new char[][]{
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
@@ -39,19 +41,23 @@ public class Game {
     }
 
     public void startGame() {
-        victory = false;
-        quit = false;
-        initialiseLevel();
-        initialisePlayer();
-        run();
+        levels.put(1, testlevel);
+        levels.put(2, testlevel2);
+        while (true) {
+            victory = false;
+            quit = false;
+            initialiseLevel(inputScanner.selectLevel(levels.size()));
+            initialisePlayer();
+            ui = new UI(currentLevel, player);
+            run();
+        }
     }
 
     private void run() {
         while (true) {
-            updateConsole();
+            ui.update();
             if (victory) {
-                System.out.println("Victory!");
-                System.out.println("Moves used: " + player.getMoves());
+                ui.victory();
                 break;
             }
             if (quit) {
@@ -67,8 +73,8 @@ public class Game {
         player = new Player(startingPosition.x, startingPosition.y);
     }
 
-    private void initialiseLevel() {
-        currentLevel = new Level(testlevel);
+    private void initialiseLevel(int key) {
+        currentLevel = new Level(levels.get(key));
         for (int i = 0; i < currentLevel.getHeight(); i++) {
             for (int j = 0; j < currentLevel.getWidth(); j++) {
                 if (currentLevel.getMap()[i][j] == '@') {
@@ -81,25 +87,6 @@ public class Game {
                 }
             }
         }
-    }
-
-    private void updateConsole() {
-        for (int i = 0; i < currentLevel.getHeight(); i++) {
-            for (int j = 0; j < currentLevel.getWidth(); j++) {
-                if (player.getRow() == i && player.getCol() == j) {
-                    System.out.print('@');
-                } else if (currentLevel.getBoxInLocation(i, j) != null) {
-                    System.out.print("0");
-                } else {
-                    System.out.print(currentLevel.getMap()[i][j]);
-                }
-            }
-            System.out.println("");
-        }
-//        for (Box box : currentLevel.getBoxes()) {
-//            System.out.println("Box, row: " + box.getRow() + " col: " + box.getCol());
-//        }
-//        System.out.println("Player, row: " + player.getRow() + " col: " + player.getCol());
     }
 
     private void executeGameCommand(char command) {
