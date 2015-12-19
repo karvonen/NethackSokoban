@@ -12,7 +12,7 @@ public class Level {
     private int width;
 
     public Level(char[][] map) {
-        //Array is copied so it can be edited safely
+        //Array is copied so that it can be edited safely
         this.map = new char[map.length][map[0].length];
         for (int i = 0; i < this.map.length; i++) {
             System.arraycopy(map[i], 0, this.map[i], 0, map[i].length);
@@ -57,8 +57,7 @@ public class Level {
 
     /**
      * Method searches for the right Box object which is in a certain row/col
-     * location. Called when it is known there's a box in that location and it
-     * needs to be manipulated.
+     * location.
      *
      * @param row row of the box
      * @param col column of the box

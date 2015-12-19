@@ -60,14 +60,14 @@ public class InputScannerTest {
 
     @Test
     public void readCharReturnsFirstCharOfString() {
-        String input = formTestString("x2634312");
+        String input = "x2634312";
         InputScanner is = new InputScanner(new Scanner(input));
         assertEquals('x', is.readChar());
     }
 
     @Test
     public void readCharReturnsFirstCharOfString2() {
-        String input = formTestString("3312qweadcas");
+        String input = "3312qweadcas";
         InputScanner is = new InputScanner(new Scanner(input));
         assertEquals('3', is.readChar());
     }

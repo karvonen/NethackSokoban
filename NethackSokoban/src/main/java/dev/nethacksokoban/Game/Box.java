@@ -24,5 +24,5 @@ public class Box {
     public void setRow(int row) {
         this.row = row;
     }
-
+    
 }
