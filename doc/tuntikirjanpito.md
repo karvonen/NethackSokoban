@@ -9,4 +9,5 @@ Päivämäärä | Aika | Kuvaus
 2015-12-18 | 1h | UI/printtaaminen omaan luokkaan. Tason valinnan peruslogiikka. Voi pelata monta peliä putkeen.
 2015-12-18 | 0.5h | Tasovalinnan bugifixi. Pieni boksien liikuttamislogiikan refaktorointi.
 2015-12-18 | 2h | Lisätty Testejä ja pari JavaDoccia harjotuksen vuoksi. Koodia myös muokattu hieman paremmin testattavaksi.
-Yhteensä | 12h |
+2015-12-21 | 3h | Bugikorjauksia, rippuvuuksien muuttamista, Location-luokka, luokkakaavio, Pit.
+Yhteensä | 15h |
