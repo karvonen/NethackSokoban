@@ -1,0 +1,7 @@
+[Game]1-1[Level]
+[Level]1-*[Box]
+[Level]1-1[Player]
+[Player]1-1[Location]
+[Box]1-1[Location]
+[Game]1-1[UI]
+[UI]1-1[InputScanner]
