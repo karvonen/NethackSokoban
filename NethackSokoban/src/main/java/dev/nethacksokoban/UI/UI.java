@@ -16,6 +16,10 @@ public class UI {
         this.inputScanner = inputScanner;
     }
 
+    public void printLine(String line) {
+        System.out.println(line);
+    }
+    
     public void update() {
         for (int i = 0; i < level.getHeight(); i++) {
             for (int j = 0; j < level.getWidth(); j++) {
@@ -38,5 +42,13 @@ public class UI {
     public void victory() {
         System.out.println("Victory!");
         System.out.println("Moves used: " + player.getMoves());
+    }
+    
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+    
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

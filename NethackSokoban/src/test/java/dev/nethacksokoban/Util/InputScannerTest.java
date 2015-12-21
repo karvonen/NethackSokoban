@@ -1,5 +1,6 @@
 package dev.nethacksokoban.Util;
 
+import dev.nethacksokoban.UI.UI;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
@@ -39,6 +40,8 @@ public class InputScannerTest {
     public void selectLevelOnlyReturnsIntegersBetweenOneAndGivenParameter() {
         String input = formTestString("a", "2");
         InputScanner is = new InputScanner(new Scanner(input));
+        UI ui = new UI(null, null, is);
+        is.setUi(ui);
         assertEquals(2, is.selectLevel(3));
         String output = stream.toString();
         assertTrue("Printed: " + output, output.contains("Select level between 1 and 3"));
@@ -48,6 +51,8 @@ public class InputScannerTest {
     public void selectLevelCanReturnValueUpToGivenParameter() {
         String input = formTestString("3", "bbb", "8", "-1", "2");
         InputScanner is = new InputScanner(new Scanner(input));
+        UI ui = new UI(null, null, is);
+        is.setUi(ui);
         assertEquals(3, is.selectLevel(3));
     }
 
@@ -55,6 +60,8 @@ public class InputScannerTest {
     public void selectLevelCantReturnZero() {
         String input = formTestString("0", "0", "21", "-1", "7", "4");
         InputScanner is = new InputScanner(new Scanner(input));
+        UI ui = new UI(null, null, is);
+        is.setUi(ui);
         assertEquals(7, is.selectLevel(7));
     }
 

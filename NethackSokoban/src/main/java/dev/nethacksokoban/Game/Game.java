@@ -52,6 +52,8 @@ public class Game {
     public void startGame() {
         while (true) {
             resetLevels();
+            ui = new UI(null, null, inputScanner);
+            inputScanner.setUi(ui);
             victory = false;
             quit = false;
             Integer chosenLevelIndex = inputScanner.selectLevel(levels.size());
@@ -60,7 +62,8 @@ public class Game {
             }
             currentLevel = new Level(levels.get(chosenLevelIndex));
             initialisePlayer();
-            ui = new UI(currentLevel, player, inputScanner);
+            ui.setPlayer(player);
+            ui.setLevel(currentLevel);
             run();
         }
     }
