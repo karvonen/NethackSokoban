@@ -1,6 +1,5 @@
 package dev.nethacksokoban.Game;
 
-import java.awt.Point;
 import java.util.Arrays;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -62,8 +61,8 @@ public class LevelTest {
     }
 
     @Test
-    public void playerStartingPosition() {
-        assertEquals(new Point(1, 2), level.getPlayerStartingPosition());
+    public void playerStartingLocation() {
+        assertEquals(new Location(1, 2), level.getPlayerStartingLocation());
     }
 
 }

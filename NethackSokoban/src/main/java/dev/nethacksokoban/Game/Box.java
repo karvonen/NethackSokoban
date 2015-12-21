@@ -2,27 +2,29 @@ package dev.nethacksokoban.Game;
 
 public class Box {
 
-    private int row;
-    private int col;
-
+    private Location location;
+    
     public Box(int row, int col) {
-        this.row = col;
-        this.col = row;
+        location = new Location(row, col);
     }
     public int getRow() {
-        return row;
+        return location.getRow();
     }
 
     public int getCol() {
-        return col;
+        return location.getCol();
     }
 
     public void setCol(int col) {
-        this.col = col;
+        this.location.setCol(col);
     }
 
     public void setRow(int row) {
-        this.row = row;
+        this.location.setRow(row);
+    }
+    
+    public void setLocation(Location location) {
+        this.location = location;
     }
     
 }

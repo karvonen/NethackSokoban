@@ -1,12 +1,11 @@
 package dev.nethacksokoban.Game;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 public class Level {
 
     private char[][] map;
-    private Point PlayerStartingPosition;
+    private Location playerStartingLocation;
     private ArrayList<Box> boxes;
     private int height;
     private int width;
@@ -39,20 +38,23 @@ public class Level {
         return boxes;
     }
 
-
     private void initialise() {
         for (int i = 0; i < getHeight(); i++) {
             for (int j = 0; j < getWidth(); j++) {
                 if (map[i][j] == '@') {
-                    setPlayerStartingPosition(new Point(i, j));
-                    eraseStartingMarker(i, j);
+                    setPlayerStartingLocation(new Location(i, j));
+                    replaceWithOpenSpot(i, j);
                 }
                 if (map[i][j] == '0') {
-                    addBox(new Box(j, i));
-                    replaceBox(i, j);
+                    addBox(new Box(i, j));
+                    replaceWithOpenSpot(i, j);
                 }
             }
         }
+    }
+
+    public char getCharFromLocation(Location location) {
+        return getMap()[location.getRow()][location.getCol()];
     }
 
     /**
@@ -73,24 +75,35 @@ public class Level {
         return null;
     }
 
+    /**
+     * Method searches for the right Box object which is in a certain Location
+     *
+     * @param location Location of the box in Location
+     *
+     * @return The box at parameters' location.
+     */
+    public Box getBoxInLocation(Location location) {
+        for (Box box : boxes) {
+            if (box.getRow() == location.getRow() && box.getCol() == location.getCol()) {
+                return box;
+            }
+        }
+        return null;
+    }
+
     public void deleteBox(Box box) {
         boxes.remove(box);
     }
 
-    public void setPlayerStartingPosition(Point startPosition) {
-        PlayerStartingPosition = startPosition;
+    public void setPlayerStartingLocation(Location location) {
+        playerStartingLocation = location;
     }
 
-    public Point getPlayerStartingPosition() {
-        return PlayerStartingPosition;
+    public Location getPlayerStartingLocation() {
+        return playerStartingLocation;
     }
 
-    public void eraseStartingMarker(int row, int col) {
-        map[row][col] = '.';
-    }
-
-    //Duplicate....
-    public void replaceBox(int row, int col) {
+    public void replaceWithOpenSpot(int row, int col) {
 //        System.out.println("replacing: " + row + "  " + col);
         map[row][col] = '.';
     }
@@ -102,6 +115,10 @@ public class Level {
     public void fillTrap(int row, int col) {
 //        System.out.println("x: " + x + " / y: " + y);
         map[row][col] = '*';
+    }
+    
+    public void fillTrap(Location location) {
+        map[location.getRow()][location.getCol()] = '*';
     }
 
 }

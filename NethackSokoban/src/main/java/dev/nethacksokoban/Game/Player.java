@@ -2,31 +2,32 @@ package dev.nethacksokoban.Game;
 
 public class Player {
 
-    private int row;
-    private int col;
     private int moves;
+    private Location location;
 
-    public Player(int row, int col) {
-        this.row = row;
-        this.col = col;
+    public Player(Location location) {
         moves = 0;
+        this.location = location;
     }
 
     public int getRow() {
-        return row;
+        return location.getRow();
     }
 
     public int getCol() {
-        return col;
+        return location.getCol();
     }
 
     public int getMoves() {
         return moves;
     }
 
-    public void move(int row, int col) {
-        this.row = row;
-        this.col = col;
+    public void move(Location location) {
+        this.location = location;
         moves++;
+    }
+
+    public Location getLocation() {
+        return location;
     }
 }

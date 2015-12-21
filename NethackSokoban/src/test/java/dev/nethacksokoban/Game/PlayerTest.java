@@ -24,7 +24,7 @@ public class PlayerTest {
 
     @Before
     public void setUp() {
-        player = new Player(2, 3);
+        player = new Player(new Location(2, 3));
     }
 
     @After
@@ -40,15 +40,16 @@ public class PlayerTest {
     }
 
     @Test
-    public void move() {
-        player.move(3, 3);
+    public void move2() {
+        Location move1 = new Location(3, 3);
+        player.move(move1);
         assertEquals(3, player.getRow());
         assertEquals(3, player.getCol());
         assertEquals(1, player.getMoves());
-        player.move(2, 4);
+        Location move2 = new Location(2, 4);
+        player.move(move2);
         assertEquals(2, player.getRow());
         assertEquals(4, player.getCol());
         assertEquals(2, player.getMoves());
-
     }
 }
