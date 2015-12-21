@@ -59,10 +59,4 @@ public class LevelTest {
         assertEquals(2, level.getBoxes().get(1).getRow());
         assertEquals(4, level.getBoxes().get(1).getCol());
     }
-
-    @Test
-    public void playerStartingLocation() {
-        assertEquals(new Location(1, 2), level.getPlayerStartingLocation());
-    }
-
 }

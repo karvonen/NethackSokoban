@@ -7,22 +7,21 @@ import java.util.HashMap;
 public class Game {
 
     private InputScanner inputScanner;
-    private Player player;
     private HashMap<Integer, char[][]> levels;
-    private Level currentLevel;
+    private Level level;
     private boolean victory;
     private boolean quit;
     private UI ui;
     private boolean testMode;
 
-    private char[][] testlevel1 = new char[][]{
+    private char[][] testLevel1 = new char[][]{
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
         {'#', '.', '.', '.', '.', '.', '.', '.', '.', '#'},
         {'#', '.', '.', '.', '0', '@', '0', '^', '^', '#'},
         {'#', '.', '.', '.', '.', '.', '#', '#', '<', '#'},
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
 
-    private char[][] testlevel2 = new char[][]{
+    private char[][] testLevel2 = new char[][]{
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
         {'#', '<', '#', '@', '.', '.', '.', '#', '#', '#', '.', '.', '.', '.', '#'},
         {'#', '^', '#', '#', '.', '0', '0', '.', '.', '.', '.', '0', '.', '.', '#'},
@@ -52,7 +51,7 @@ public class Game {
     public void startGame() {
         while (true) {
             resetLevels();
-            ui = new UI(null, null, inputScanner);
+            ui = new UI(inputScanner);
             inputScanner.setUi(ui);
             victory = false;
             quit = false;
@@ -60,126 +59,108 @@ public class Game {
             if (chosenLevelIndex == 999) {
                 break;
             }
-            currentLevel = new Level(levels.get(chosenLevelIndex));
-            initialisePlayer();
-            ui.setPlayer(player);
-            ui.setLevel(currentLevel);
+            level = new Level(levels.get(chosenLevelIndex));
             run();
         }
     }
 
-    private void resetLevels() {
+    public void resetLevels() {
         levels.clear();
         if (testMode) {
             levels.put(1, testLevel999);
         } else {
-            levels.put(1, testlevel1);
-            levels.put(2, testlevel2);
+            levels.put(1, testLevel1);
+            levels.put(2, testLevel2);
         }
     }
 
-    private void run() {
+    public void run() {
         while (true) {
             if (quit) {
                 break;
             }
-            ui.update();
+            ui.update(level);
             if (victory) {
-                ui.victory();
+                ui.victory(level);
                 break;
             }
             executeGameCommand(ui.readCommand());
         }
     }
 
-    private void initialisePlayer() {
-        Location startingPosition = currentLevel.getPlayerStartingLocation();
-        player = new Player(startingPosition);
-    }
-
-    private void executeGameCommand(char command) {
-        Location newPlayerLocation = new Location(player.getRow(), player.getCol());
+    public void executeGameCommand(char command) {
+        Location newPlayerLoc = new Location(level.getPlayer().getRow(), level.getPlayer().getCol());
         int direction = 0;
         if (command == 'x') {
             quit = true;
         } else if (command == '1') {
-            newPlayerLocation.setCol(player.getCol() - 1);
-            newPlayerLocation.setRow(player.getRow() + 1);
+            newPlayerLoc.setCol(newPlayerLoc.getCol() - 1);
+            newPlayerLoc.setRow(newPlayerLoc.getRow() + 1);
         } else if (command == '2') {
-            newPlayerLocation.setRow(player.getRow() + 1);
+            newPlayerLoc.setRow(newPlayerLoc.getRow() + 1);
             direction = 2;
         } else if (command == '3') {
-            newPlayerLocation.setRow(player.getRow() + 1);
-            newPlayerLocation.setCol(player.getCol() + 1);
+            newPlayerLoc.setRow(newPlayerLoc.getRow() + 1);
+            newPlayerLoc.setCol(newPlayerLoc.getCol() + 1);
         } else if (command == '4') {
-            newPlayerLocation.setCol(player.getCol() - 1);
+            newPlayerLoc.setCol(newPlayerLoc.getCol() - 1);
             direction = 4;
         } else if (command == '6') {
-            newPlayerLocation.setCol(player.getCol() + 1);
+            newPlayerLoc.setCol(newPlayerLoc.getCol() + 1);
             direction = 6;
         } else if (command == '7') {
-            newPlayerLocation.setRow(player.getRow() - 1);
-            newPlayerLocation.setCol(player.getCol() - 1);
+            newPlayerLoc.setRow(newPlayerLoc.getRow() - 1);
+            newPlayerLoc.setCol(newPlayerLoc.getCol() - 1);
         } else if (command == '8') {
-            newPlayerLocation.setRow(player.getRow() - 1);
+            newPlayerLoc.setRow(newPlayerLoc.getRow() - 1);
             direction = 8;
         } else if (command == '9') {
-            newPlayerLocation.setRow(player.getRow() - 1);
-            newPlayerLocation.setCol(player.getCol() + 1);
+            newPlayerLoc.setRow(newPlayerLoc.getRow() - 1);
+            newPlayerLoc.setCol(newPlayerLoc.getCol() + 1);
         }
-        if (newPlayerLocation != player.getLocation()) {
-            attemptPlayerMove(newPlayerLocation, direction);
+        if (newPlayerLoc != level.getPlayer().getLocation()) {
+            attemptPlayerMove(newPlayerLoc, direction);
         }
     }
 
-    private void attemptPlayerMove(Location newPlayerLocation, int direction) {
-//        System.out.println("trying to move to row: " + newPlayerLocation.getRow() 
-//                + " / col: " + newPlayerLocation.getCol() + ", at that location: " 
-//                + currentLevel.getMap()[newPlayerLocation.getRow()][newPlayerLocation.getCol()]);
+    public Location createNewBoxLocation(Box box, int direction) {
+        Location newBoxLocation = new Location(box.getRow(), box.getCol());
+        if (direction == 2) {
+            newBoxLocation.setRow(newBoxLocation.getRow() + 1);
+        } else if (direction == 4) {
+            newBoxLocation.setCol(newBoxLocation.getCol() - 1);
+        } else if (direction == 6) {
+            newBoxLocation.setCol(newBoxLocation.getCol() + 1);
+        } else if (direction == 8) {
+            newBoxLocation.setRow(newBoxLocation.getRow() - 1);
+        }
+        return newBoxLocation;
+    }
 
+    public void attemptPlayerMove(Location newPlayerLocation, int direction) {
         if (!checkVictory(newPlayerLocation)) {
-            if (currentLevel.getBoxInLocation(newPlayerLocation) != null) {
+            if (level.getBoxInLocation(newPlayerLocation) != null) {
                 if (direction != 0) {
-                    if (boxAtLocation(newPlayerLocation, direction)) {
-                        player.move(newPlayerLocation);
+                    Location newBoxLocation = createNewBoxLocation(level.getBoxInLocation(newPlayerLocation), direction);
+                    if (attemptBoxMove(newBoxLocation, level.getBoxInLocation(newPlayerLocation))) {
+                        level.getPlayer().move(newPlayerLocation);
                     }
                 }
-            } else if (currentLevel.getCharFromLocation(newPlayerLocation) == '.'
-                    || currentLevel.getCharFromLocation(newPlayerLocation) == '*') {
-                player.move(newPlayerLocation);
+            } else if (level.getTileFromLocation(newPlayerLocation) == '.'
+                    || level.getTileFromLocation(newPlayerLocation) == '*') {
+                level.getPlayer().move(newPlayerLocation);
             }
         }
     }
 
-    private boolean boxAtLocation(Location location, int direction) {
-//        System.out.println("haetaan: row: " + playerNewRow + " col: " + playerNewCol);
-//        for (Box box : currentLevel.getBoxes()) {
-//            System.out.println("box: row:" + box.getRow() + " col: " + box.getCol());
-//        }
-        Box push = currentLevel.getBoxInLocation(location);
-
-        int boxNewRow = location.getRow();
-        int boxNewCol = location.getCol();
-        if (direction == 2) {
-            boxNewRow++;
-        } else if (direction == 4) {
-            boxNewCol--;
-        } else if (direction == 6) {
-            boxNewCol++;
-        } else if (direction == 8) {
-            boxNewRow--;
-        }
-        return attemptBoxMove(new Location(boxNewRow, boxNewCol), push);
-    }
-
-    private boolean attemptBoxMove(Location newBoxLocation, Box push) {
-        if (currentLevel.getBoxInLocation(newBoxLocation) == null) {
-            if (currentLevel.getCharFromLocation(newBoxLocation) == '^') {
-                currentLevel.deleteBox(push);
-                currentLevel.fillTrap(newBoxLocation);
+    public boolean attemptBoxMove(Location newBoxLocation, Box push) {
+        if (level.getBoxInLocation(newBoxLocation) == null) {
+            if (level.getTileFromLocation(newBoxLocation) == '^') {
+                level.deleteBox(push);
+                level.fillTrap(newBoxLocation);
                 return true;
-            } else if (currentLevel.getCharFromLocation(newBoxLocation) == '*'
-                    || currentLevel.getCharFromLocation(newBoxLocation) == '.') {
+            } else if (level.getTileFromLocation(newBoxLocation) == '*'
+                    || level.getTileFromLocation(newBoxLocation) == '.') {
                 push.setLocation(newBoxLocation);
                 return true;
             }
@@ -187,9 +168,9 @@ public class Game {
         return false;
     }
 
-    private boolean checkVictory(Location location) {
-        if (currentLevel.getCharFromLocation(location) == '<') {
-            player.move(location);
+    public boolean checkVictory(Location location) {
+        if (level.getTileFromLocation(location) == '<') {
+            level.getPlayer().move(location);
             victory = true;
             return true;
         }

@@ -27,4 +27,7 @@ public class Box {
         this.location = location;
     }
     
+    public Location getLocation() {
+        return this.location;
+    }
 }

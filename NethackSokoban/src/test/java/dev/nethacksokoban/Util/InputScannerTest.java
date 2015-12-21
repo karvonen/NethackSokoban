@@ -40,7 +40,7 @@ public class InputScannerTest {
     public void selectLevelOnlyReturnsIntegersBetweenOneAndGivenParameter() {
         String input = formTestString("a", "2");
         InputScanner is = new InputScanner(new Scanner(input));
-        UI ui = new UI(null, null, is);
+        UI ui = new UI(is);
         is.setUi(ui);
         assertEquals(2, is.selectLevel(3));
         String output = stream.toString();
@@ -51,7 +51,7 @@ public class InputScannerTest {
     public void selectLevelCanReturnValueUpToGivenParameter() {
         String input = formTestString("3", "bbb", "8", "-1", "2");
         InputScanner is = new InputScanner(new Scanner(input));
-        UI ui = new UI(null, null, is);
+        UI ui = new UI(is);
         is.setUi(ui);
         assertEquals(3, is.selectLevel(3));
     }
@@ -60,7 +60,7 @@ public class InputScannerTest {
     public void selectLevelCantReturnZero() {
         String input = formTestString("0", "0", "21", "-1", "7", "4");
         InputScanner is = new InputScanner(new Scanner(input));
-        UI ui = new UI(null, null, is);
+        UI ui = new UI(is);
         is.setUi(ui);
         assertEquals(7, is.selectLevel(7));
     }

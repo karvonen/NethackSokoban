@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Level {
 
     private char[][] map;
-    private Location playerStartingLocation;
     private ArrayList<Box> boxes;
     private int height;
     private int width;
+    private Player player;
 
     public Level(char[][] map) {
         //Array is copied so that it can be edited safely
@@ -20,6 +20,10 @@ public class Level {
         this.height = map.length;
         this.width = map[0].length;
         initialise();
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public int getHeight() {
@@ -42,8 +46,8 @@ public class Level {
         for (int i = 0; i < getHeight(); i++) {
             for (int j = 0; j < getWidth(); j++) {
                 if (map[i][j] == '@') {
-                    setPlayerStartingLocation(new Location(i, j));
                     replaceWithOpenSpot(i, j);
+                    player = new Player(new Location(i, j));
                 }
                 if (map[i][j] == '0') {
                     addBox(new Box(i, j));
@@ -53,7 +57,7 @@ public class Level {
         }
     }
 
-    public char getCharFromLocation(Location location) {
+    public char getTileFromLocation(Location location) {
         return getMap()[location.getRow()][location.getCol()];
     }
 
@@ -95,16 +99,7 @@ public class Level {
         boxes.remove(box);
     }
 
-    public void setPlayerStartingLocation(Location location) {
-        playerStartingLocation = location;
-    }
-
-    public Location getPlayerStartingLocation() {
-        return playerStartingLocation;
-    }
-
     public void replaceWithOpenSpot(int row, int col) {
-//        System.out.println("replacing: " + row + "  " + col);
         map[row][col] = '.';
     }
 
@@ -112,11 +107,6 @@ public class Level {
         return map;
     }
 
-    public void fillTrap(int row, int col) {
-//        System.out.println("x: " + x + " / y: " + y);
-        map[row][col] = '*';
-    }
-    
     public void fillTrap(Location location) {
         map[location.getRow()][location.getCol()] = '*';
     }
