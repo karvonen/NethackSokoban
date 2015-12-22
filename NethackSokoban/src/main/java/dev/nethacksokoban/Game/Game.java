@@ -1,12 +1,15 @@
 package dev.nethacksokoban.Game;
 
+import dev.nethacksokoban.UI.GUI;
 import dev.nethacksokoban.UI.UI;
 import dev.nethacksokoban.Util.FileScanner;
 import dev.nethacksokoban.Util.InputScanner;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Game {
+public class Game implements ActionListener {
 
     private InputScanner inputScanner;
     private HashMap<Integer, char[][]> levels;
@@ -15,6 +18,7 @@ public class Game {
     private boolean quit;
     private UI ui;
     private boolean testMode;
+    private GUI gui;
 
     private char[][] testLevel1 = new char[][]{
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
@@ -30,6 +34,10 @@ public class Game {
         this.testMode = testMode;
         //For tests, removed when game is started properly.
         this.levels.put(1, testLevel1);
+    }
+
+    public void setGUI(GUI gui) {
+        this.gui = gui;
     }
 
     public void startGame() {
@@ -67,12 +75,15 @@ public class Game {
             if (quit) {
                 break;
             }
+            gui.getUpdatable().reDraw();
             ui.update(level);
             if (victory) {
                 ui.victory(level);
                 break;
             }
-            executeGameCommand(ui.readCommand());
+            if (testMode) {
+                executeGameCommand(ui.readCommand());
+            }
         }
     }
 
@@ -168,5 +179,10 @@ public class Game {
     //Helper method for testing
     public Level getLevel() {
         return level;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        gui.getUpdatable().reDraw();
     }
 }

@@ -176,15 +176,15 @@ public class GameTest {
     }
 
 //    @Test
-    public void fullPlaythrough() {
-        String input = formTestString("1", "3", "6", "6", "1", "4", "4", "7",
-                "6", "6", "6", "6", "6", "6", "3", "999");
-        Game testGame = new Game(new InputScanner(new Scanner(input)), true);
-        testGame.startGame();
-        String output = stream.toString();
-        assertTrue("Printed: " + output, output.contains("Victory!")
-                && output.contains("Moves used: 14"));
-    }
+//    public void fullPlaythrough() {
+//        String input = formTestString("1", "3", "6", "6", "1", "4", "4", "7",
+//                "6", "6", "6", "6", "6", "6", "3", "999");
+//        Game testGame = new Game(new InputScanner(new Scanner(input)), true);
+//        testGame.startGame();
+//        String output = stream.toString();
+//        assertTrue("Printed: " + output, output.contains("Victory!")
+//                && output.contains("Moves used: 14"));
+//    }
 
     public String formTestString(String... lines) {
         String linesWithEnter = "";

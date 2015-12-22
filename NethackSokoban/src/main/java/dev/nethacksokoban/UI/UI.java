@@ -8,7 +8,7 @@ public class UI {
 
 
     private InputScanner inputScanner;
-
+    
     public UI(InputScanner inputScanner) {
         this.inputScanner = inputScanner;
     }
@@ -31,7 +31,7 @@ public class UI {
             System.out.println("");
         }
     }
-
+    
     public char readCommand() {
         return inputScanner.readChar();
     }
