@@ -14,6 +14,8 @@ import static org.junit.Assert.*;
 public class GameTest {
 
     ByteArrayOutputStream stream;
+    Game game;
+    Level level;
 
     public GameTest() {
         stream = new ByteArrayOutputStream();
@@ -30,6 +32,9 @@ public class GameTest {
 
     @Before
     public void setUp() {
+        game = new Game(new InputScanner(new Scanner(System.in)), true);
+        game.chooseLevel(1);
+        level = game.getLevel();
     }
 
     @After
@@ -37,8 +42,97 @@ public class GameTest {
     }
 
     @Test
+    public void attemptBoxMoveTowardsFreeTile() {
+        assertEquals(true, game.attemptBoxMove(new Location(2, 3), level.getBoxInLocation(2, 2)));
+        assertEquals('.', level.getTileFromLocation(new Location(2, 2)));
+        assertTrue(level.getBoxInLocation(new Location(2, 3)) != null);
+    }
+
+    @Test
+    public void attemptBoxMoveTowardsWall() {
+        assertEquals(false, game.attemptBoxMove(new Location(3, 0), level.getBoxInLocation(3, 1)));
+        assertEquals('#', level.getTileFromLocation(new Location(3, 0)));
+        assertTrue(level.getBoxInLocation(new Location(3, 0)) == null);
+        assertTrue(level.getBoxInLocation(new Location(3, 1)) != null);
+    }
+
+    @Test
+    public void attemptBoxMoveTowardsTrap() {
+        assertEquals(true, game.attemptBoxMove(new Location(2, 5), level.getBoxInLocation(2, 4)));
+        assertEquals(true, game.attemptBoxMove(new Location(2, 6), level.getBoxInLocation(2, 5)));
+        assertEquals('.', level.getTileFromLocation(new Location(2, 4)));
+        assertEquals('.', level.getTileFromLocation(new Location(2, 5)));
+        assertEquals('*', level.getTileFromLocation(new Location(2, 6)));
+        assertEquals(2, level.getBoxes().size());
+        assertTrue(level.getBoxInLocation(new Location(2, 4)) == null);
+        assertTrue(level.getBoxInLocation(new Location(2, 5)) == null);
+        assertTrue(level.getBoxInLocation(new Location(2, 6)) == null);
+    }
+
+    public void attemptBoxMoveTowardsFilledTrap() {
+        assertEquals(true, game.attemptBoxMove(new Location(2, 5), level.getBoxInLocation(2, 4)));
+        assertEquals(true, game.attemptBoxMove(new Location(2, 6), level.getBoxInLocation(2, 5)));
+        assertEquals(true, game.attemptBoxMove(new Location(2, 3), level.getBoxInLocation(2, 2)));
+        assertEquals(true, game.attemptBoxMove(new Location(2, 4), level.getBoxInLocation(2, 3)));
+        assertEquals(true, game.attemptBoxMove(new Location(2, 5), level.getBoxInLocation(2, 4)));
+        assertEquals(true, game.attemptBoxMove(new Location(2, 6), level.getBoxInLocation(2, 5)));
+        assertEquals('*', level.getTileFromLocation(new Location(2, 6)));
+        assertEquals(3, level.getBoxes().size());
+        assertTrue(level.getBoxInLocation(new Location(2, 2)) == null);
+        assertTrue(level.getBoxInLocation(new Location(2, 3)) == null);
+        assertTrue(level.getBoxInLocation(new Location(2, 4)) == null);
+        assertTrue(level.getBoxInLocation(new Location(2, 5)) == null);
+        assertTrue(level.getBoxInLocation(new Location(2, 6)) != null);
+    }
+
+    @Test
+    public void attemptBoxMoveTowardsAnotherBox() {
+        assertEquals(true, game.attemptBoxMove(new Location(2, 3), level.getBoxInLocation(2, 4)));
+        assertEquals(false, game.attemptBoxMove(new Location(2, 2), level.getBoxInLocation(2, 3)));
+        assertEquals(3, level.getBoxes().size());
+        assertTrue(level.getBoxInLocation(new Location(2, 4)) == null);
+        assertTrue(level.getBoxInLocation(new Location(2, 3)) != null);
+        assertTrue(level.getBoxInLocation(new Location(2, 2)) != null);
+    }
+
+    @Test
+    public void attemptPlayerMoveTowardsFreeTile() {
+        game.attemptPlayerMove(new Location(1, 3), 6);
+        Location expectedLocation = new Location(1, 3);
+        assertEquals(expectedLocation, game.getLevel().getPlayer().getLocation());
+    }
+
+    @Test
+    public void attemptPlayerMoveTowardsWall() {
+        game.attemptPlayerMove(new Location(0, 2), 8);
+        Location expectedLocation = new Location(1, 2);
+        assertEquals(expectedLocation, game.getLevel().getPlayer().getLocation());
+    }
+
+    @Test
+    public void attemptPlayerMoveTowardsBox() {
+        game.attemptPlayerMove(new Location(2, 2), 2);
+        Location expectedLocation = new Location(2, 2);
+        assertEquals(expectedLocation, game.getLevel().getPlayer().getLocation());
+        assertTrue(level.getBoxInLocation(expectedLocation) == null);
+        assertTrue(level.getBoxInLocation(new Location(3, 2)) != null);
+    }
+
+    @Test
+    public void attemptPlayerMoveTowardsBoxThatIsAgainstAnotherBox() {
+        game.attemptPlayerMove(new Location(2, 2), 2);
+        game.attemptPlayerMove(new Location(3, 3), 0);
+        game.attemptPlayerMove(new Location(3, 2), 4);
+        Location expectedLocation = new Location(3, 3);
+        assertEquals(expectedLocation, game.getLevel().getPlayer().getLocation());
+        assertEquals(3, level.getBoxes().size());
+        assertTrue(level.getBoxInLocation(new Location(3, 2)) != null);
+        assertTrue(level.getBoxInLocation(new Location(3, 1)) != null);
+    }
+
+    @Test
     public void createNewBoxLocation() {
-        Game game = new Game(null, true);
+        game = new Game(null, true);
         Box testBox = new Box(2, 3);
         Location expectedLocation = new Location(3, 3);
         assertEquals(expectedLocation, game.createNewBoxLocation(testBox, 2));
@@ -49,7 +143,38 @@ public class GameTest {
         expectedLocation = new Location(2, 4);
         assertEquals(expectedLocation, game.createNewBoxLocation(testBox, 6));
     }
-        
+
+    @Test
+    public void executeGameCommand() {
+        game.executeGameCommand('3');
+        game.executeGameCommand('1');
+        game.executeGameCommand('6');
+        game.executeGameCommand('8');
+        game.executeGameCommand('6');
+        game.executeGameCommand('6');
+        game.executeGameCommand('1');
+        game.executeGameCommand('4');
+        game.executeGameCommand('4');
+        game.executeGameCommand('7');
+        game.executeGameCommand('6');
+        game.executeGameCommand('6');
+        game.executeGameCommand('2');
+        game.executeGameCommand('4');
+        game.executeGameCommand('9');
+        game.executeGameCommand('6');
+        game.executeGameCommand('6');
+        game.executeGameCommand('6');
+        game.executeGameCommand('3');
+        char[][] expectedMap = new char[][]{
+            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+            {'#', '.', '.', '.', '.', '.', '#', '#', '.', '#'},
+            {'#', '.', '.', '.', '.', '.', '*', '*', '.', '#'},
+            {'#', '.', '.', '.', '.', '.', '#', '#', '<', '#'},
+            {'#', '.', '.', '.', '.', '.', '#', '#', '.', '#'},
+            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
+        assertArrayEquals(expectedMap, game.getLevel().getMap());
+    }
+
 //    @Test
     public void fullPlaythrough() {
         String input = formTestString("1", "3", "6", "6", "1", "4", "4", "7",
@@ -59,19 +184,6 @@ public class GameTest {
         String output = stream.toString();
         assertTrue("Printed: " + output, output.contains("Victory!")
                 && output.contains("Moves used: 14"));
-    }
-
-//    @Test
-    public void fullPlaythroughWithUneccessaryMoves() {
-        String input = formTestString("1", "1", "3", "4", "1", "4", "4", "8",
-                "6", "9", "4", "8", "4", "1", "4", "7", "8", "2", "6", "6", "6", "1",
-                "2", "4", "1", "8", "8", "8", "6", "7", "9", "2", "6", "6", "6", "6",
-                "1", "1", "4", "8", "7", "6", "6", "6", "6", "6", "3", "999");
-        Game testGame = new Game(new InputScanner(new Scanner(input)), true);
-        testGame.startGame();
-        String output = stream.toString();
-        assertTrue("Printed: " + output, output.contains("Victory!")
-                && output.contains("Moves used: 32"));
     }
 
     public String formTestString(String... lines) {

@@ -1,7 +1,9 @@
 package dev.nethacksokoban.Game;
 
 import dev.nethacksokoban.UI.UI;
+import dev.nethacksokoban.Util.FileScanner;
 import dev.nethacksokoban.Util.InputScanner;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Game {
@@ -16,26 +18,6 @@ public class Game {
 
     private char[][] testLevel1 = new char[][]{
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-        {'#', '.', '.', '.', '.', '.', '.', '.', '.', '#'},
-        {'#', '.', '.', '.', '0', '@', '0', '^', '^', '#'},
-        {'#', '.', '.', '.', '.', '.', '#', '#', '<', '#'},
-        {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
-
-    private char[][] testLevel2 = new char[][]{
-        {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-        {'#', '<', '#', '@', '.', '.', '.', '#', '#', '#', '.', '.', '.', '.', '#'},
-        {'#', '^', '#', '#', '.', '0', '0', '.', '.', '.', '.', '0', '.', '.', '#'},
-        {'#', '^', '#', '#', '.', '.', '0', '0', '#', '.', '0', '.', '0', '.', '#'},
-        {'#', '^', '#', '#', '.', '.', '.', '.', '#', '.', '.', '.', '.', '.', '#'},
-        {'#', '^', '#', '#', '#', '#', '#', '#', '#', '0', '#', '#', '#', '#', '#'},
-        {'#', '^', '#', '#', '#', '#', '#', '#', '.', '.', '.', '.', '.', '.', '#'},
-        {'#', '^', '#', '#', '#', '#', '#', '#', '.', '.', '.', '.', '.', '.', '#'},
-        {'#', '.', '.', '^', '^', '^', '^', '0', '0', '0', '0', '.', '.', '.', '#'},
-        {'#', '.', '.', '#', '#', '#', '#', '#', '.', '.', '.', '.', '.', '.', '#'},
-        {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
-
-    private char[][] testLevel999 = new char[][]{
-        {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
         {'#', '.', '@', '.', '.', '.', '#', '#', '.', '#'},
         {'#', '.', '0', '.', '0', '.', '^', '^', '.', '#'},
         {'#', '0', '.', '.', '.', '.', '#', '#', '<', '#'},
@@ -46,31 +28,37 @@ public class Game {
         this.inputScanner = inputScanner;
         this.levels = new HashMap<>();
         this.testMode = testMode;
+        //For tests, removed when game is started properly.
+        this.levels.put(1, testLevel1);
     }
 
     public void startGame() {
+        loadLevels();
+        ui = new UI(inputScanner);
+        inputScanner.setUi(ui);
         while (true) {
-            resetLevels();
-            ui = new UI(inputScanner);
-            inputScanner.setUi(ui);
             victory = false;
             quit = false;
             Integer chosenLevelIndex = inputScanner.selectLevel(levels.size());
             if (chosenLevelIndex == 999) {
                 break;
             }
-            level = new Level(levels.get(chosenLevelIndex));
+            chooseLevel(chosenLevelIndex);
             run();
         }
     }
 
-    public void resetLevels() {
+    public void chooseLevel(int chosenLevelIndex) {
+        level = new Level(levels.get(chosenLevelIndex));
+    }
+
+    public void loadLevels() {
         levels.clear();
-        if (testMode) {
-            levels.put(1, testLevel999);
-        } else {
-            levels.put(1, testLevel1);
-            levels.put(2, testLevel2);
+
+        FileScanner levelLoader = new FileScanner();
+        ArrayList<char[][]> loadedMaps = levelLoader.loadMaps();
+        for (int i = 0; i < loadedMaps.size(); i++) {
+            levels.put(i + 1, loadedMaps.get(i));
         }
     }
 
@@ -175,5 +163,10 @@ public class Game {
             return true;
         }
         return false;
+    }
+
+    //Helper method for testing
+    public Level getLevel() {
+        return level;
     }
 }

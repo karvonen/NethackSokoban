@@ -59,4 +59,9 @@ public class LevelTest {
         assertEquals(2, level.getBoxes().get(1).getRow());
         assertEquals(4, level.getBoxes().get(1).getCol());
     }
+
+    @Test
+    public void getBoxInLocationReturnsNullIfNoBox() {
+        assertEquals(null, level.getBoxInLocation(new Location(3, 1)));
+    }
 }

@@ -34,8 +34,8 @@ public class InputScanner {
     }
 
     /**
-     * Method asks user for input and until it is given an integer between 1 and
-     * parameter max
+     * Method asks user for input until it is given an integer between 1 and
+     * parameter max.
      *
      * @param max upperbound (inclusive) of integer to accept
      *
@@ -48,11 +48,9 @@ public class InputScanner {
                 return 999;
             }
             ui.printLine("Select level between 1 and " + max);
-//            System.out.println("Select level between 1 and " + max);
             while (!scanner.hasNextInt()) {
                 scanner.nextLine();
                 ui.printLine("Select level between 1 and " + max);
-//                System.out.println("Select level between 1 and " + max);
             }
             input = scanner.nextInt();
         } while (input < 1 || input > max);
