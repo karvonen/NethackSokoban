@@ -10,5 +10,6 @@ Päivämäärä | Aika | Kuvaus
 2015-12-18 | 0.5h | Tasovalinnan bugifixi. Pieni boksien liikuttamislogiikan refaktorointi.
 2015-12-18 | 2h | Lisätty Testejä ja pari JavaDoccia harjotuksen vuoksi. Koodia myös muokattu hieman paremmin testattavaksi.
 2015-12-21 | 3h | Bugikorjauksia, rippuvuuksien muuttamista, Location-luokka, luokkakaavio, Pit.
-2015-12-22 | 1h | Tasoja, tasojen lataus ja testejä lisätty. 
-Yhteensä | 13h |
+2015-12-22 | 1h | Tasoja, tasojen lataus ja testejä lisätty.
+2015-12-22 | 2h | GUIn tekeminen aloitettu.
+Yhteensä | 15h |
