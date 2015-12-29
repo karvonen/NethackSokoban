@@ -43,9 +43,10 @@ public class KeyboardListener implements KeyListener {
         if (ke.getKeyCode() == KeyEvent.VK_NUMPAD9) {
             game.executeGameCommand('9');
         }
-              if (ke.getKeyCode() == KeyEvent.VK_X) {
+        if (ke.getKeyCode() == KeyEvent.VK_X) {
             game.executeGameCommand('x');
         }
+        game.update();
     }
 
     @Override

@@ -4,12 +4,10 @@ import dev.nethacksokoban.UI.GUI;
 import dev.nethacksokoban.UI.UI;
 import dev.nethacksokoban.Util.FileScanner;
 import dev.nethacksokoban.Util.InputScanner;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Game implements ActionListener {
+public class Game {
 
     private InputScanner inputScanner;
     private HashMap<Integer, char[][]> levels;
@@ -34,6 +32,7 @@ public class Game implements ActionListener {
         this.testMode = testMode;
         //For tests, removed when game is started properly.
         this.levels.put(1, testLevel1);
+
     }
 
     public void setGUI(GUI gui) {
@@ -44,20 +43,43 @@ public class Game implements ActionListener {
         loadLevels();
         ui = new UI(inputScanner);
         inputScanner.setUi(ui);
-        while (true) {
-            victory = false;
-            quit = false;
-            Integer chosenLevelIndex = inputScanner.selectLevel(levels.size());
-            if (chosenLevelIndex == 999) {
-                break;
+        victory = false;
+        quit = false;
+        if (testMode) {
+            while (true) {
+                victory = false;
+                quit = false;
+                Integer chosenLevelIndex = inputScanner.selectLevel(levels.size());
+                if (chosenLevelIndex == 999) {
+                    System.exit(0);
+                    break;
+                }
+                chooseLevel(chosenLevelIndex);
+                runInTestMode();
+
             }
-            chooseLevel(chosenLevelIndex);
-            run();
+        } else {
+            gui.addMenuPanel();
         }
+    }
+
+    public void run() {
+        victory = false;
+        quit = false;
+        update();
+    }
+
+    public void startNewMapWithIndex(int index) {
+        level = new Level(levels.get(index));
+        run();
     }
 
     public void chooseLevel(int chosenLevelIndex) {
         level = new Level(levels.get(chosenLevelIndex));
+    }
+
+    public HashMap<Integer, char[][]> getLevels() {
+        return levels;
     }
 
     public void loadLevels() {
@@ -68,22 +90,36 @@ public class Game implements ActionListener {
         for (int i = 0; i < loadedMaps.size(); i++) {
             levels.put(i + 1, loadedMaps.get(i));
         }
+
     }
 
-    public void run() {
+    public void runInTestMode() {
+        ui.update(level);
         while (true) {
             if (quit) {
                 break;
             }
-            gui.getUpdatable().reDraw();
-            ui.update(level);
             if (victory) {
                 ui.victory(level);
                 break;
             }
             if (testMode) {
                 executeGameCommand(ui.readCommand());
+                ui.update(level);
             }
+        }
+        startGame();
+    }
+
+    public void update() {
+        if (victory) {
+            gui.getUpdatable().reDraw();
+            ui.victory(level);
+            startGame();
+        } else if (quit) {
+            startGame();
+        } else {
+            gui.getUpdatable().reDraw();
         }
     }
 
@@ -117,6 +153,7 @@ public class Game implements ActionListener {
             newPlayerLoc.setRow(newPlayerLoc.getRow() - 1);
             newPlayerLoc.setCol(newPlayerLoc.getCol() + 1);
         }
+
         if (newPlayerLoc != level.getPlayer().getLocation()) {
             attemptPlayerMove(newPlayerLoc, direction);
         }
@@ -137,18 +174,17 @@ public class Game implements ActionListener {
     }
 
     public void attemptPlayerMove(Location newPlayerLocation, int direction) {
-        if (!checkVictory(newPlayerLocation)) {
-            if (level.getBoxInLocation(newPlayerLocation) != null) {
-                if (direction != 0) {
-                    Location newBoxLocation = createNewBoxLocation(level.getBoxInLocation(newPlayerLocation), direction);
-                    if (attemptBoxMove(newBoxLocation, level.getBoxInLocation(newPlayerLocation))) {
-                        level.getPlayer().move(newPlayerLocation);
-                    }
+        checkVictory(newPlayerLocation);
+        Box boxAtNewLocation = level.getBoxInLocation(newPlayerLocation);
+        if (boxAtNewLocation != null) {
+            if (direction != 0) {
+                Location newBoxLocation = createNewBoxLocation(boxAtNewLocation, direction);
+                if (attemptBoxMove(newBoxLocation, boxAtNewLocation)) {
+                    level.getPlayer().move(newPlayerLocation);
                 }
-            } else if (level.getTileFromLocation(newPlayerLocation) == '.'
-                    || level.getTileFromLocation(newPlayerLocation) == '*') {
-                level.getPlayer().move(newPlayerLocation);
             }
+        } else if (level.isTileFreeToBeMovedOn(newPlayerLocation)) {
+            level.getPlayer().move(newPlayerLocation);
         }
     }
 
@@ -167,22 +203,14 @@ public class Game implements ActionListener {
         return false;
     }
 
-    public boolean checkVictory(Location location) {
+    public void checkVictory(Location location) {
         if (level.getTileFromLocation(location) == '<') {
-            level.getPlayer().move(location);
             victory = true;
-            return true;
         }
-        return false;
     }
 
     //Helper method for testing
     public Level getLevel() {
         return level;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        gui.getUpdatable().reDraw();
     }
 }

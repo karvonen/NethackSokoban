@@ -12,7 +12,6 @@ public class Board extends JPanel {
 
     public Board(Game game) {
         this.game = game;
-//        setPreferredSize(new Dimension(game.getLevel().getWidth(), game.getLevel().getHeight()));
     }
 
     @Override
@@ -26,6 +25,16 @@ public class Board extends JPanel {
                 for (int j = 0; j < game.getLevel().getMap()[i].length; j++) {
                     if (game.getLevel().getPlayer().getCol() == j
                             && game.getLevel().getPlayer().getRow() == i) {
+                        //Player is an oval and this sets its background color
+                        //to whatever is under the player
+                        if (game.getLevel().getTileFromLocation(new Location(i, j)) == '*') {
+                            board.setColor(Color.BLUE);
+                            board.fillRect(j * size, i * size, 30, 30);
+                        }
+                        if (game.getLevel().getTileFromLocation(new Location(i, j)) == '<') {
+                            board.setColor(Color.GREEN);
+                            board.fillRect(j * size, i * size, 30, 30);
+                        }
                         board.setColor(Color.PINK);
                         board.fillOval(j * size, i * size, 30, 30);
                     } else if (game.getLevel().getBoxInLocation(i, j) != null) {

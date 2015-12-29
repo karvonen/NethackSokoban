@@ -57,6 +57,12 @@ public class Level {
         }
     }
 
+    public boolean isTileFreeToBeMovedOn(Location location) {
+        return getTileFromLocation(location) == '.'
+                || getTileFromLocation(location) == '*'
+                || getTileFromLocation(location) == '<';
+    }
+
     public char getTileFromLocation(Location location) {
         return getMap()[location.getRow()][location.getCol()];
     }

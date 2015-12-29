@@ -1,9 +1,9 @@
 package dev.nethacksokoban.UI;
 
 import dev.nethacksokoban.Game.Game;
+import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -12,11 +12,12 @@ public class GUI implements Runnable {
     private JFrame frame;
     private Game game;
     private Board board;
-    
+    private MenuPanel menu;
+
     public GUI(Game game) {
         this.game = game;
     }
-    
+
     @Override
     public void run() {
         frame = new JFrame("NethackSokoban");
@@ -25,18 +26,29 @@ public class GUI implements Runnable {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         createComponents(frame.getContentPane());
         frame.pack();
+        frame.setSize(new Dimension(1000, 600));
         frame.setVisible(true);
     }
 
-
-
     private void createComponents(Container container) {
         board = new Board(game);
+        container.setLayout(new BorderLayout());
         container.add(board);
+
         KeyboardListener keyboardListener = new KeyboardListener(game);
-        getFrame().addKeyListener(keyboardListener);
+
+        frame.setFocusable(true);
+
+        frame.addKeyListener(keyboardListener);
+
     }
-    
+
+    public void addMenuPanel() {
+        menu = new MenuPanel(game);
+        frame.getContentPane().add(menu, BorderLayout.SOUTH);
+        menu.fillLevelSelector();
+    }
+
     public JFrame getFrame() {
         return frame;
     }

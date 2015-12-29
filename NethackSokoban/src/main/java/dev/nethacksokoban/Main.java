@@ -9,7 +9,7 @@ import javax.swing.SwingUtilities;
 public class Main {
 
     public static void main(String[] args) {
-        Game game = new Game(new InputScanner(new Scanner(System.in)), true);
+        Game game = new Game(new InputScanner(new Scanner(System.in)), false);
         GUI gui = new GUI(game);
         game.setGUI(gui);
         SwingUtilities.invokeLater(gui);
