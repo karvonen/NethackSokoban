@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 public class GUI implements Runnable {
@@ -36,7 +37,6 @@ public class GUI implements Runnable {
         container.add(board);
 
         KeyboardListener keyboardListener = new KeyboardListener(game);
-
         frame.setFocusable(true);
 
         frame.addKeyListener(keyboardListener);
@@ -47,6 +47,11 @@ public class GUI implements Runnable {
         frame.getContentPane().add(menu, BorderLayout.SOUTH);
         menu.fillLevelSelector();
     }
+    
+    public void victoryDialog() {
+        JOptionPane.showMessageDialog(frame, "victory with " + 
+                game.getLevel().getPlayer().getMoves() + " moves used!");
+    }
 
     public JFrame getFrame() {
         return frame;
@@ -55,7 +60,7 @@ public class GUI implements Runnable {
     public Board getUpdatable() {
         return board;
     }
-    
+
     public void setFocusBackToFrame() {
         frame.requestFocus();
     }

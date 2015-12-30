@@ -1,21 +1,16 @@
 package dev.nethacksokoban.Game;
 
 import dev.nethacksokoban.UI.GUI;
-import dev.nethacksokoban.UI.UI;
 import dev.nethacksokoban.Util.FileScanner;
-import dev.nethacksokoban.Util.InputScanner;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Game {
 
-    private InputScanner inputScanner;
     private HashMap<Integer, char[][]> levels;
     private Level level;
     private boolean victory;
     private boolean quit;
-    private UI ui;
-    private boolean testMode;
     private GUI gui;
 
     private char[][] testLevel1 = new char[][]{
@@ -26,10 +21,8 @@ public class Game {
         {'#', '.', '.', '.', '.', '.', '#', '#', '.', '#'},
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
 
-    public Game(InputScanner inputScanner, boolean testMode) {
-        this.inputScanner = inputScanner;
+    public Game() {
         this.levels = new HashMap<>();
-        this.testMode = testMode;
         //For tests, removed when game is started properly.
         this.levels.put(1, testLevel1);
 
@@ -41,26 +34,10 @@ public class Game {
 
     public void startGame() {
         loadLevels();
-        ui = new UI(inputScanner);
-        inputScanner.setUi(ui);
         victory = false;
         quit = false;
-        if (testMode) {
-            while (true) {
-                victory = false;
-                quit = false;
-                Integer chosenLevelIndex = inputScanner.selectLevel(levels.size());
-                if (chosenLevelIndex == 999) {
-                    System.exit(0);
-                    break;
-                }
-                createCurrentLevel(chosenLevelIndex);
-                runInTestMode();
 
-            }
-        } else {
-            gui.addMenuPanel();
-        }
+        gui.addMenuPanel();
     }
 
     public void run() {
@@ -107,31 +84,12 @@ public class Game {
         for (int i = 0; i < loadedMaps.size(); i++) {
             levels.put(i + 1, loadedMaps.get(i));
         }
-
-    }
-
-    public void runInTestMode() {
-        ui.update(level);
-        while (true) {
-            if (quit) {
-                break;
-            }
-            if (victory) {
-                ui.victory(level);
-                break;
-            }
-            if (testMode) {
-                executeGameCommand(ui.readCommand());
-                ui.update(level);
-            }
-        }
-        startGame();
     }
 
     public void update() {
         if (victory) {
             gui.getUpdatable().reDraw();
-            ui.victory(level);
+            gui.victoryDialog();
             startGame();
         } else if (quit) {
             startGame();

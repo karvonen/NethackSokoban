@@ -14,4 +14,5 @@ Päivämäärä | Aika | Kuvaus
 2015-12-22 | 2h | GUIn tekeminen aloitettu.
 2015-12-29 | 5h | Swingiä, swingiä, swingiä ja edelleen puuttuu pari ominaisuutta.. Todella paljon eri yritelmiä saada GUI toimimaan. Menu lisätty. GUI versiollinen peli muutettu event driveniksi.
 2015-12-30 | 1.5h | Framen focuksen korjaus, pajassa ohjelmasta ja muutostarpeista jutteleminen. JavaDoceja lisätty.
-Yhteensä | 21.5h |
+2015-12-30 | 1h | Menun JComboBoxista tason valinta lataa tason suoraan. TextUI ja inputscanner poistettu kokonaan. 
+Yhteensä | 22.5h |

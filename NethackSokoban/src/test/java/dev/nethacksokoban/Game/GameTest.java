@@ -1,9 +1,7 @@
 package dev.nethacksokoban.Game;
 
-import dev.nethacksokoban.Util.InputScanner;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Scanner;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -32,7 +30,7 @@ public class GameTest {
 
     @Before
     public void setUp() {
-        game = new Game(new InputScanner(new Scanner(System.in)), true);
+        game = new Game();
         game.createCurrentLevel(1);
         level = game.getLevel();
     }
@@ -132,7 +130,7 @@ public class GameTest {
 
     @Test
     public void createNewBoxLocation() {
-        game = new Game(null, true);
+        game = new Game();
         Box testBox = new Box(2, 3);
         Location expectedLocation = new Location(3, 3);
         assertEquals(expectedLocation, game.createNewBoxLocation(testBox, 2));
@@ -173,25 +171,5 @@ public class GameTest {
             {'#', '.', '.', '.', '.', '.', '#', '#', '.', '#'},
             {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
         assertArrayEquals(expectedMap, game.getLevel().getMap());
-    }
-
-//    @Test
-//    public void fullPlaythrough() {
-//        String input = formTestString("1", "3", "6", "6", "1", "4", "4", "7",
-//                "6", "6", "6", "6", "6", "6", "3", "999");
-//        Game testGame = new Game(new InputScanner(new Scanner(input)), true);
-//        testGame.startGame();
-//        String output = stream.toString();
-//        assertTrue("Printed: " + output, output.contains("Victory!")
-//                && output.contains("Moves used: 14"));
-//    }
-
-    public String formTestString(String... lines) {
-        String linesWithEnter = "";
-        for (String line : lines) {
-            linesWithEnter += line + "\n";
-
-        }
-        return linesWithEnter;
     }
 }
