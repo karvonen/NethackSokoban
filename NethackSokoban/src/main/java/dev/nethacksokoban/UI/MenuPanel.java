@@ -2,15 +2,15 @@ package dev.nethacksokoban.UI;
 
 import dev.nethacksokoban.Game.Game;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class MenuPanel extends JPanel {
+public class MenuPanel extends JPanel implements ActionListener {
 
     private Game game;
-    private ButtonListener buttonListener;
     private JComboBox<Integer> levels;
     private GUI gui;
 
@@ -22,16 +22,12 @@ public class MenuPanel extends JPanel {
     }
 
     private void createComponents() {
-        buttonListener = new ButtonListener(game, this);
         levels = new JComboBox<>();
+        levels.addActionListener(this);
         add(levels);
 
-        JButton select = new JButton("Select");
-        select.addActionListener(buttonListener);
-        add(select);
-
         JButton exit = new JButton("Exit");
-        exit.addActionListener(buttonListener);
+        exit.addActionListener(this);
         add(exit);
     }
 
@@ -45,7 +41,21 @@ public class MenuPanel extends JPanel {
         return levels;
     }
 
-    public void surrenderFocus() {
-        gui.setFocusBackToFrame();
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getActionCommand().equals("Exit")) {
+            System.exit(0);
+        } else if (ae.getActionCommand().equals("comboBoxChanged")) {
+            JComboBox comboBox = (JComboBox) ae.getSource();
+            int selectedNumber = comboBox.getSelectedIndex();
+            //getSelectedIndex is 0 at the creation of the menu so a check is 
+            //needed to make sure StarNewMapWithIndex is not called without
+            //valid index.
+            if (selectedNumber < 1 || selectedNumber > game.getLevels().size() + 1) {
+                selectedNumber = 1;
+            }
+            game.startNewMapWithIndex(selectedNumber);
+            gui.setFocusBackToFrame();
+        }
     }
 }
