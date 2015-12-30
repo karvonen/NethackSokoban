@@ -19,28 +19,36 @@ public class KeyboardListener implements KeyListener {
     @Override
     public void keyPressed(KeyEvent ke) {
 
-        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD1) {
+        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD1 ||
+                ke.getKeyCode() == KeyEvent.VK_B) {
             game.executeGameCommand('1');
         }
-        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD2) {
+        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD2||
+                ke.getKeyCode() == KeyEvent.VK_J) {
             game.executeGameCommand('2');
         }
-        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD3) {
+        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD3||
+                ke.getKeyCode() == KeyEvent.VK_N) {
             game.executeGameCommand('3');
         }
-        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD4) {
+        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD4||
+                ke.getKeyCode() == KeyEvent.VK_H) {
             game.executeGameCommand('4');
         }
-        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD6) {
+        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD6||
+                ke.getKeyCode() == KeyEvent.VK_L) {
             game.executeGameCommand('6');
         }
-        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD7) {
+        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD7||
+                ke.getKeyCode() == KeyEvent.VK_Y) {
             game.executeGameCommand('7');
         }
-        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD8) {
+        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD8||
+                ke.getKeyCode() == KeyEvent.VK_K) {
             game.executeGameCommand('8');
         }
-        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD9) {
+        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD9||
+                ke.getKeyCode() == KeyEvent.VK_U) {
             game.executeGameCommand('9');
         }
         if (ke.getKeyCode() == KeyEvent.VK_X) {
