@@ -4,6 +4,7 @@ import dev.nethacksokoban.Game.Game;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class MenuPanel extends JPanel {
@@ -11,15 +12,17 @@ public class MenuPanel extends JPanel {
     private Game game;
     private ButtonListener buttonListener;
     private JComboBox<Integer> levels;
+    private GUI gui;
 
-    public MenuPanel(Game game) {
+    public MenuPanel(Game game, GUI gui) {
         super(new GridLayout(1, 3));
         this.game = game;
-        buttonListener = new ButtonListener(game, this);
+        this.gui = gui;
         createComponents();
     }
 
     private void createComponents() {
+        buttonListener = new ButtonListener(game, this);
         levels = new JComboBox<>();
         add(levels);
 
@@ -30,7 +33,6 @@ public class MenuPanel extends JPanel {
         JButton exit = new JButton("Exit");
         exit.addActionListener(buttonListener);
         add(exit);
-
     }
 
     public void fillLevelSelector() {
@@ -38,8 +40,12 @@ public class MenuPanel extends JPanel {
             levels.addItem(i);
         }
     }
-    
+
     public JComboBox<Integer> getJComboBox() {
         return levels;
+    }
+
+    public void surrenderFocus() {
+        gui.setFocusBackToFrame();
     }
 }

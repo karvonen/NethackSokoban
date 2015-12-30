@@ -24,6 +24,7 @@ public class ButtonListener implements ActionListener {
             JComboBox<Integer> selector = panel.getJComboBox();
             int selectedNumber = (int) selector.getSelectedItem();
             game.startNewMapWithIndex(selectedNumber);
+            panel.surrenderFocus();
         }
     }
 }

@@ -33,7 +33,7 @@ public class GameTest {
     @Before
     public void setUp() {
         game = new Game(new InputScanner(new Scanner(System.in)), true);
-        game.chooseLevel(1);
+        game.createCurrentLevel(1);
         level = game.getLevel();
     }
 

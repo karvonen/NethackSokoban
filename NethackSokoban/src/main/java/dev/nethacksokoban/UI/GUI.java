@@ -40,11 +40,10 @@ public class GUI implements Runnable {
         frame.setFocusable(true);
 
         frame.addKeyListener(keyboardListener);
-
     }
 
     public void addMenuPanel() {
-        menu = new MenuPanel(game);
+        menu = new MenuPanel(game, this);
         frame.getContentPane().add(menu, BorderLayout.SOUTH);
         menu.fillLevelSelector();
     }
@@ -55,5 +54,9 @@ public class GUI implements Runnable {
 
     public Board getUpdatable() {
         return board;
+    }
+    
+    public void setFocusBackToFrame() {
+        frame.requestFocus();
     }
 }

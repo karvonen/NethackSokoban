@@ -13,7 +13,7 @@ public class FileScanner {
         while (true) {
             String fileName = "src/levels/" + counter + ".txt";
             counter++;
-            char[][] loadedMap = readFile(fileName);
+            char[][] loadedMap = readAndParseFile(fileName);
             if (loadedMap == null) {
                 break;
             }
@@ -22,7 +22,7 @@ public class FileScanner {
         return loadedMaps;
     }
 
-    public char[][] readFile(String fileName) {
+    public char[][] readAndParseFile(String fileName) {
         char[][] readMap = null;
         try {
             File file = new File(fileName);

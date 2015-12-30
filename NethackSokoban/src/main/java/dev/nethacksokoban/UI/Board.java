@@ -30,8 +30,7 @@ public class Board extends JPanel {
                         if (game.getLevel().getTileFromLocation(new Location(i, j)) == '*') {
                             board.setColor(Color.BLUE);
                             board.fillRect(j * size, i * size, 30, 30);
-                        }
-                        if (game.getLevel().getTileFromLocation(new Location(i, j)) == '<') {
+                        } else if (game.getLevel().getTileFromLocation(new Location(i, j)) == '<') {
                             board.setColor(Color.GREEN);
                             board.fillRect(j * size, i * size, 30, 30);
                         }

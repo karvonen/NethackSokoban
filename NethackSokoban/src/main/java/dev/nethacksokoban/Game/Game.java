@@ -54,7 +54,7 @@ public class Game {
                     System.exit(0);
                     break;
                 }
-                chooseLevel(chosenLevelIndex);
+                createCurrentLevel(chosenLevelIndex);
                 runInTestMode();
 
             }
@@ -69,12 +69,24 @@ public class Game {
         update();
     }
 
+    /**
+     * Method creates and sets the level to be played and then starts a new
+     * game.
+     *
+     * @param index Key of the chosen level in Levels HashMap.
+     */
     public void startNewMapWithIndex(int index) {
         level = new Level(levels.get(index));
         run();
     }
 
-    public void chooseLevel(int chosenLevelIndex) {
+    /**
+     * Method creates and sets the level to be played.
+     *
+     * @param chosenLevelIndex HashMap key which is the index of the level.
+     *
+     */
+    public void createCurrentLevel(int chosenLevelIndex) {
         level = new Level(levels.get(chosenLevelIndex));
     }
 
@@ -82,6 +94,11 @@ public class Game {
         return levels;
     }
 
+    /**
+     * Method clears HashMap<Integer, char[][]> levels and uses FileScanner to
+     * load all levels from files.
+     *
+     */
     public void loadLevels() {
         levels.clear();
 
@@ -123,6 +140,12 @@ public class Game {
         }
     }
 
+    /**
+     * Method executes a command that is given as a char. The chars are
+     * directions as seen on normal computer keyboard's numpad.
+     *
+     * @param command char that is interpreted as a direction.
+     */
     public void executeGameCommand(char command) {
         Location newPlayerLoc = new Location(level.getPlayer().getRow(), level.getPlayer().getCol());
         int direction = 0;
@@ -159,6 +182,15 @@ public class Game {
         }
     }
 
+    /**
+     * Method creates and returns a new Location object according to the
+     * direction the box is being moved.
+     *
+     * @param box The box which new location is being created.
+     * @param direction Integer value of 4 cardinal movement directions.
+     *
+     * @return Location-object for the new box location.
+     */
     public Location createNewBoxLocation(Box box, int direction) {
         Location newBoxLocation = new Location(box.getRow(), box.getCol());
         if (direction == 2) {
@@ -173,6 +205,16 @@ public class Game {
         return newBoxLocation;
     }
 
+    /**
+     * Method attempts to move player towards a new Location object. Direction
+     * is given as a parameter to be used to move box if the new player location
+     * is occupied by a box. If box is found at the new location, then
+     * attemptToMoveBox is called.
+     *
+     * @param newPlayerLocation New coordinates of the player.
+     * @param direction Integer value of 4 cardinal movement directions.
+     *
+     */
     public void attemptPlayerMove(Location newPlayerLocation, int direction) {
         checkVictory(newPlayerLocation);
         Box boxAtNewLocation = level.getBoxInLocation(newPlayerLocation);
@@ -188,6 +230,17 @@ public class Game {
         }
     }
 
+    /**
+     * Method attempts to move a box to a Location. If the new Location contains
+     * a trap then the box is deleted and the trap is filled. If the Location is
+     * filled or free then the box is moved on to it.
+     *
+     * @param newBoxLocation Location object of the coordinate where box is
+     * being moved to.
+     * @param push Box object of the box being moved.
+     *
+     * @return boolean of the success of the box move.
+     */
     public boolean attemptBoxMove(Location newBoxLocation, Box push) {
         if (level.getBoxInLocation(newBoxLocation) == null) {
             if (level.getTileFromLocation(newBoxLocation) == '^') {
@@ -203,6 +256,13 @@ public class Game {
         return false;
     }
 
+    /**
+     * Method checks if a Location has a victory tile and then sets victory to
+     * true.
+     *
+     * @param location Location object for the location where the check is done.
+     *
+     */
     public void checkVictory(Location location) {
         if (level.getTileFromLocation(location) == '<') {
             victory = true;
