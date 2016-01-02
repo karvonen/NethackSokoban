@@ -12,7 +12,5 @@ Toteutetaan [Nethackin Sokoban](http://nethack.wikia.com/wiki/Sokoban)-tasot oma
 * Pelihahmon siirtäminen
 * Kivien/laatikoiden työntäminen ja kuoppien täyttäminen pelihahmoa siirtämällä
 * Voittaminen pääsemällä maaliin
-* Ennenaikainen pelin lopetus
+* Ennenaikainen pelin lopetus/tason aloittaminen alusta
 * Tasokohtaisesten parhaiden pisteiden (vähiten siirtoja) katsominen
-
-## Rakenne
