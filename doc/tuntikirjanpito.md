@@ -16,5 +16,5 @@ Päivämäärä | Aika | Kuvaus
 2015-12-30 | 1.5h | Framen focuksen korjaus, pajassa ohjelmasta ja muutostarpeista jutteleminen. JavaDoceja lisätty.
 2015-12-30 | 1h | Menun JComboBoxista tason valinta lataa tason suoraan. TextUI ja inputscanner poistettu kokonaan. 
 2015-12-31 | 1h | Bugikorjauksia, poistettu vanhaa lopetuskoodia, voittoruutu-dialogg lisätty.
-2016-01-02 | 3h | JavaDocceja ja uusia testejä lisätty.
-Yhteensä | 29.5h |
+2016-01-02 | 3.5h | JavaDocceja ja uusia testejä lisätty.
+Yhteensä | 30h |
