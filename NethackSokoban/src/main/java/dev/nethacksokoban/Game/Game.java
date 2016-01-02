@@ -225,11 +225,14 @@ public class Game {
      *
      * @param location Location object for the location where the check is done.
      *
+     * @return boolean for victory condition.
      */
-    public void checkVictory(Location location) {
+    public boolean checkVictory(Location location) {
         if (level.getTileFromLocation(location) == '<') {
             victory = true;
+            return true;
         }
+        return false;
     }
 
     /**

@@ -1,7 +1,9 @@
 package dev.nethacksokoban.Game;
 
+import dev.nethacksokoban.UI.GUI;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import javax.swing.SwingUtilities;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -40,6 +42,62 @@ public class GameTest {
     }
 
     @Test
+    public void startGameWithLevelIndex() {
+        Game testGame = new Game();
+        GUI gui = new GUI(testGame);
+        testGame.setGUI(gui);
+        SwingUtilities.invokeLater(gui);
+        testGame.loadLevelsAndStartGame();
+        testGame.startNewMapWithIndex(4);
+        Location expectedPlayerLocation = new Location(2, 12);
+        assertEquals(expectedPlayerLocation, testGame.getLevel().getPlayer().getLocation());
+        assertEquals('<', testGame.getLevel().getTileFromLocation(new Location(4, 24)));
+    }
+
+    @Test
+    public void loadLevels() {
+        Game testGame = new Game();
+        testGame.loadLevels();
+        assertEquals(8, testGame.getLevels().size());
+    }
+
+    @Test
+    public void playerCantGoThroughBoxes() {
+        Box testBox = level.getBoxInLocation(2, 4);
+        game.attemptPlayerMove(new Location(2, 4), 2);
+        assertTrue(testBox.getLocation() != game.getLevel().getPlayer().getLocation());
+    }
+
+    @Test
+    public void trapIsFilledWhenBoxIsMovedOnTopOfIt() {
+        Box testBox = level.getBoxInLocation(2, 4);
+        game.attemptBoxMove(new Location(2, 6), testBox);
+        assertEquals('*', level.getTileFromLocation(new Location(2, 6)));
+    }
+
+    @Test
+    public void boxIsRemovedWhenItFillsTrap() {
+        Box testBox = level.getBoxInLocation(2, 4);
+        game.attemptBoxMove(new Location(2, 6), testBox);
+        assertEquals(false, level.getBoxes().contains(testBox));
+    }
+
+    @Test
+    public void boxIsNotDuplicatedWhenMoved() {
+        Box testBox = level.getBoxInLocation(new Location(2, 2));
+        Location newBoxLocation = new Location(2, 3);
+        game.attemptBoxMove(newBoxLocation, testBox);
+        assertEquals(newBoxLocation, testBox.getLocation());
+        assertEquals(3, level.getBoxes().size());
+    }
+    
+    @Test
+    public void checkVictory() {
+        game.getLevel().getPlayer().setPlayerLocation(new Location(3, 8));
+        assertEquals(true, game.checkVictory(new Location(3, 8)));
+    }
+
+    @Test
     public void attemptBoxMoveTowardsFreeTile() {
         assertEquals(true, game.attemptBoxMove(new Location(2, 3), level.getBoxInLocation(2, 2)));
         assertEquals('.', level.getTileFromLocation(new Location(2, 2)));
@@ -56,41 +114,34 @@ public class GameTest {
 
     @Test
     public void attemptBoxMoveTowardsTrap() {
-        assertEquals(true, game.attemptBoxMove(new Location(2, 5), level.getBoxInLocation(2, 4)));
-        assertEquals(true, game.attemptBoxMove(new Location(2, 6), level.getBoxInLocation(2, 5)));
-        assertEquals('.', level.getTileFromLocation(new Location(2, 4)));
-        assertEquals('.', level.getTileFromLocation(new Location(2, 5)));
+        Box testBox = level.getBoxInLocation(2, 4);
+        game.attemptBoxMove(new Location(2, 5), testBox);
+        game.attemptBoxMove(new Location(2, 6), testBox);
         assertEquals('*', level.getTileFromLocation(new Location(2, 6)));
-        assertEquals(2, level.getBoxes().size());
-        assertTrue(level.getBoxInLocation(new Location(2, 4)) == null);
-        assertTrue(level.getBoxInLocation(new Location(2, 5)) == null);
-        assertTrue(level.getBoxInLocation(new Location(2, 6)) == null);
+        assertEquals(false, game.getLevel().getBoxes().contains(testBox));
     }
 
+    @Test
     public void attemptBoxMoveTowardsFilledTrap() {
-        assertEquals(true, game.attemptBoxMove(new Location(2, 5), level.getBoxInLocation(2, 4)));
-        assertEquals(true, game.attemptBoxMove(new Location(2, 6), level.getBoxInLocation(2, 5)));
-        assertEquals(true, game.attemptBoxMove(new Location(2, 3), level.getBoxInLocation(2, 2)));
-        assertEquals(true, game.attemptBoxMove(new Location(2, 4), level.getBoxInLocation(2, 3)));
-        assertEquals(true, game.attemptBoxMove(new Location(2, 5), level.getBoxInLocation(2, 4)));
-        assertEquals(true, game.attemptBoxMove(new Location(2, 6), level.getBoxInLocation(2, 5)));
+        Box testBox = level.getBoxInLocation(2, 4);
+        game.attemptBoxMove(new Location(2, 5), testBox);
+        game.attemptBoxMove(new Location(2, 6), testBox);
+        game.attemptBoxMove(new Location(2, 3), testBox);
+        game.attemptBoxMove(new Location(2, 4), testBox);
+        game.attemptBoxMove(new Location(2, 5), testBox);
+        game.attemptBoxMove(new Location(2, 6), testBox);
         assertEquals('*', level.getTileFromLocation(new Location(2, 6)));
-        assertEquals(3, level.getBoxes().size());
-        assertTrue(level.getBoxInLocation(new Location(2, 2)) == null);
-        assertTrue(level.getBoxInLocation(new Location(2, 3)) == null);
-        assertTrue(level.getBoxInLocation(new Location(2, 4)) == null);
-        assertTrue(level.getBoxInLocation(new Location(2, 5)) == null);
-        assertTrue(level.getBoxInLocation(new Location(2, 6)) != null);
+        assertEquals(false, level.getBoxes().contains(testBox));
     }
 
     @Test
     public void attemptBoxMoveTowardsAnotherBox() {
-        assertEquals(true, game.attemptBoxMove(new Location(2, 3), level.getBoxInLocation(2, 4)));
-        assertEquals(false, game.attemptBoxMove(new Location(2, 2), level.getBoxInLocation(2, 3)));
+        Box testBox1 = level.getBoxInLocation(2, 2);
+        Box testBox2 = level.getBoxInLocation(2, 4);
+        game.attemptBoxMove(new Location(2, 3), testBox1);
+        assertEquals(false, game.attemptBoxMove(testBox2.getLocation(), testBox1));
         assertEquals(3, level.getBoxes().size());
-        assertTrue(level.getBoxInLocation(new Location(2, 4)) == null);
-        assertTrue(level.getBoxInLocation(new Location(2, 3)) != null);
-        assertTrue(level.getBoxInLocation(new Location(2, 2)) != null);
+        assertTrue(level.getBoxInLocation(new Location(2, 2)) == null);
     }
 
     @Test
