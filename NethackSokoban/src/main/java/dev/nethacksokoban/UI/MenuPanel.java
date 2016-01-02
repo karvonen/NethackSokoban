@@ -48,13 +48,7 @@ public class MenuPanel extends JPanel implements ActionListener {
         } else if (ae.getActionCommand().equals("comboBoxChanged")) {
             JComboBox comboBox = (JComboBox) ae.getSource();
             int selectedNumber = comboBox.getSelectedIndex();
-            //getSelectedIndex is 0 at the creation of the menu so a check is 
-            //needed to make sure StarNewMapWithIndex is not called without
-            //valid index.
-            if (selectedNumber < 1 || selectedNumber > game.getLevels().size() + 1) {
-                selectedNumber = 1;
-            }
-            game.startNewMapWithIndex(selectedNumber);
+            game.startNewMapWithIndex(selectedNumber + 1);
             gui.setFocusBackToFrame();
         }
     }

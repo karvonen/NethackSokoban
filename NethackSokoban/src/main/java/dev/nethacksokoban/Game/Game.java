@@ -10,7 +10,6 @@ public class Game {
     private HashMap<Integer, char[][]> levels;
     private Level level;
     private boolean victory;
-    private boolean quit;
     private GUI gui;
 
     private char[][] testLevel1 = new char[][]{
@@ -35,14 +34,10 @@ public class Game {
     public void startGame() {
         loadLevels();
         victory = false;
-        quit = false;
-
-        gui.addMenuPanel();
     }
 
     public void run() {
         victory = false;
-        quit = false;
         update();
     }
 
@@ -84,6 +79,8 @@ public class Game {
         for (int i = 0; i < loadedMaps.size(); i++) {
             levels.put(i + 1, loadedMaps.get(i));
         }
+
+        gui.addMenuPanel();
     }
 
     public void update() {
@@ -91,11 +88,8 @@ public class Game {
             gui.getUpdatable().reDraw();
             gui.victoryDialog();
             startGame();
-        } else if (quit) {
-            startGame();
-        } else {
-            gui.getUpdatable().reDraw();
         }
+        gui.getUpdatable().reDraw();
     }
 
     /**
@@ -107,9 +101,7 @@ public class Game {
     public void executeGameCommand(char command) {
         Location newPlayerLoc = new Location(level.getPlayer().getRow(), level.getPlayer().getCol());
         int direction = 0;
-        if (command == 'x') {
-            quit = true;
-        } else if (command == '1') {
+        if (command == '1') {
             newPlayerLoc.setCol(newPlayerLoc.getCol() - 1);
             newPlayerLoc.setRow(newPlayerLoc.getRow() + 1);
         } else if (command == '2') {

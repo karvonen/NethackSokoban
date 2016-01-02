@@ -49,7 +49,7 @@ public class GUI implements Runnable {
     }
     
     public void victoryDialog() {
-        JOptionPane.showMessageDialog(frame, "victory with " + 
+        JOptionPane.showMessageDialog(frame, "Victory with " + 
                 game.getLevel().getPlayer().getMoves() + " moves used!");
     }
 
