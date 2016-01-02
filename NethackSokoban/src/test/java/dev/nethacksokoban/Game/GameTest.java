@@ -94,20 +94,20 @@ public class GameTest {
     @Test
     public void checkVictoryOnVictoryTile() {
         game.getLevel().getPlayer().setPlayerLocation(new Location(3, 8));
-        assertEquals(true, game.checkVictory(new Location(3, 8)));
+        assertEquals(true, game.checkVictory(game.getLevel().getPlayer().getLocation()));
     }
 
     @Test
     public void checkVictoryOnNormalTile() {
         game.getLevel().getPlayer().setPlayerLocation(new Location(2, 8));
-        assertEquals(false, game.checkVictory(new Location(2, 8)));
+        assertEquals(false, game.checkVictory(game.getLevel().getPlayer().getLocation()));
     }
 
     @Test
     public void checkVictoryOnFilledTrapTile() {
         game.getLevel().fillTrap(new Location (2,7));
         game.getLevel().getPlayer().setPlayerLocation(new Location(2, 7));
-        assertEquals(false, game.checkVictory(new Location(2, 7)));
+        assertEquals(false, game.checkVictory(game.getLevel().getPlayer().getLocation()));
     }
 
     @Test
