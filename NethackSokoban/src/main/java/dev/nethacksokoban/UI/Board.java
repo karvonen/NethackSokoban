@@ -6,6 +6,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
+/**
+ * Class extends JPanel and draws on it the current state of the game after
+ * an update method is called.
+ */
 public class Board extends JPanel {
 
     private Game game;

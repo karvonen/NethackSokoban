@@ -11,6 +11,6 @@ public class Main {
         GUI gui = new GUI(game);
         game.setGUI(gui);
         SwingUtilities.invokeLater(gui);
-        game.startGame();
+        game.loadLevelsAndStartGame();
     }
 }

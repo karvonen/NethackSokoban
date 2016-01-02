@@ -5,6 +5,12 @@ import dev.nethacksokoban.Util.FileScanner;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Class has methods for starting and playing the game. There is no game loop,
+ * and instead the game works in an event driven way so the methods of this
+ * class are called when a key is pressed for example.
+ *
+ */
 public class Game {
 
     private HashMap<Integer, char[][]> levels;
@@ -20,25 +26,32 @@ public class Game {
         {'#', '.', '.', '.', '.', '.', '#', '#', '.', '#'},
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
 
+    /**
+     * The constructor is called without parameters and it sets a test level
+     * as the only existing level at creation.
+     *
+     */
     public Game() {
         this.levels = new HashMap<>();
-        //For tests, removed when game is started properly.
         this.levels.put(1, testLevel1);
-
     }
 
+    /**
+     * @param gui Attaches a GUI to the game.
+     *
+     */
     public void setGUI(GUI gui) {
         this.gui = gui;
     }
 
-    public void startGame() {
+    /**
+     * Sets up the levels and starts the game.
+     *
+     */
+    public void loadLevelsAndStartGame() {
         loadLevels();
+        gui.addMenuPanel();
         victory = false;
-    }
-
-    public void run() {
-        victory = false;
-        update();
     }
 
     /**
@@ -49,7 +62,8 @@ public class Game {
      */
     public void startNewMapWithIndex(int index) {
         level = new Level(levels.get(index));
-        run();
+        victory = false;
+        update();
     }
 
     /**
@@ -70,6 +84,7 @@ public class Game {
      * Method clears HashMap<Integer, char[][]> levels and uses FileScanner to
      * load all levels from files.
      *
+     * @see FileScanner
      */
     public void loadLevels() {
         levels.clear();
@@ -79,21 +94,19 @@ public class Game {
         for (int i = 0; i < loadedMaps.size(); i++) {
             levels.put(i + 1, loadedMaps.get(i));
         }
-
-        gui.addMenuPanel();
     }
 
     public void update() {
         if (victory) {
             gui.getUpdatable().reDraw();
             gui.victoryDialog();
-            startGame();
+            loadLevelsAndStartGame();
         }
         gui.getUpdatable().reDraw();
     }
 
     /**
-     * Method executes a command that is given as a char. The chars are
+     * Method executes a movement command that is given as a char. The chars are
      * directions as seen on normal computer keyboard's numpad.
      *
      * @param command char that is interpreted as a direction.
@@ -172,11 +185,11 @@ public class Game {
             if (direction != 0) {
                 Location newBoxLocation = createNewBoxLocation(boxAtNewLocation, direction);
                 if (attemptBoxMove(newBoxLocation, boxAtNewLocation)) {
-                    level.getPlayer().move(newPlayerLocation);
+                    level.getPlayer().setPlayerLocation(newPlayerLocation);
                 }
             }
         } else if (level.isTileFreeToBeMovedOn(newPlayerLocation)) {
-            level.getPlayer().move(newPlayerLocation);
+            level.getPlayer().setPlayerLocation(newPlayerLocation);
         }
     }
 
@@ -219,7 +232,10 @@ public class Game {
         }
     }
 
-    //Helper method for testing
+    /**
+     * @return Currently active level.
+     *
+     */
     public Level getLevel() {
         return level;
     }

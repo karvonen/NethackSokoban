@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
+/**
+ * Class creates and maintains graphic user interface elements.
+ */
 public class GUI implements Runnable {
 
     private JFrame frame;
@@ -42,25 +45,46 @@ public class GUI implements Runnable {
         frame.addKeyListener(keyboardListener);
     }
 
+    /**
+     * Creates and adds a menu panel to the bottom of the game window.
+     *
+     */
     public void addMenuPanel() {
         menu = new MenuPanel(game, this);
         frame.getContentPane().add(menu, BorderLayout.SOUTH);
         menu.fillLevelSelector();
     }
-    
+
+    /**
+     * Shows a message dialog informing about victory and moves used.
+     *
+     */
     public void victoryDialog() {
-        JOptionPane.showMessageDialog(frame, "Victory with " + 
-                game.getLevel().getPlayer().getMoves() + " moves used!");
+        JOptionPane.showMessageDialog(frame, "Victory with "
+                + game.getLevel().getPlayer().getMoves() + " moves used!");
     }
 
+    /**
+     * @return JFrame which is the game window.
+     *
+     */
     public JFrame getFrame() {
         return frame;
     }
 
+    /**
+     * @return Board that is updated after each move.
+     *
+     */
     public Board getUpdatable() {
         return board;
     }
 
+    /**
+     * Method sets the focus back to JFrame so that KeyListener can react to
+     * new key presses.
+     *
+     */
     public void setFocusBackToFrame() {
         frame.requestFocus();
     }

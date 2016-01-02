@@ -2,6 +2,10 @@ package dev.nethacksokoban.Game;
 
 import java.util.ArrayList;
 
+/**
+ * Class constructs and maintains a level of the game. Only one instance of this
+ * class exists at one time and that is the currently being played level.
+ */
 public class Level {
 
     private char[][] map;
@@ -22,26 +26,44 @@ public class Level {
         initialise();
     }
 
+    /**
+     *
+     * @return Player object of the level.
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     *
+     * @return Height of the level.
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     *
+     * @return Width of the level.
+     */
     public int getWidth() {
         return width;
     }
 
-    public void addBox(Box box) {
-        boxes.add(box);
-    }
-
+    /**
+     *
+     * @return ArrayList of the boxes in the level.
+     */
     public ArrayList<Box> getBoxes() {
         return boxes;
     }
 
+    /**
+     * Initializes the level by going through the character array which
+     * represents the map. Creates the player object and box objects, then
+     * replaces them in the level with a free tile.
+     *
+     */
     private void initialise() {
         for (int i = 0; i < getHeight(); i++) {
             for (int j = 0; j < getWidth(); j++) {
@@ -50,13 +72,21 @@ public class Level {
                     player = new Player(new Location(i, j));
                 }
                 if (map[i][j] == '0') {
-                    addBox(new Box(i, j));
+                    boxes.add(new Box(i, j));
                     replaceWithOpenSpot(i, j);
                 }
             }
         }
     }
 
+    /**
+     * Method returns true if it's possible to move on to the tile which is
+     * given as Location object parameter.
+     *
+     * @param location Location of the tile.
+     *
+     * @return Boolean for the tile being free to be moved on.
+     */
     public boolean isTileFreeToBeMovedOn(Location location) {
         return getTileFromLocation(location) == '.'
                 || getTileFromLocation(location) == '*'
@@ -71,8 +101,8 @@ public class Level {
      * Method searches for the right Box object which is in a certain row/col
      * location.
      *
-     * @param row row of the box
-     * @param col column of the box
+     * @param row row where to search
+     * @param col column where to search
      *
      * @return The box at parameters' location.
      */
@@ -109,6 +139,10 @@ public class Level {
         map[row][col] = '.';
     }
 
+    /**
+     *
+     * @return Character array which represents the map of the level.
+     */
     public char[][] getMap() {
         return map;
     }

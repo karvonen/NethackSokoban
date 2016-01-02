@@ -42,12 +42,12 @@ public class PlayerTest {
     @Test
     public void move2() {
         Location move1 = new Location(3, 3);
-        player.move(move1);
+        player.setPlayerLocation(move1);
         assertEquals(3, player.getRow());
         assertEquals(3, player.getCol());
         assertEquals(1, player.getMoves());
         Location move2 = new Location(2, 4);
-        player.move(move2);
+        player.setPlayerLocation(move2);
         assertEquals(2, player.getRow());
         assertEquals(4, player.getCol());
         assertEquals(2, player.getMoves());

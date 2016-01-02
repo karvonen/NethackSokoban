@@ -1,8 +1,12 @@
-
 package dev.nethacksokoban.Game;
 
+/**
+ * Class provides location as a column/row coordinate. Other classes use this
+ * class as instead of a x/y coordinate to know where they are located in the
+ * two dimensional level.
+ */
 public class Location {
-    
+
     private int row;
     private int col;
 
@@ -11,18 +15,34 @@ public class Location {
         this.col = col;
     }
 
+    /**
+     *
+     * @return Row of the location object.
+     */
     public int getRow() {
         return row;
     }
 
+    /**
+     *
+     * @return Column of the location object.
+     */
     public int getCol() {
         return col;
     }
 
+    /**
+     *
+     * @param row Sets location object's row to parameter.
+     */
     public void setRow(int row) {
         this.row = row;
     }
 
+    /**
+     *
+     * @param col Sets location object's column to parameter.
+     */
     public void setCol(int col) {
         this.col = col;
     }
@@ -50,6 +70,5 @@ public class Location {
         }
         return true;
     }
-    
-    
+
 }
