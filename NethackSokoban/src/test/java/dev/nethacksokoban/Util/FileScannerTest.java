@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class FileScannerTest {
 
     private FileScanner fileScanner;
-    
+
     public FileScannerTest() {
     }
 
@@ -36,5 +36,30 @@ public class FileScannerTest {
     public void loadMapsLoadsAllMaps() {
         ArrayList<char[][]> loadedMaps = fileScanner.loadMaps();
         assertEquals(8, loadedMaps.size());
+    }
+
+    @Test
+    public void readAndParseParse() {
+        char[][] expectedMap = new char[][]{
+            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+            {'#', '.', '.', '.', '.', '#', '#', '#', '#', '.', '.', '.', '#', '#'},
+            {'#', '.', '0', '.', '.', '#', '#', '#', '#', '.', '0', '.', '#', '#'},
+            {'#', '.', '0', '.', '.', '.', '.', '.', '.', '0', '.', '.', '#', '#'},
+            {'#', '.', '.', '#', '#', '#', '@', '#', '#', '#', '0', '.', '#', '#'},
+            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '.', '#', '#', '#'},
+            {'#', '.', '.', '^', '^', '^', '<', '#', '.', '.', '.', '.', '.', '#'},
+            {'#', '.', '.', '#', '#', '#', '#', '#', '0', '.', '.', '.', '.', '#'},
+            {'#', '#', '^', '#', '#', '#', '#', '#', '.', '0', '.', '.', '.', '#'},
+            {'#', '#', '^', '#', '#', '#', '#', '#', '.', '0', '.', '.', '.', '#'},
+            {'#', '#', '.', '.', '^', '^', '^', '^', '0', '.', '0', '.', '.', '#'},
+            {'#', '#', '.', '.', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
+
+        assertArrayEquals(expectedMap, fileScanner.readAndParseFile("src/levels/2.txt"));
+    }
+    
+    @Test
+    public void readAndParseReturnsNullIfNoFileFound() {
+        assertArrayEquals(null, fileScanner.readAndParseFile("src/levels/66.txt"));
     }
 }

@@ -53,6 +53,38 @@ public class LevelTest {
     }
 
     @Test
+    public void isTileFreeToBeMovedOn() {
+        assertEquals(true, level.isTileFreeToBeMovedOn(new Location(1, 1)));
+    }
+
+    @Test
+    public void playerDoesntBlockMovement() {
+        assertEquals(true, level.isTileFreeToBeMovedOn(level.getPlayer().getLocation()));
+    }
+
+    @Test
+    public void victoryTileCanBeMovedOn() {
+        assertEquals(true, level.isTileFreeToBeMovedOn(new Location(3, 8)));
+    }
+    
+    @Test
+    public void wallsBlockMovement() {
+        assertEquals(false, level.isTileFreeToBeMovedOn(new Location(0, 1)));
+    }
+    
+    @Test
+    public void replaceWithOpenSpot() {
+        level.replaceWithOpenSpot(1, 6);
+        assertEquals('.', level.getTileFromLocation(new Location(1, 6)));
+    }
+
+    @Test
+    public void playerIsCreatedCorrectly() {
+        Location expectedPlayerLocation = new Location(1, 2);
+        assertEquals(expectedPlayerLocation, level.getPlayer().getLocation());
+    }
+
+    @Test
     public void allBoxesAreCreatedWithRightCoordinates() {
         assertEquals(2, level.getBoxes().get(0).getRow());
         assertEquals(2, level.getBoxes().get(0).getCol());
