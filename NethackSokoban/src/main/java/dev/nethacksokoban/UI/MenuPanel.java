@@ -8,6 +8,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+/**
+ * Class extends JPanel and creates on it a new grid layout containing the game's
+ * menu.
+ */
 public class MenuPanel extends JPanel implements ActionListener {
 
     private Game game;
