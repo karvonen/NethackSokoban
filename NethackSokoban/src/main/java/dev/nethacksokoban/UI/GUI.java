@@ -94,4 +94,8 @@ public class GUI implements Runnable {
     public void setFocusBackToFrame() {
         frame.requestFocus();
     }
+    
+    public void updateMenuMoveCount() {
+        menu.updateMoves();
+    }
 }

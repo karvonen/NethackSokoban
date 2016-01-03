@@ -108,6 +108,7 @@ public class Game {
             loadLevelsAndStartGame();
         }
         gui.getUpdatable().reDraw();
+        gui.updateMenuMoveCount();
     }
 
     /**
