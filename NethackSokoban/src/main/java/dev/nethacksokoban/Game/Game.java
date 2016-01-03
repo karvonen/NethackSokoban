@@ -4,6 +4,7 @@ import dev.nethacksokoban.UI.GUI;
 import dev.nethacksokoban.Util.FileScanner;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 /**
  * Class has methods for starting and playing the game. There is no game loop,
@@ -50,7 +51,11 @@ public class Game {
      */
     public void loadLevelsAndStartGame() {
         loadLevels();
-        gui.addMenuPanel();
+        try {
+            gui.addMenuPanel();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         victory = false;
     }
 
