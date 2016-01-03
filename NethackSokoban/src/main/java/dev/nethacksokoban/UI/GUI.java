@@ -49,8 +49,14 @@ public class GUI implements Runnable {
      * Creates and adds a menu panel to the bottom of the game window.
      *
      */
-    public void addMenuPanel() {
+    public void addMenuPanel() throws InterruptedException {
         menu = new MenuPanel(game, this);
+        System.out.println(frame + "  debug: onko null??");
+
+        //Bugi!? Frame on välillä null jos tässä ei odoteta hetken aikaa? Ja
+        //taas välillä toimii... En tajua..
+        Thread.sleep(1100);
+        
         frame.getContentPane().add(menu, BorderLayout.SOUTH);
         menu.fillLevelSelector();
     }
@@ -81,8 +87,8 @@ public class GUI implements Runnable {
     }
 
     /**
-     * Method sets the focus back to JFrame so that KeyListener can react to
-     * new key presses.
+     * Method sets the focus back to JFrame so that KeyListener can react to new
+     * key presses.
      *
      */
     public void setFocusBackToFrame() {
