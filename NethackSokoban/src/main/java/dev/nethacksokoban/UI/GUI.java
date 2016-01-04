@@ -17,7 +17,7 @@ public class GUI implements Runnable {
     private Game game;
     private Board board;
     private MenuPanel menu;
-
+    
     public GUI(Game game) {
         this.game = game;
     }
@@ -25,12 +25,12 @@ public class GUI implements Runnable {
     @Override
     public void run() {
         frame = new JFrame("NethackSokoban");
-        frame.setPreferredSize(new Dimension(1000, 600));
+        frame.setPreferredSize(new Dimension(1800, 1000));
+        frame.setSize(new Dimension(1800, 1000));
         frame.setResizable(false);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         createComponents(frame.getContentPane());
         frame.pack();
-        frame.setSize(new Dimension(1000, 600));
         frame.setVisible(true);
     }
 
@@ -51,12 +51,12 @@ public class GUI implements Runnable {
      */
     public void addMenuPanel() throws InterruptedException {
         menu = new MenuPanel(game, this);
-        System.out.println(frame + "  debug: onko null??");
+//        System.out.println(frame + "  debug: onko null??");
 
         //Bugi!? Frame on välillä null jos tässä ei odoteta hetken aikaa? Ja
         //taas välillä toimii... En tajua..
         Thread.sleep(1100);
-        
+
         frame.getContentPane().add(menu, BorderLayout.SOUTH);
         menu.fillLevelSelector();
     }
@@ -94,7 +94,11 @@ public class GUI implements Runnable {
     public void setFocusBackToFrame() {
         frame.requestFocus();
     }
-    
+
+    /**
+     * Updates the number of legal moves used in the menu panel.
+     *
+     */
     public void updateMenuMoveCount() {
         menu.updateMoves();
     }

@@ -68,6 +68,7 @@ public class Game {
     public void startNewMapWithIndex(int index) {
         level = new Level(levels.get(index));
         victory = false;
+        gui.getUpdatable().setup();
         update();
     }
 
