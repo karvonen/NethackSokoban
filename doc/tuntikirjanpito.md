@@ -17,4 +17,7 @@ Päivämäärä | Aika | Kuvaus
 2015-12-30 | 1h | Menun JComboBoxista tason valinta lataa tason suoraan. TextUI ja inputscanner poistettu kokonaan. 
 2015-12-31 | 1h | Bugikorjauksia, poistettu vanhaa lopetuskoodia, voittoruutu-dialogg lisätty.
 2016-01-02 | 3.5h | JavaDocceja ja uusia testejä lisätty.
-Yhteensä | 30h |
+2016-01-03 | 3h | Null frame debuggausta bugiin joka esiintyy erittäin harvoin omalla koneella, mutta kokoajan kaverilla.
+2016-01-04 | 2h | Ensimmäinen versio spriteistä.
+2016-01-04 | 3h | Swing.
+Yhteensä | 33h |
