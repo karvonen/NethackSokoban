@@ -67,7 +67,7 @@ public class Board extends JLayeredPane {
             }
         }
         this.add(mapPanel, 0);
-        this.add(playerPanel, 1);
+//        this.add(playerPanel, 1);
     }
     
     @Override
@@ -101,8 +101,9 @@ public class Board extends JLayeredPane {
             int playerRow = game.getLevel().getPlayer().getRow();
             int playerCol = game.getLevel().getPlayer().getCol();
 //            playerLabels[playerRow][playerCol] = new JLabel("", JLabel.CENTER);
-            playerLabels[playerRow][playerCol].setVisible(true);
-            playerLabels[playerRow][playerCol].setIcon(playerAssets.get("down"));
+//            playerLabels[playerRow][playerCol].setVisible(true);
+//            playerLabels[playerRow][playerCol].setIcon(playerAssets.get("down"));
+            mapLabels[playerRow][playerCol].setIcon(playerAssets.get("down"));
         }
     }
     
