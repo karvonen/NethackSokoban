@@ -47,7 +47,7 @@ public class GameTest {
     public void tearDown() {
     }
 
-//    @Test
+    @Test
     public void startGameWithLevelIndex() {
         Game testGame = new Game();
         GUI gui = new GUI(testGame);
@@ -349,6 +349,31 @@ public class GameTest {
     }
 
     @Test
+    public void executeDiagonal() {
+        Game testGame = new Game();
+        testGame.createCurrentLevel(1);
+
+        testGame.executeGameCommand('3');
+        testGame.executeGameCommand('6');
+        testGame.executeGameCommand('6');
+        testGame.executeGameCommand('4');
+        testGame.executeGameCommand('3');
+        testGame.executeGameCommand('7');
+
+        char[][] expectedMap = new char[][]{
+            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+            {'#', '.', '.', '.', '.', '.', '#', '#', '.', '#'},
+            {'#', '.', '.', '.', '.', '.', '*', '^', '.', '#'},
+            {'#', '.', '.', '.', '.', '.', '#', '#', '<', '#'},
+            {'#', '.', '.', '.', '.', '.', '#', '#', '.', '#'},
+            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
+        assertArrayEquals(expectedMap, testGame.getLevel().getMap());
+
+        Location expectedPlayerLocation = new Location(2, 4);
+        assertEquals(expectedPlayerLocation, testGame.getLevel().getPlayer().getLocation());
+    }
+
+    @Test
     public void fullPlayThrough() {
         game.executeGameCommand('3');
         game.executeGameCommand('1');
@@ -389,7 +414,7 @@ public class GameTest {
     public void fullPlayThrough2() {
         Game testGame = new Game();
         testGame.createCurrentLevel(1);
-        
+
         testGame.executeGameCommand('1');
         testGame.executeGameCommand('3');
         testGame.executeGameCommand('9');
@@ -421,7 +446,7 @@ public class GameTest {
         testGame.executeGameCommand('9');
         testGame.executeGameCommand('2');
         testGame.executeGameCommand('2');
-        
+
         char[][] expectedMap = new char[][]{
             {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
             {'#', '.', '.', '.', '.', '.', '#', '#', '.', '#'},
@@ -430,7 +455,7 @@ public class GameTest {
             {'#', '.', '.', '.', '.', '.', '#', '#', '.', '#'},
             {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
         assertArrayEquals(expectedMap, testGame.getLevel().getMap());
-        
+
         Location expectedPlayerLocation = new Location(3, 8);
         assertEquals(expectedPlayerLocation, testGame.getLevel().getPlayer().getLocation());
     }
