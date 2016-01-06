@@ -1,8 +1,6 @@
 package dev.nethacksokoban.Game;
 
 import dev.nethacksokoban.UI.GUI;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import javax.swing.SwingUtilities;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -13,13 +11,10 @@ import static org.junit.Assert.*;
 
 public class GameTest {
 
-    ByteArrayOutputStream stream;
     Game game;
     Level level;
 
     public GameTest() {
-        stream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(stream));
     }
 
     @BeforeClass

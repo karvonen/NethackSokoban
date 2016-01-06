@@ -20,4 +20,7 @@ Päivämäärä | Aika | Kuvaus
 2016-01-03 | 3h | Null frame debuggausta bugiin joka esiintyy erittäin harvoin omalla koneella, mutta kokoajan kaverilla.
 2016-01-04 | 2h | Ensimmäinen versio spriteistä.
 2016-01-04 | 3h | Swing.
+2016-01-05 | 2h | Yritystä tehdä spritejen päällekkäisyyttä.
+2016-01-06 | 1h | Testejä ja testien debuggausta.
+2016-01-06 | 2h | Spritejen teko/muokkaus ja GUI:n korjausta.
 Yhteensä | 33h |
