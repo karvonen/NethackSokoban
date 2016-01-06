@@ -12,6 +12,12 @@ public class KeyboardListener implements KeyListener {
 
     private Game game;
 
+    /**
+     * Keylistener listens for key presses and executes game commands based on 
+     * them
+     *
+     * @param game Game which is controlled by the key listener.
+     */
     public KeyboardListener(Game game) {
         this.game = game;
     }

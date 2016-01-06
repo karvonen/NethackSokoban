@@ -1,0 +1,38 @@
+title ExecuteGameCommand('6')
+
+game->level: player = getPlayer()
+game->player: location = getLocation()
+game->*newPlayerLocation: new Location(location)
+game->newPlayerLocation: int column = getCol()
+game->newPlayerLocation: setCol(column + 1)
+
+game->game: attemptPlayerMove(newPlayerLocation, 6)
+
+game->game: checkVictory(newPlayerLocation)
+
+game->level: char tile = getTileFromLocation(newPlayerLocation)
+alt if tile == '<'
+    game->game: return true
+else else
+    game->game: return false
+end
+
+game->level: level.getBoxInLocation(newPlayerLocation)
+alt check all the boxes for match
+    loop for Box in boxes
+        level->Box: boxLocation = Box.getLocation()
+        opt if boxLocation = newPlayerLocation
+            level->game: return box
+        end
+    end
+else else
+    level->game: return null
+end
+
+opt if box == null
+    opt if isTileFreeToBeMovedOn(newPlayerLocation)
+        game->level: player = getPlayer()
+        game->player: setPlayerLocation(newPlayerLocation)
+    end
+end
+

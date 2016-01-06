@@ -14,6 +14,11 @@ public class Level {
     private int width;
     private Player player;
 
+    /**
+     * All the information about the current map being played.
+     *
+     * @param map Character array of which the level is created form.
+     */
     public Level(char[][] map) {
         //Array is copied so that it can be edited safely
         this.map = new char[map.length][map[0].length];
@@ -132,10 +137,21 @@ public class Level {
         return null;
     }
 
+    /**
+     * Deletes a box from the level.
+     * 
+     * @param box The box to be deleted.
+     */
     public void deleteBox(Box box) {
         boxes.remove(box);
     }
 
+    /**
+     * Replaces given spot with a free tile. Used when constructing the level.
+     *
+     * @param row Row
+     * @param col Column
+     */
     public void replaceWithOpenSpot(int row, int col) {
         map[row][col] = '.';
     }

@@ -119,40 +119,40 @@ public class Game {
      * @param command char that is interpreted as a direction.
      */
     public void executeGameCommand(char command) {
-        Location newPlayerLoc = new Location(level.getPlayer().getRow(), level.getPlayer().getCol());
+        Location newPlayerLocation = new Location(level.getPlayer().getLocation());
         int direction = 0;
         if (command == '1') {
-            newPlayerLoc.setCol(newPlayerLoc.getCol() - 1);
-            newPlayerLoc.setRow(newPlayerLoc.getRow() + 1);
+            newPlayerLocation.setCol(newPlayerLocation.getCol() - 1);
+            newPlayerLocation.setRow(newPlayerLocation.getRow() + 1);
             direction = 1;
         } else if (command == '2') {
-            newPlayerLoc.setRow(newPlayerLoc.getRow() + 1);
+            newPlayerLocation.setRow(newPlayerLocation.getRow() + 1);
             direction = 2;
         } else if (command == '3') {
-            newPlayerLoc.setRow(newPlayerLoc.getRow() + 1);
-            newPlayerLoc.setCol(newPlayerLoc.getCol() + 1);
+            newPlayerLocation.setRow(newPlayerLocation.getRow() + 1);
+            newPlayerLocation.setCol(newPlayerLocation.getCol() + 1);
             direction = 3;
         } else if (command == '4') {
-            newPlayerLoc.setCol(newPlayerLoc.getCol() - 1);
+            newPlayerLocation.setCol(newPlayerLocation.getCol() - 1);
             direction = 4;
         } else if (command == '6') {
-            newPlayerLoc.setCol(newPlayerLoc.getCol() + 1);
+            newPlayerLocation.setCol(newPlayerLocation.getCol() + 1);
             direction = 6;
         } else if (command == '7') {
-            newPlayerLoc.setRow(newPlayerLoc.getRow() - 1);
-            newPlayerLoc.setCol(newPlayerLoc.getCol() - 1);
+            newPlayerLocation.setRow(newPlayerLocation.getRow() - 1);
+            newPlayerLocation.setCol(newPlayerLocation.getCol() - 1);
             direction = 7;
         } else if (command == '8') {
-            newPlayerLoc.setRow(newPlayerLoc.getRow() - 1);
+            newPlayerLocation.setRow(newPlayerLocation.getRow() - 1);
             direction = 8;
         } else if (command == '9') {
-            newPlayerLoc.setRow(newPlayerLoc.getRow() - 1);
-            newPlayerLoc.setCol(newPlayerLoc.getCol() + 1);
+            newPlayerLocation.setRow(newPlayerLocation.getRow() - 1);
+            newPlayerLocation.setCol(newPlayerLocation.getCol() + 1);
             direction = 9;
         }
 
-        if (newPlayerLoc != level.getPlayer().getLocation()) {
-            attemptPlayerMove(newPlayerLoc, direction);
+        if (newPlayerLocation != level.getPlayer().getLocation()) {
+            attemptPlayerMove(newPlayerLocation, direction);
         }
     }
 
@@ -166,7 +166,7 @@ public class Game {
      * @return Location-object for the new box location.
      */
     public Location createNewBoxLocation(Box box, int direction) {
-        Location newBoxLocation = new Location(box.getRow(), box.getCol());
+        Location newBoxLocation = new Location(box.getLocation());
         if (direction == 2) {
             newBoxLocation.setRow(newBoxLocation.getRow() + 1);
         } else if (direction == 4) {
@@ -216,8 +216,8 @@ public class Game {
      */
     public boolean checkDiagonal(int direction) {
         if (direction == 1 || direction == 3 || direction == 7 || direction == 9) {
-            Location verticalAxis = new Location(level.getPlayer().getRow(), level.getPlayer().getCol());
-            Location horizontalAxis = new Location(level.getPlayer().getRow(), level.getPlayer().getCol());
+            Location verticalAxis = new Location(level.getPlayer().getLocation());
+            Location horizontalAxis = new Location(level.getPlayer().getLocation());
             if (direction == 1) {
                 verticalAxis.setRow(verticalAxis.getRow() + 1);
                 horizontalAxis.setCol(verticalAxis.getCol() - 1);

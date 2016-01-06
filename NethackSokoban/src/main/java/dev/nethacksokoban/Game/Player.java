@@ -2,14 +2,18 @@ package dev.nethacksokoban.Game;
 
 /**
  * Class provides functionality for a Player object. Only one instance of this
- * class exists at one time and it is tied to the Level object. Player object
- * is drawn on top of level.
+ * class exists at one time and it is tied to the Level object. Player object is
+ * drawn on top of level.
  */
 public class Player {
 
     private int moves;
     private Location location;
 
+    /**
+     *
+     * @param location Starting location.
+     */
     public Player(Location location) {
         moves = 0;
         this.location = location;
@@ -40,9 +44,9 @@ public class Player {
     }
 
     /**
-     * Sets the player location to the Location object coordinates given as
-     * the parameter and increases move count.
-     * 
+     * Sets the player location to the Location object coordinates given as the
+     * parameter and increases move count.
+     *
      * @param location Sets player location to parameter.
      */
     public void setPlayerLocation(Location location) {

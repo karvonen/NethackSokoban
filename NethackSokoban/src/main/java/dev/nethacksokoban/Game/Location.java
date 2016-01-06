@@ -10,9 +10,25 @@ public class Location {
     private int row;
     private int col;
 
+    /**
+     * Constructor for creating Location objects from row/colum coordinate.
+     *
+     * @param row Row of the new location.
+     * @param col Column of the new location.
+     */
     public Location(int row, int col) {
         this.row = row;
         this.col = col;
+    }
+
+    /**
+     * Constructor for copying Location objects.
+     *
+     * @param location Will be copied to a new Location object.
+     */
+    public Location(Location location) {
+        this.row = location.getRow();
+        this.col = location.getCol();
     }
 
     /**

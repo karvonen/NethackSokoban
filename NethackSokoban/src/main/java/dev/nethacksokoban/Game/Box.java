@@ -7,6 +7,11 @@ public class Box {
 
     private Location location;
 
+    /**
+     *
+     * @param row Row of the new location.
+     * @param col Column of the new location.
+     */
     public Box(int row, int col) {
         location = new Location(row, col);
     }

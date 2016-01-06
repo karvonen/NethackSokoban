@@ -25,4 +25,5 @@ Päivämäärä | Aika | Kuvaus
 2016-01-06 | 2h | Spritejen teko/muokkaus ja GUI:n korjausta.
 2016-01-06 | 1h | Diagonaalibugikorjaus.
 2016-01-06 | 2h | Testejä listätty.
+2016-01-06 | 2h | Sekvenssikaavioita, koodikatselmointi.
 Yhteensä | 44h |

@@ -18,13 +18,19 @@ public class MenuPanel extends JPanel implements ActionListener {
 
     private Game game;
     private JComboBox<Integer> levels;
-    private GUI gui;
+    private GUI guiToFocusAfterButtonPress;
     private JLabel moves;
 
+    /**
+     * Menu panel for which includes level selector, move counter and exit button.
+     * 
+     * @param game Game which is controlled by the menu.
+     * @param gui GUI element that needs to be given focus after an event.
+     */
     public MenuPanel(Game game, GUI gui) {
         super(new GridLayout(1, 3));
         this.game = game;
-        this.gui = gui;
+        this.guiToFocusAfterButtonPress = gui;
         createComponents();
     }
 
@@ -75,7 +81,7 @@ public class MenuPanel extends JPanel implements ActionListener {
             JComboBox comboBox = (JComboBox) ae.getSource();
             int selectedNumber = comboBox.getSelectedIndex();
             game.startNewMapWithIndex(selectedNumber + 1);
-            gui.setFocusBackToFrame();
+            guiToFocusAfterButtonPress.setFocusBackToFrame();
         }
     }
 }
