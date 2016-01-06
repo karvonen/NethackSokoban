@@ -4,7 +4,6 @@ import dev.nethacksokoban.UI.GUI;
 import dev.nethacksokoban.Util.FileScanner;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Logger;
 
 /**
  * Class has methods for starting and playing the game. There is no game loop,
@@ -49,7 +48,7 @@ public class Game {
      * Sets up the levels and starts the game.
      *
      */
-    public void loadLevelsAndStartGame() {
+    public void startGame() {
         loadLevels();
         try {
             gui.addMenuPanel();
@@ -102,11 +101,16 @@ public class Game {
         }
     }
 
+    /**
+     * Updates the UI and stops + restarts the game if the player has won.
+     *
+     * @see GUI
+     */
     public void update() {
         if (victory) {
             gui.getUpdatable().reDraw();
             gui.victoryDialog();
-            loadLevelsAndStartGame();
+            startGame();
         }
         gui.getUpdatable().reDraw();
         gui.updateMenuMoveCount();

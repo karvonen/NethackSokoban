@@ -54,8 +54,8 @@ public class BoxTest {
     @Test
     public void setCol() {
         Box testBox = new Box(5, 3);
-        Location newLocation = new Location(5, 3);
-        testBox.setCol(3);
+        Location newLocation = new Location(5, 6);
+        testBox.setCol(6);
         assertEquals(newLocation, testBox.getLocation());
     }
 }

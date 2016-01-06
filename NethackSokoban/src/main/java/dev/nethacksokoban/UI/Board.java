@@ -46,7 +46,8 @@ public class Board extends JLayeredPane {
     }
 
     /**
-     * Sets up the board with JLabels
+     * Sets up the board by a new pane with a grid layout that has JLabels on which
+     * the sprites are going to put as icons.
      *
      */
     public void setup() {

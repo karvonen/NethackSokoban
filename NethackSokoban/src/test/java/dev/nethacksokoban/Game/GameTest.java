@@ -55,7 +55,7 @@ public class GameTest {
         GUI gui = new GUI(testGame);
         testGame.setGUI(gui);
         SwingUtilities.invokeLater(gui);
-        testGame.loadLevelsAndStartGame();
+        testGame.startGame();
         testGame.startNewMapWithIndex(4);
         Location expectedPlayerLocation = new Location(2, 12);
         assertEquals(expectedPlayerLocation, testGame.getLevel().getPlayer().getLocation());

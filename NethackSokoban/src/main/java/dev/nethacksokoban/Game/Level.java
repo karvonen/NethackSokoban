@@ -139,7 +139,7 @@ public class Level {
 
     /**
      * Deletes a box from the level.
-     * 
+     *
      * @param box The box to be deleted.
      */
     public void deleteBox(Box box) {
@@ -164,6 +164,11 @@ public class Level {
         return map;
     }
 
+    /**
+     * Replaces given spot with a filled trap tile which can be moved on.
+     *
+     * @param location Location of the tile to to be changed.
+     */
     public void fillTrap(Location location) {
         map[location.getRow()][location.getCol()] = '*';
     }
