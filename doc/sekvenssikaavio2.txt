@@ -1,0 +1,16 @@
+title Attempt to move box
+
+game->game: attemptBoxMove(newBoxLocation, box)
+
+game->level: char tile = getTileFromLocation(newBoxLocation)
+alt if tile == '^'
+    game->level: deleteBox(box)
+    game->level: fillTrap(newBoxLocation)
+    game->game: return true
+else if tile == '*' OR tile == '.'
+    game->box: setLocation(newBoxLocation)
+    game->game: return true
+else else
+    game->game: return false
+end
+
