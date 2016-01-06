@@ -88,9 +88,10 @@ public class Level {
      * @return Boolean for the tile being free to be moved on.
      */
     public boolean isTileFreeToBeMovedOn(Location location) {
-        return getTileFromLocation(location) == '.'
+        return (getTileFromLocation(location) == '.'
                 || getTileFromLocation(location) == '*'
-                || getTileFromLocation(location) == '<';
+                || getTileFromLocation(location) == '<')
+                && getBoxInLocation(location) == null;
     }
 
     public char getTileFromLocation(Location location) {

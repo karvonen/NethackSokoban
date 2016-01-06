@@ -201,7 +201,7 @@ public class GameTest {
         assertEquals(expectedLocation, game.createNewBoxLocation(testBox, 6));
     }
 
-    @Test
+//    @Test
     public void executeGameCommand() {
         game.executeGameCommand('3');
         game.executeGameCommand('1');

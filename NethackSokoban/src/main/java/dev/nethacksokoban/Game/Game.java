@@ -28,8 +28,8 @@ public class Game {
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
 
     /**
-     * The constructor is called without parameters and it sets a test level
-     * as the only existing level at creation.
+     * The constructor is called without parameters and it sets a test level as
+     * the only existing level at creation.
      *
      */
     public Game() {
@@ -124,12 +124,14 @@ public class Game {
         if (command == '1') {
             newPlayerLoc.setCol(newPlayerLoc.getCol() - 1);
             newPlayerLoc.setRow(newPlayerLoc.getRow() + 1);
+            direction = 1;
         } else if (command == '2') {
             newPlayerLoc.setRow(newPlayerLoc.getRow() + 1);
             direction = 2;
         } else if (command == '3') {
             newPlayerLoc.setRow(newPlayerLoc.getRow() + 1);
             newPlayerLoc.setCol(newPlayerLoc.getCol() + 1);
+            direction = 3;
         } else if (command == '4') {
             newPlayerLoc.setCol(newPlayerLoc.getCol() - 1);
             direction = 4;
@@ -139,12 +141,14 @@ public class Game {
         } else if (command == '7') {
             newPlayerLoc.setRow(newPlayerLoc.getRow() - 1);
             newPlayerLoc.setCol(newPlayerLoc.getCol() - 1);
+            direction = 7;
         } else if (command == '8') {
             newPlayerLoc.setRow(newPlayerLoc.getRow() - 1);
             direction = 8;
         } else if (command == '9') {
             newPlayerLoc.setRow(newPlayerLoc.getRow() - 1);
             newPlayerLoc.setCol(newPlayerLoc.getCol() + 1);
+            direction = 9;
         }
 
         if (newPlayerLoc != level.getPlayer().getLocation()) {
@@ -182,22 +186,54 @@ public class Game {
      * attemptToMoveBox is called.
      *
      * @param newPlayerLocation New coordinates of the player.
-     * @param direction Integer value of 4 cardinal movement directions.
+     * @param direction Integer value of movement direction.
      *
      */
     public void attemptPlayerMove(Location newPlayerLocation, int direction) {
         checkVictory(newPlayerLocation);
         Box boxAtNewLocation = level.getBoxInLocation(newPlayerLocation);
-        if (boxAtNewLocation != null) {
-            if (direction != 0) {
-                Location newBoxLocation = createNewBoxLocation(boxAtNewLocation, direction);
-                if (attemptBoxMove(newBoxLocation, boxAtNewLocation)) {
-                    level.getPlayer().setPlayerLocation(newPlayerLocation);
+        if (checkDiagonal(direction)) {
+            if (boxAtNewLocation != null) {
+                if (direction != 0) {
+                    Location newBoxLocation = createNewBoxLocation(boxAtNewLocation, direction);
+                    if (attemptBoxMove(newBoxLocation, boxAtNewLocation)) {
+                        level.getPlayer().setPlayerLocation(newPlayerLocation);
+                    }
                 }
+            } else if (level.isTileFreeToBeMovedOn(newPlayerLocation)) {
+                level.getPlayer().setPlayerLocation(newPlayerLocation);
             }
-        } else if (level.isTileFreeToBeMovedOn(newPlayerLocation)) {
-            level.getPlayer().setPlayerLocation(newPlayerLocation);
         }
+    }
+
+    /**
+     * Method checks if movement is diagonal and if so, is it possible to move
+     * diagonally.
+     *
+     * @param direction Integer value of movement direction.
+     *
+     * @return boolean whether move is allowed.
+     */
+    private boolean checkDiagonal(int direction) {
+        if (direction == 1 || direction == 3 || direction == 7 || direction == 9) {
+            Location verticalAxis = new Location(level.getPlayer().getRow(), level.getPlayer().getCol());
+            Location horizontalAxis = new Location(level.getPlayer().getRow(), level.getPlayer().getCol());
+            if (direction == 1) {
+                verticalAxis.setRow(verticalAxis.getRow() + 1);
+                horizontalAxis.setCol(verticalAxis.getCol() - 1);
+            } else if (direction == 3) {
+                verticalAxis.setRow(verticalAxis.getRow() + 1);
+                horizontalAxis.setCol(verticalAxis.getCol() + 1);
+            } else if (direction == 7) {
+                verticalAxis.setRow(verticalAxis.getRow() - 1);
+                horizontalAxis.setCol(verticalAxis.getCol() - 1);
+            } else if (direction == 9) {
+                verticalAxis.setRow(verticalAxis.getRow() - 1);
+                horizontalAxis.setCol(verticalAxis.getCol() + 1);
+            }
+            return (level.isTileFreeToBeMovedOn(horizontalAxis) || level.isTileFreeToBeMovedOn(verticalAxis));
+        }
+        return true;
     }
 
     /**
