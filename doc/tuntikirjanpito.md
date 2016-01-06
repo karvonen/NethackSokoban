@@ -23,4 +23,6 @@ Päivämäärä | Aika | Kuvaus
 2016-01-05 | 2h | Yritystä tehdä spritejen päällekkäisyyttä.
 2016-01-06 | 1h | Testejä ja testien debuggausta.
 2016-01-06 | 2h | Spritejen teko/muokkaus ja GUI:n korjausta.
-Yhteensä | 43h |
+2016-01-06 | 1h | Diagonaalibugikorjaus.
+2016-01-06 | 1.5h | Testejä listätty.
+Yhteensä | 43.5h |

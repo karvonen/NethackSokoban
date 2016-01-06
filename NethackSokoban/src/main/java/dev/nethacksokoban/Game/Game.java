@@ -214,7 +214,7 @@ public class Game {
      *
      * @return boolean whether move is allowed.
      */
-    private boolean checkDiagonal(int direction) {
+    public boolean checkDiagonal(int direction) {
         if (direction == 1 || direction == 3 || direction == 7 || direction == 9) {
             Location verticalAxis = new Location(level.getPlayer().getRow(), level.getPlayer().getCol());
             Location horizontalAxis = new Location(level.getPlayer().getRow(), level.getPlayer().getCol());
@@ -284,5 +284,15 @@ public class Game {
      */
     public Level getLevel() {
         return level;
+    }
+
+    /**
+     * Method to help with testing.
+     * 
+     * @param level Set active level.
+     *
+     */
+    public void setLevel(Level level) {
+        this.level = level;
     }
 }

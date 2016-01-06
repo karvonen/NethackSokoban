@@ -43,14 +43,14 @@ public class LocationTest {
         Location locationTest2 = new Location(2, 2);
         assertEquals(false, locationTest2.equals(locationTest1));
     }
-    
+
     @Test
     public void differentColComparison() {
         Location locationTest1 = new Location(2, 3);
         Location locationTest2 = new Location(2, 2);
         assertEquals(false, locationTest2.equals(locationTest1));
     }
-    
+
     @Test
     public void differentComparison() {
         Location locationTest1 = new Location(1, 2);
@@ -62,7 +62,20 @@ public class LocationTest {
     public void locationsComparison() {
         Location locationTest1 = new Location(2, 2);
         Location locationTest2 = new Location(2, 2);
-        assertTrue(locationTest2.equals(locationTest1));
+        assertEquals(true, locationTest2.equals(locationTest1));
+    }
 
+    @Test
+    public void locationsComparisonWithNull() {
+        Location locationTest1 = null;
+        Location locationTest2 = new Location(2, 2);
+        assertEquals(false, locationTest2.equals(locationTest1));
+    }
+
+    @Test
+    public void locationsComparisonWhenOneIsNotLocation() {
+        int locationTest1 = 1;
+        Location locationTest2 = new Location(2, 2);
+        assertEquals(false, locationTest2.equals(locationTest1));
     }
 }

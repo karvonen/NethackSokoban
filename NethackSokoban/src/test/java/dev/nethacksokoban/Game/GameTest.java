@@ -13,6 +13,7 @@ public class GameTest {
 
     Game game;
     Level level;
+    Game executeGameCommandTestGame;
 
     public GameTest() {
     }
@@ -30,13 +31,23 @@ public class GameTest {
         game = new Game();
         game.createCurrentLevel(1);
         level = game.getLevel();
+
+        char[][] executeCommandMovementTestMap = new char[][]{
+            {'#', '#', '#', '#', '#'},
+            {'#', '.', '.', '.', '#'},
+            {'#', '.', '@', '.', '#'},
+            {'#', '.', '.', '.', '#'},
+            {'#', '#', '#', '#', '#'}};
+        executeGameCommandTestGame = new Game();
+        executeGameCommandTestGame.setLevel(new Level(executeCommandMovementTestMap));
+
     }
 
     @After
     public void tearDown() {
     }
 
-    @Test
+//    @Test
     public void startGameWithLevelIndex() {
         Game testGame = new Game();
         GUI gui = new GUI(testGame);
@@ -54,6 +65,28 @@ public class GameTest {
         Game testGame = new Game();
         testGame.loadLevels();
         assertEquals(8, testGame.getLevels().size());
+    }
+
+    @Test
+    public void levelLoadedCorrectly() {
+        Game testGame = new Game();
+        testGame.loadLevels();
+        char[][] expectedMap = new char[][]{
+            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+            {'#', '.', '.', '.', '.', '#', '#', '#', '#', '.', '.', '.', '#', '#'},
+            {'#', '.', '0', '.', '.', '#', '#', '#', '#', '.', '0', '.', '#', '#'},
+            {'#', '.', '0', '.', '.', '.', '.', '.', '.', '0', '.', '.', '#', '#'},
+            {'#', '.', '.', '#', '#', '#', '@', '#', '#', '#', '0', '.', '#', '#'},
+            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '.', '#', '#', '#'},
+            {'#', '.', '.', '^', '^', '^', '<', '#', '.', '.', '.', '.', '.', '#'},
+            {'#', '.', '.', '#', '#', '#', '#', '#', '0', '.', '.', '.', '.', '#'},
+            {'#', '#', '^', '#', '#', '#', '#', '#', '.', '0', '.', '.', '.', '#'},
+            {'#', '#', '^', '#', '#', '#', '#', '#', '.', '0', '.', '.', '.', '#'},
+            {'#', '#', '.', '.', '^', '^', '^', '^', '0', '.', '0', '.', '.', '#'},
+            {'#', '#', '.', '.', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
+
+        assertArrayEquals(expectedMap, testGame.getLevels().get(2));
     }
 
     @Test
@@ -100,7 +133,7 @@ public class GameTest {
 
     @Test
     public void checkVictoryOnFilledTrapTile() {
-        game.getLevel().fillTrap(new Location (2,7));
+        game.getLevel().fillTrap(new Location(2, 7));
         game.getLevel().getPlayer().setPlayerLocation(new Location(2, 7));
         assertEquals(false, game.checkVictory(game.getLevel().getPlayer().getLocation()));
     }
@@ -201,8 +234,122 @@ public class GameTest {
         assertEquals(expectedLocation, game.createNewBoxLocation(testBox, 6));
     }
 
-//    @Test
-    public void executeGameCommand() {
+    @Test
+    public void executeGameCommand1() {
+        executeGameCommandTestGame.executeGameCommand('1');
+        Location expectedPlayerLocation = new Location(3, 1);
+        assertEquals(expectedPlayerLocation, executeGameCommandTestGame.getLevel().getPlayer().getLocation());
+    }
+
+    @Test
+    public void executeGameCommand2() {
+        executeGameCommandTestGame.executeGameCommand('2');
+        Location expectedPlayerLocation = new Location(3, 2);
+        assertEquals(expectedPlayerLocation, executeGameCommandTestGame.getLevel().getPlayer().getLocation());
+    }
+
+    @Test
+    public void executeGameCommand3() {
+        executeGameCommandTestGame.executeGameCommand('3');
+        Location expectedPlayerLocation = new Location(3, 3);
+        assertEquals(expectedPlayerLocation, executeGameCommandTestGame.getLevel().getPlayer().getLocation());
+    }
+
+    @Test
+    public void executeGameCommand4() {
+        executeGameCommandTestGame.executeGameCommand('4');
+        Location expectedPlayerLocation = new Location(2, 1);
+        assertEquals(expectedPlayerLocation, executeGameCommandTestGame.getLevel().getPlayer().getLocation());
+    }
+
+    @Test
+    public void executeGameCommand6() {
+        executeGameCommandTestGame.executeGameCommand('6');
+        Location expectedPlayerLocation = new Location(2, 3);
+        assertEquals(expectedPlayerLocation, executeGameCommandTestGame.getLevel().getPlayer().getLocation());
+    }
+
+    @Test
+    public void executeGameCommand7() {
+        executeGameCommandTestGame.executeGameCommand('7');
+        Location expectedPlayerLocation = new Location(1, 1);
+        assertEquals(expectedPlayerLocation, executeGameCommandTestGame.getLevel().getPlayer().getLocation());
+    }
+
+    @Test
+    public void executeGameCommand8() {
+        executeGameCommandTestGame.executeGameCommand('8');
+        Location expectedPlayerLocation = new Location(1, 2);
+        assertEquals(expectedPlayerLocation, executeGameCommandTestGame.getLevel().getPlayer().getLocation());
+    }
+
+    @Test
+    public void executeGameCommand9() {
+        executeGameCommandTestGame.executeGameCommand('9');
+        Location expectedPlayerLocation = new Location(1, 3);
+        assertEquals(expectedPlayerLocation, executeGameCommandTestGame.getLevel().getPlayer().getLocation());
+    }
+
+    @Test
+    public void cantMoveDiagonallyBetweenTwoWalls() {
+        char[][] diagonalTestMap = new char[][]{
+            {'#', '#', '#', '#', '#'},
+            {'#', '.', '#', '.', '#'},
+            {'#', '#', '@', '#', '#'},
+            {'#', '.', '#', '.', '#'},
+            {'#', '#', '#', '#', '#'}};
+        Game diagonal = new Game();
+        diagonal.setLevel(new Level(diagonalTestMap));
+        assertEquals(false, diagonal.checkDiagonal(1));
+        assertEquals(false, diagonal.checkDiagonal(7));
+        assertEquals(false, diagonal.checkDiagonal(9));
+        assertEquals(false, diagonal.checkDiagonal(3));
+    }
+
+    @Test
+    public void cantMoveDiagonallyBetweenTwoBoxes() {
+        char[][] diagonalTestMap = new char[][]{
+            {'#', '#', '#', '#', '#'},
+            {'#', '.', '0', '.', '#'},
+            {'#', '#', '@', '0', '#'},
+            {'#', '.', '#', '.', '#'},
+            {'#', '#', '#', '#', '#'}};
+        Game diagonal = new Game();
+        diagonal.setLevel(new Level(diagonalTestMap));
+        assertEquals(false, diagonal.checkDiagonal(9));
+    }
+
+    @Test
+    public void cantMoveDiagonallyBetweenBoxAndWall() {
+        char[][] diagonalTestMap = new char[][]{
+            {'#', '#', '#', '#', '#'},
+            {'#', '#', '0', '#', '#'},
+            {'#', '#', '@', '0', '#'},
+            {'#', '#', '#', '.', '#'},
+            {'#', '#', '#', '#', '#'}};
+        Game diagonal = new Game();
+        diagonal.setLevel(new Level(diagonalTestMap));
+        assertEquals(false, diagonal.checkDiagonal(3));
+    }
+
+    @Test
+    public void canMoveDiagonally() {
+        char[][] diagonalTestMap = new char[][]{
+            {'#', '#', '#', '#', '#'},
+            {'#', '.', '.', '.', '#'},
+            {'#', '.', '@', '.', '#'},
+            {'#', '.', '.', '.', '#'},
+            {'#', '#', '#', '#', '#'}};
+        Game diagonal = new Game();
+        diagonal.setLevel(new Level(diagonalTestMap));
+        assertEquals(true, diagonal.checkDiagonal(1));
+        assertEquals(true, diagonal.checkDiagonal(7));
+        assertEquals(true, diagonal.checkDiagonal(9));
+        assertEquals(true, diagonal.checkDiagonal(3));
+    }
+
+    @Test
+    public void fullPlayThrough() {
         game.executeGameCommand('3');
         game.executeGameCommand('1');
         game.executeGameCommand('6');
@@ -213,11 +360,15 @@ public class GameTest {
         game.executeGameCommand('4');
         game.executeGameCommand('4');
         game.executeGameCommand('7');
+        game.executeGameCommand('9');
+        game.executeGameCommand('7');
+        game.executeGameCommand('1');
         game.executeGameCommand('6');
         game.executeGameCommand('6');
         game.executeGameCommand('2');
         game.executeGameCommand('4');
         game.executeGameCommand('9');
+        game.executeGameCommand('6');
         game.executeGameCommand('6');
         game.executeGameCommand('6');
         game.executeGameCommand('6');
@@ -230,5 +381,57 @@ public class GameTest {
             {'#', '.', '.', '.', '.', '.', '#', '#', '.', '#'},
             {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
         assertArrayEquals(expectedMap, game.getLevel().getMap());
+        Location expectedPlayerLocation = new Location(3, 8);
+        assertEquals(expectedPlayerLocation, game.getLevel().getPlayer().getLocation());
+    }
+
+    @Test
+    public void fullPlayThrough2() {
+        Game testGame = new Game();
+        testGame.createCurrentLevel(1);
+        
+        testGame.executeGameCommand('1');
+        testGame.executeGameCommand('3');
+        testGame.executeGameCommand('9');
+        testGame.executeGameCommand('3');
+        testGame.executeGameCommand('1');
+        testGame.executeGameCommand('7');
+        testGame.executeGameCommand('2');
+        testGame.executeGameCommand('1');
+        testGame.executeGameCommand('3');
+        testGame.executeGameCommand('9');
+        testGame.executeGameCommand('8');
+        testGame.executeGameCommand('6');
+        testGame.executeGameCommand('6');
+        testGame.executeGameCommand('8');
+        testGame.executeGameCommand('9');
+        testGame.executeGameCommand('9');
+        testGame.executeGameCommand('3');
+        testGame.executeGameCommand('4');
+        testGame.executeGameCommand('4');
+        testGame.executeGameCommand('4');
+        testGame.executeGameCommand('7');
+        testGame.executeGameCommand('1');
+        testGame.executeGameCommand('6');
+        testGame.executeGameCommand('6');
+        testGame.executeGameCommand('6');
+        testGame.executeGameCommand('6');
+        testGame.executeGameCommand('6');
+        testGame.executeGameCommand('6');
+        testGame.executeGameCommand('9');
+        testGame.executeGameCommand('2');
+        testGame.executeGameCommand('2');
+        
+        char[][] expectedMap = new char[][]{
+            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+            {'#', '.', '.', '.', '.', '.', '#', '#', '.', '#'},
+            {'#', '.', '.', '.', '.', '.', '*', '*', '.', '#'},
+            {'#', '.', '.', '.', '.', '.', '#', '#', '<', '#'},
+            {'#', '.', '.', '.', '.', '.', '#', '#', '.', '#'},
+            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
+        assertArrayEquals(expectedMap, testGame.getLevel().getMap());
+        
+        Location expectedPlayerLocation = new Location(3, 8);
+        assertEquals(expectedPlayerLocation, testGame.getLevel().getPlayer().getLocation());
     }
 }
