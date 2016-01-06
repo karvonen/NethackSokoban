@@ -87,7 +87,9 @@ public class Board extends JLayeredPane {
             }
             int playerRow = game.getLevel().getPlayer().getRow();
             int playerCol = game.getLevel().getPlayer().getCol();
-            mapLabels[playerRow][playerCol].setIcon(playerAssets.get(game.getLevel().getTileFromLocation(new Location(playerRow, playerCol))));
+            if (mapLabels[playerRow][playerCol] != null) {
+                mapLabels[playerRow][playerCol].setIcon(playerAssets.get(game.getLevel().getTileFromLocation(new Location(playerRow, playerCol))));
+            }
         }
     }
 

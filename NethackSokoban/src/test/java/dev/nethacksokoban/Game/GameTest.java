@@ -47,7 +47,9 @@ public class GameTest {
     public void tearDown() {
     }
 
-    @Test
+    //This test works fine but makes running PIT-report totally crazy and causes it
+    //to run a few minutes instead of couple of seconds.
+//    @Test
     public void startGameWithLevelIndex() {
         Game testGame = new Game();
         GUI gui = new GUI(testGame);
@@ -291,19 +293,55 @@ public class GameTest {
     }
 
     @Test
-    public void cantMoveDiagonallyBetweenTwoWalls() {
+    public void cantMoveDiagonallyBetweenTwoWallsDirection1() {
         char[][] diagonalTestMap = new char[][]{
             {'#', '#', '#', '#', '#'},
-            {'#', '.', '#', '.', '#'},
-            {'#', '#', '@', '#', '#'},
+            {'#', '.', '.', '.', '#'},
+            {'#', '#', '@', '.', '#'},
             {'#', '.', '#', '.', '#'},
             {'#', '#', '#', '#', '#'}};
         Game diagonal = new Game();
         diagonal.setLevel(new Level(diagonalTestMap));
         assertEquals(false, diagonal.checkDiagonal(1));
-        assertEquals(false, diagonal.checkDiagonal(7));
-        assertEquals(false, diagonal.checkDiagonal(9));
+    }
+
+    @Test
+    public void cantMoveDiagonallyBetweenTwoWallsDirection3() {
+        char[][] diagonalTestMap = new char[][]{
+            {'#', '#', '#', '#', '#'},
+            {'#', '.', '.', '.', '#'},
+            {'#', '.', '@', '#', '#'},
+            {'#', '.', '#', '.', '#'},
+            {'#', '#', '#', '#', '#'}};
+        Game diagonal = new Game();
+        diagonal.setLevel(new Level(diagonalTestMap));
         assertEquals(false, diagonal.checkDiagonal(3));
+    }
+
+    @Test
+    public void cantMoveDiagonallyBetweenTwoWallsDirection7() {
+        char[][] diagonalTestMap = new char[][]{
+            {'#', '#', '#', '#', '#'},
+            {'#', '.', '#', '.', '#'},
+            {'#', '#', '@', '.', '#'},
+            {'#', '.', '.', '.', '#'},
+            {'#', '#', '#', '#', '#'}};
+        Game diagonal = new Game();
+        diagonal.setLevel(new Level(diagonalTestMap));
+        assertEquals(false, diagonal.checkDiagonal(7));
+    }
+
+    @Test
+    public void cantMoveDiagonallyBetweenTwoWallsDirection9() {
+        char[][] diagonalTestMap = new char[][]{
+            {'#', '#', '#', '#', '#'},
+            {'#', '.', '#', '.', '#'},
+            {'#', '.', '@', '#', '#'},
+            {'#', '.', '.', '.', '#'},
+            {'#', '#', '#', '#', '#'}};
+        Game diagonal = new Game();
+        diagonal.setLevel(new Level(diagonalTestMap));
+        assertEquals(false, diagonal.checkDiagonal(9));
     }
 
     @Test

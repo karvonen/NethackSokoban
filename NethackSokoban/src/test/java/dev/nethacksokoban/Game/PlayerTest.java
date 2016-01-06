@@ -49,4 +49,14 @@ public class PlayerTest {
         assertEquals(move2, player.getLocation());
         assertEquals(2, player.getMoves());
     }
+
+    @Test
+    public void getCol() {
+        assertEquals(3, player.getCol());
+    }
+
+    @Test
+    public void getRow() {
+        assertEquals(2, player.getRow());
+    }
 }

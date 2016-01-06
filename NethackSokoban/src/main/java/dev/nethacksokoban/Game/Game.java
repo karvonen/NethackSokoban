@@ -54,7 +54,7 @@ public class Game {
         try {
             gui.addMenuPanel();
         } catch (InterruptedException ex) {
-            Logger.getLogger(Game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            System.exit(1);
         }
         victory = false;
     }
@@ -207,8 +207,8 @@ public class Game {
     }
 
     /**
-     * Method checks if movement is diagonal and if so, is it possible to move
-     * diagonally.
+     * Method checks if diagonal movement is possible. Also returns true if
+     * movement is not diagonal.
      *
      * @param direction Integer value of movement direction.
      *
@@ -288,7 +288,7 @@ public class Game {
 
     /**
      * Method to help with testing.
-     * 
+     *
      * @param level Set active level.
      *
      */
