@@ -14,7 +14,7 @@ Tehty peli seuraa Nethackin sääntöjä niissä määrin kuin on tarve. Vinotta
 * Uudet pelin aloitus
   * Pelaaja voi valita haluamansa tason menu-valikosta
 * Pelihahmon siirtäminen
-* Llaatikoiden työntäminen siirtämällä pelihahmoa niitä päin
+* Laatikoiden työntäminen siirtämällä pelihahmoa niitä päin
 * Kuoppien täyttäminen työntämällä laatikoita niiden päälle
 * Voittaminen pääsemällä maaliin
 * Ennenaikainen pelin lopetus
