@@ -39,7 +39,7 @@ public class GUI implements Runnable {
         container.setLayout(new BorderLayout());
         container.add(board);
 
-        KeyboardListener keyboardListener = new KeyboardListener(game);
+        KeyboardListener keyboardListener = new KeyboardListener(this);
         frame.setFocusable(true);
 
         frame.addKeyListener(keyboardListener);
@@ -103,7 +103,17 @@ public class GUI implements Runnable {
         menu.updateMoves(game.getLevel().getPlayer().getMoves());
     }
 
+    /**
+     * Method calls game to start a new game with selected Level.
+     *
+     * @param selectedNumber Selected number from the JComboBox in MenuPanel.
+     */
     public void startNewMapWithIndex(int selectedNumber) {
         game.startNewMapWithIndex(selectedNumber + 1);
+    }
+
+    public void executeGameCommand(char command) {
+        game.executeGameCommand(command);
+        game.update();
     }
 }
