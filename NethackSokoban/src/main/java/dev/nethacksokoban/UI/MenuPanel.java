@@ -16,21 +16,20 @@ import javax.swing.SwingConstants;
  */
 public class MenuPanel extends JPanel implements ActionListener {
 
-    private Game game;
     private JComboBox<Integer> levels;
-    private GUI guiToFocusAfterButtonPress;
+    private GUI gui;
     private JLabel moves;
 
     /**
-     * Menu panel for which includes level selector, move counter and exit button.
-     * 
+     * Menu panel for which includes level selector, move counter and exit
+     * button.
+     *
      * @param game Game which is controlled by the menu.
      * @param gui GUI element that needs to be given focus after an event.
      */
     public MenuPanel(Game game, GUI gui) {
         super(new GridLayout(1, 3));
-        this.game = game;
-        this.guiToFocusAfterButtonPress = gui;
+        this.gui = gui;
         createComponents();
     }
 
@@ -54,9 +53,10 @@ public class MenuPanel extends JPanel implements ActionListener {
     /**
      * Adds all the levels to the JComboBox level selector, starting from 1.
      *
+     * @param levelCount Number of maps the game has loaded.
      */
-    public void fillLevelSelector() {
-        for (int i = 1; i <= game.getLevels().size(); i++) {
+    public void fillLevelSelector(int levelCount) {
+        for (int i = 1; i <= levelCount; i++) {
             levels.addItem(i);
         }
     }
@@ -64,9 +64,10 @@ public class MenuPanel extends JPanel implements ActionListener {
     /**
      * Updates the number of legal moves used.
      *
+     * @param moveCount Number of moves to be displayed.
      */
-    public void updateMoves() {
-        moves.setText("Moves: " + game.getLevel().getPlayer().getMoves());
+    public void updateMoves(int moveCount) {
+        moves.setText("Moves: " + moveCount);
     }
 
     public JComboBox<Integer> getJComboBox() {
@@ -80,8 +81,8 @@ public class MenuPanel extends JPanel implements ActionListener {
         } else if (ae.getActionCommand().equals("comboBoxChanged")) {
             JComboBox comboBox = (JComboBox) ae.getSource();
             int selectedNumber = comboBox.getSelectedIndex();
-            game.startNewMapWithIndex(selectedNumber + 1);
-            guiToFocusAfterButtonPress.setFocusBackToFrame();
+            gui.startNewMapWithIndex(selectedNumber + 1);
+            gui.setFocusBackToFrame();
         }
     }
 }

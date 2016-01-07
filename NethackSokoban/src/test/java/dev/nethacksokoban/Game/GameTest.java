@@ -283,7 +283,7 @@ public class GameTest {
             {'#', '#', '#', '#', '#'}};
         Game diagonal = new Game();
         diagonal.setLevel(new Level(diagonalTestMap));
-        assertEquals(false, diagonal.checkDiagonal(1));
+        assertEquals(false, diagonal.checkForDiagonalMovement(1));
     }
 
     @Test
@@ -296,7 +296,7 @@ public class GameTest {
             {'#', '#', '#', '#', '#'}};
         Game diagonal = new Game();
         diagonal.setLevel(new Level(diagonalTestMap));
-        assertEquals(false, diagonal.checkDiagonal(3));
+        assertEquals(false, diagonal.checkForDiagonalMovement(3));
     }
 
     @Test
@@ -309,7 +309,7 @@ public class GameTest {
             {'#', '#', '#', '#', '#'}};
         Game diagonal = new Game();
         diagonal.setLevel(new Level(diagonalTestMap));
-        assertEquals(false, diagonal.checkDiagonal(7));
+        assertEquals(false, diagonal.checkForDiagonalMovement(7));
     }
 
     @Test
@@ -322,7 +322,7 @@ public class GameTest {
             {'#', '#', '#', '#', '#'}};
         Game diagonal = new Game();
         diagonal.setLevel(new Level(diagonalTestMap));
-        assertEquals(false, diagonal.checkDiagonal(9));
+        assertEquals(false, diagonal.checkForDiagonalMovement(9));
     }
 
     @Test
@@ -335,7 +335,7 @@ public class GameTest {
             {'#', '#', '#', '#', '#'}};
         Game diagonal = new Game();
         diagonal.setLevel(new Level(diagonalTestMap));
-        assertEquals(false, diagonal.checkDiagonal(9));
+        assertEquals(false, diagonal.checkForDiagonalMovement(9));
     }
 
     @Test
@@ -348,7 +348,7 @@ public class GameTest {
             {'#', '#', '#', '#', '#'}};
         Game diagonal = new Game();
         diagonal.setLevel(new Level(diagonalTestMap));
-        assertEquals(false, diagonal.checkDiagonal(3));
+        assertEquals(false, diagonal.checkForDiagonalMovement(3));
     }
 
     @Test
@@ -361,10 +361,10 @@ public class GameTest {
             {'#', '#', '#', '#', '#'}};
         Game diagonal = new Game();
         diagonal.setLevel(new Level(diagonalTestMap));
-        assertEquals(true, diagonal.checkDiagonal(1));
-        assertEquals(true, diagonal.checkDiagonal(7));
-        assertEquals(true, diagonal.checkDiagonal(9));
-        assertEquals(true, diagonal.checkDiagonal(3));
+        assertEquals(true, diagonal.checkForDiagonalMovement(1));
+        assertEquals(true, diagonal.checkForDiagonalMovement(7));
+        assertEquals(true, diagonal.checkForDiagonalMovement(9));
+        assertEquals(true, diagonal.checkForDiagonalMovement(3));
     }
 
     @Test

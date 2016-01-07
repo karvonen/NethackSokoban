@@ -17,7 +17,7 @@ public class GUI implements Runnable {
     private Game game;
     private Board board;
     private MenuPanel menu;
-    
+
     public GUI(Game game) {
         this.game = game;
     }
@@ -58,7 +58,7 @@ public class GUI implements Runnable {
         Thread.sleep(1100);
 
         frame.getContentPane().add(menu, BorderLayout.SOUTH);
-        menu.fillLevelSelector();
+        menu.fillLevelSelector(game.getLevels().size());
     }
 
     /**
@@ -100,6 +100,10 @@ public class GUI implements Runnable {
      *
      */
     public void updateMenuMoveCount() {
-        menu.updateMoves();
+        menu.updateMoves(game.getLevel().getPlayer().getMoves());
+    }
+
+    public void startNewMapWithIndex(int selectedNumber) {
+        game.startNewMapWithIndex(selectedNumber + 1);
     }
 }

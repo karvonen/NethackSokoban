@@ -196,7 +196,7 @@ public class Game {
     public void attemptPlayerMove(Location newPlayerLocation, int direction) {
         victory = level.checkVictory(newPlayerLocation);
         Box boxAtNewLocation = level.getBoxInLocation(newPlayerLocation);
-        if (checkDiagonal(direction)) {
+        if (checkForDiagonalMovement(direction)) {
             if (boxAtNewLocation != null) {
                 if (direction != 0) {
                     Location newBoxLocation = createNewBoxLocation(boxAtNewLocation, direction);
@@ -218,7 +218,7 @@ public class Game {
      *
      * @return boolean whether move is allowed.
      */
-    public boolean checkDiagonal(int direction) {
+    public boolean checkForDiagonalMovement(int direction) {
         if (direction == 1 || direction == 3 || direction == 7 || direction == 9) {
             Location verticalAxis = new Location(level.getPlayer().getLocation());
             Location horizontalAxis = new Location(level.getPlayer().getLocation());
