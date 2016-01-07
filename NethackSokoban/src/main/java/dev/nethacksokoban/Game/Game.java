@@ -194,7 +194,7 @@ public class Game {
      *
      */
     public void attemptPlayerMove(Location newPlayerLocation, int direction) {
-        checkVictory(newPlayerLocation);
+        victory = level.checkVictory(newPlayerLocation);
         Box boxAtNewLocation = level.getBoxInLocation(newPlayerLocation);
         if (checkDiagonal(direction)) {
             if (boxAtNewLocation != null) {
@@ -262,22 +262,6 @@ public class Game {
                 push.setLocation(newBoxLocation);
                 return true;
             }
-        }
-        return false;
-    }
-
-    /**
-     * Method checks if a Location has a victory tile and then sets victory to
-     * true.
-     *
-     * @param location Location object for the location where the check is done.
-     *
-     * @return boolean for victory condition.
-     */
-    public boolean checkVictory(Location location) {
-        if (level.getTileFromLocation(location) == '<') {
-            victory = true;
-            return true;
         }
         return false;
     }

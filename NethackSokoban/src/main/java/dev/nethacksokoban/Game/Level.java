@@ -173,4 +173,16 @@ public class Level {
         map[location.getRow()][location.getCol()] = '*';
     }
 
+    /**
+     * Method checks if a Location has a victory tile and then sets victory to
+     * true.
+     *
+     * @param location Location object for the location where the check is done.
+     *
+     * @return boolean for victory condition.
+     */
+    public boolean checkVictory(Location location) {
+        return (getTileFromLocation(location) == '<');
+    }
+
 }

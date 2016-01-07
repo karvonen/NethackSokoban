@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 public class LevelTest {
 
     private Level level;
+    private Game game;
 
     private char[][] testLevel1 = new char[][]{
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
@@ -33,6 +34,10 @@ public class LevelTest {
     @Before
     public void setUp() {
         level = new Level(testLevel1);
+
+        game = new Game();
+        game.createCurrentLevel(1);
+
     }
 
     @After
@@ -66,12 +71,12 @@ public class LevelTest {
     public void victoryTileCanBeMovedOn() {
         assertEquals(true, level.isTileFreeToBeMovedOn(new Location(3, 8)));
     }
-    
+
     @Test
     public void wallsBlockMovement() {
         assertEquals(false, level.isTileFreeToBeMovedOn(new Location(0, 1)));
     }
-    
+
     @Test
     public void replaceWithOpenSpot() {
         level.replaceWithOpenSpot(1, 6);
@@ -95,5 +100,27 @@ public class LevelTest {
     @Test
     public void getBoxInLocationReturnsNullIfNoBox() {
         assertEquals(null, level.getBoxInLocation(new Location(3, 1)));
+    }
+
+    @Test
+    public void checkVictoryOnVictoryTile() {
+        level = game.getLevel();
+        game.getLevel().getPlayer().setPlayerLocation(new Location(3, 8));
+        assertEquals(true, level.checkVictory(game.getLevel().getPlayer().getLocation()));
+    }
+
+    @Test
+    public void checkVictoryOnNormalTile() {
+        level = game.getLevel();
+        game.getLevel().getPlayer().setPlayerLocation(new Location(2, 8));
+        assertEquals(false, level.checkVictory(game.getLevel().getPlayer().getLocation()));
+    }
+
+    @Test
+    public void checkVictoryOnFilledTrapTile() {
+        level = game.getLevel();
+        game.getLevel().fillTrap(new Location(2, 7));
+        game.getLevel().getPlayer().setPlayerLocation(new Location(2, 7));
+        assertEquals(false, level.checkVictory(game.getLevel().getPlayer().getLocation()));
     }
 }

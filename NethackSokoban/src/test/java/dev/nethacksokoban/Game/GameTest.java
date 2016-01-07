@@ -120,26 +120,7 @@ public class GameTest {
         assertEquals(newBoxLocation, testBox.getLocation());
         assertEquals(3, level.getBoxes().size());
     }
-
-    @Test
-    public void checkVictoryOnVictoryTile() {
-        game.getLevel().getPlayer().setPlayerLocation(new Location(3, 8));
-        assertEquals(true, game.checkVictory(game.getLevel().getPlayer().getLocation()));
-    }
-
-    @Test
-    public void checkVictoryOnNormalTile() {
-        game.getLevel().getPlayer().setPlayerLocation(new Location(2, 8));
-        assertEquals(false, game.checkVictory(game.getLevel().getPlayer().getLocation()));
-    }
-
-    @Test
-    public void checkVictoryOnFilledTrapTile() {
-        game.getLevel().fillTrap(new Location(2, 7));
-        game.getLevel().getPlayer().setPlayerLocation(new Location(2, 7));
-        assertEquals(false, game.checkVictory(game.getLevel().getPlayer().getLocation()));
-    }
-
+  
     @Test
     public void attemptBoxMoveTowardsFreeTile() {
         assertEquals(true, game.attemptBoxMove(new Location(2, 3), level.getBoxInLocation(2, 2)));
