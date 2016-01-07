@@ -109,11 +109,17 @@ public class GUI implements Runnable {
      * @param selectedNumber Selected number from the JComboBox in MenuPanel.
      */
     public void startNewMapWithIndex(int selectedNumber) {
-        game.startNewMapWithIndex(selectedNumber + 1);
+        game.startNewMapWithIndex(selectedNumber);
     }
 
+    /**
+     * Method sends a command to be executed to Game.
+     *
+     * @param command command as Char value.
+     */
     public void executeGameCommand(char command) {
         game.executeGameCommand(command);
         game.update();
     }
+
 }
