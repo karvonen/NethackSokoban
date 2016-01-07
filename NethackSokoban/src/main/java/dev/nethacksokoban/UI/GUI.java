@@ -25,8 +25,8 @@ public class GUI implements Runnable {
     @Override
     public void run() {
         frame = new JFrame("NethackSokoban");
-        frame.setPreferredSize(new Dimension(1344, 756));
-        frame.setSize(new Dimension(1344, 756));
+        frame.setPreferredSize(new Dimension(1216, 684));
+        frame.setSize(new Dimension(1216, 684));
         frame.setResizable(false);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         createComponents(frame.getContentPane());

@@ -107,13 +107,12 @@ public class Game {
      * @see GUI
      */
     public void update() {
+        gui.updateMenuMoveCount();
+        gui.getUpdatable().reDraw();
         if (victory) {
-            gui.getUpdatable().reDraw();
             gui.victoryDialog();
             startGame();
         }
-        gui.getUpdatable().reDraw();
-        gui.updateMenuMoveCount();
     }
 
     /**

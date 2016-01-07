@@ -30,8 +30,8 @@ public class Board extends JLayeredPane {
         this.game = game;
         assets = new HashMap<>();
         playerAssets = new HashMap<>();
-        int iconHeight = 42;
-        int iconWidth = 42;
+        int iconHeight = 38;
+        int iconWidth = 38;
 
         playerAssets.put('.', new ImageIcon(new ImageIcon("assets/PlayerGroundConcrete.png").getImage().getScaledInstance(iconWidth, iconHeight, Image.SCALE_DEFAULT)));
         playerAssets.put('*', new ImageIcon(new ImageIcon("assets/PlayerFilledTrap.png").getImage().getScaledInstance(iconWidth, iconHeight, Image.SCALE_DEFAULT)));
