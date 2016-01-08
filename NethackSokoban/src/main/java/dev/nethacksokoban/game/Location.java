@@ -1,4 +1,4 @@
-package dev.nethacksokoban.Game;
+package dev.nethacksokoban.game;
 
 /**
  * Class provides location as a column/row coordinate. Other classes use this

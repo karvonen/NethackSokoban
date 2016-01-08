@@ -1,4 +1,4 @@
-package dev.nethacksokoban.Game;
+package dev.nethacksokoban.game;
 
 /**
  * Instances of this class are objects drawn on top of the level.

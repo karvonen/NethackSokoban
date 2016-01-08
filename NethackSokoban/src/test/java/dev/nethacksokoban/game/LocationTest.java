@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dev.nethacksokoban.Game;
+package dev.nethacksokoban.game;
 
+import dev.nethacksokoban.game.Location;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

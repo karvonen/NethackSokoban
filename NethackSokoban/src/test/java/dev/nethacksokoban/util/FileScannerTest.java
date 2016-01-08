@@ -1,4 +1,4 @@
-package dev.nethacksokoban.Util;
+package dev.nethacksokoban.util;
 
 import java.util.ArrayList;
 import org.junit.After;

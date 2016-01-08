@@ -1,7 +1,7 @@
-package dev.nethacksokoban.Game;
+package dev.nethacksokoban.game;
 
-import dev.nethacksokoban.UI.GUI;
-import dev.nethacksokoban.Util.FileScanner;
+import dev.nethacksokoban.ui.GUI;
+import dev.nethacksokoban.util.FileScanner;
 import java.util.ArrayList;
 import java.util.HashMap;
 

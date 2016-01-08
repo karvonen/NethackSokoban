@@ -1,4 +1,4 @@
-package dev.nethacksokoban.Game;
+package dev.nethacksokoban.game;
 
 /**
  * Class provides functionality for a Player object. Only one instance of this

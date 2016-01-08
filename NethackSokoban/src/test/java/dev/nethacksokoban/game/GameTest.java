@@ -1,6 +1,10 @@
-package dev.nethacksokoban.Game;
+package dev.nethacksokoban.game;
 
-import dev.nethacksokoban.UI.GUI;
+import dev.nethacksokoban.game.Level;
+import dev.nethacksokoban.game.Location;
+import dev.nethacksokoban.game.Game;
+import dev.nethacksokoban.game.Box;
+import dev.nethacksokoban.ui.GUI;
 import javax.swing.SwingUtilities;
 import org.junit.After;
 import org.junit.AfterClass;

@@ -1,5 +1,7 @@
-package dev.nethacksokoban.Game;
+package dev.nethacksokoban.game;
 
+import dev.nethacksokoban.game.Location;
+import dev.nethacksokoban.game.Player;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

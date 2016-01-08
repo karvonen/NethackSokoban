@@ -1,6 +1,6 @@
-package dev.nethacksokoban.UI;
+package dev.nethacksokoban.ui;
 
-import dev.nethacksokoban.Game.Game;
+import dev.nethacksokoban.game.Game;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

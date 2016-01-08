@@ -1,7 +1,7 @@
 package dev.nethacksokoban;
 
-import dev.nethacksokoban.Game.Game;
-import dev.nethacksokoban.UI.GUI;
+import dev.nethacksokoban.game.Game;
+import dev.nethacksokoban.ui.GUI;
 import javax.swing.SwingUtilities;
 
 /**

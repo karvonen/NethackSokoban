@@ -1,4 +1,4 @@
-package dev.nethacksokoban.Util;
+package dev.nethacksokoban.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package dev.nethacksokoban.Game;
+package dev.nethacksokoban.game;
 
 import java.util.ArrayList;
 
