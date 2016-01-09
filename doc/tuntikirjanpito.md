@@ -27,4 +27,6 @@ Päivämäärä | Aika | Kuvaus
 2016-01-06 | 2h | Testejä lisätty.
 2016-01-06 | 2h | Sekvenssikaavioita, koodikatselmointi.
 2016-01-07 | 0.5h | Refaktorointia.
-Yhteensä | 48.5h |
+2016-01-09 | 1h | Käyttöohjeet ja testausdokumentti.
+2016-01-09 | 1h | Validaattori mappien lataamiseen.
+Yhteensä | 49.5h |
