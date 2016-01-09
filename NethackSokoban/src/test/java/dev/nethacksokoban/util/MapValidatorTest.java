@@ -42,6 +42,71 @@ public class MapValidatorTest {
     }
 
     @Test
+    public void validateSmall() {
+        char[][] testMap = new char[][]{
+            {'#', '#', '#'},
+            {'#', '0', '#'},
+            {'#', '@', '#'},
+            {'#', '<', '#'},
+            {'#', '#', '#'}};
+
+        MapValidator validator = new MapValidator(testMap);
+        assertEquals(true, validator.validate());
+    }
+
+    @Test
+    public void validateBrokenTopWall() {
+        char[][] testMap = new char[][]{
+            {'#', '.', '#'},
+            {'#', '0', '#'},
+            {'#', '@', '#'},
+            {'#', '<', '#'},
+            {'#', '#', '#'}};
+
+        MapValidator validator = new MapValidator(testMap);
+        assertEquals(false, validator.validate());
+    }
+
+    @Test
+    public void validateBrokenBottomWall() {
+        char[][] testMap = new char[][]{
+            {'#', '#', '#'},
+            {'#', '0', '#'},
+            {'#', '@', '#'},
+            {'#', '<', '#'},
+            {'#', '.', '#'}};
+
+        MapValidator validator = new MapValidator(testMap);
+        assertEquals(false, validator.validate());
+    }
+
+    @Test
+    public void validateBrokenLeftWall() {
+        char[][] testMap = new char[][]{
+            {'#', '#', '#'},
+            {'#', '0', '#'},
+            {'.', '@', '#'},
+            {'#', '<', '#'},
+            {'#', '#', '#'}};
+
+        MapValidator validator = new MapValidator(testMap);
+        assertEquals(false, validator.validate());
+    }
+
+    @Test
+    public void validateBrokenRightWall() {
+        char[][] testMap = new char[][]{
+            {'#', '#', '#'},
+            {'#', '0', '#'},
+            {'#', '@', '.'},
+            {'#', '<', '#'},
+            {'#', '#', '#'}};
+
+        MapValidator validator = new MapValidator(testMap);
+        assertEquals(false, validator.validate());
+    }
+
+    @Test
     public void validateBrokenTopLeftCorner() {
         char[][] testMap = new char[][]{
             {'.', '#', '#', '#', '#'},
@@ -153,6 +218,14 @@ public class MapValidatorTest {
             {'#', '.', '@', '.', '#'},
             {'#', '+', '<', '.', '#'},
             {'#', '#', '#', '#', '#'}};
+
+        MapValidator validator = new MapValidator(testMap);
+        assertEquals(false, validator.validate());
+    }
+
+    @Test
+    public void nullArray() {
+        char[][] testMap = null;
 
         MapValidator validator = new MapValidator(testMap);
         assertEquals(false, validator.validate());
