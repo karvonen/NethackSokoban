@@ -29,4 +29,4 @@ Päivämäärä | Aika | Kuvaus
 2016-01-07 | 0.5h | Refaktorointia.
 2016-01-09 | 1h | Käyttöohjeet ja testausdokumentti.
 2016-01-09 | 1h | Validaattori mappien lataamiseen.
-Yhteensä | 49.5h |
+Yhteensä | 50.5h |
