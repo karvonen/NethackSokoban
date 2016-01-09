@@ -2,7 +2,7 @@
 
 Java programming project for [Joululabra 2015](https://github.com/javaLabra/Joululabra-2015)
 
-## [Instructions](https://github.com/karvonen/NethackSokoban/blob/master/doc/k%C3%A4ytt%C3%B6ohjeet.md)
+### [Instructions](https://github.com/karvonen/NethackSokoban/blob/master/doc/k%C3%A4ytt%C3%B6ohjeet.md)
 
 
 ###Assets used:
