@@ -1,5 +1,7 @@
 package dev.nethacksokoban.util;
 
+import java.util.ArrayList;
+
 /**
  * Class provides basic validation methods for the game's maps.
  */
@@ -9,7 +11,7 @@ public class MapValidator {
 
     /**
      * Constructs a new MapValidator for the given character array.
-     * 
+     *
      * @param map The map which is going to be validated.
      */
     public MapValidator(char[][] map) {
@@ -17,7 +19,25 @@ public class MapValidator {
     }
 
     public boolean validate() {
-        return (validateWalls() && validatePlayerStartAndGoal());
+        return (validateWalls() && validatePlayerStartAndGoal() && validateCharacters());
+    }
+
+    private boolean validateCharacters() {
+        ArrayList<Character> allowedCharacters = new ArrayList<>();
+        allowedCharacters.add('.');
+        allowedCharacters.add('@');
+        allowedCharacters.add('^');
+        allowedCharacters.add('<');
+        allowedCharacters.add('0');
+        allowedCharacters.add('#');
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                if (!allowedCharacters.contains(map[i][j])) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private boolean validateWalls() {
