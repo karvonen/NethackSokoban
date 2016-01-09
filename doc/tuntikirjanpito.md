@@ -29,4 +29,5 @@ Päivämäärä | Aika | Kuvaus
 2016-01-07 | 0.5h | Refaktorointia.
 2016-01-09 | 1h | Käyttöohjeet ja testausdokumentti.
 2016-01-09 | 1h | Validaattori mappien lataamiseen.
-Yhteensä | 50.5h |
+2016-01-09 | 2h | Javadoc, checkstyle, ohjelman rakenne, jar, luokkakaavion päivitys, viimeistelyä.
+Yhteensä | 52.5h |
