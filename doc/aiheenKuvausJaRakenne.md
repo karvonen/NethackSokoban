@@ -23,7 +23,6 @@ Tehty peli seuraa Nethackin sääntöjä niissä määrin kuin on tarve. Vinotta
 
 ## Rakenne
 
-###Huomautus
 Kun koodissa ja dokumentaatiossa puhutaan mapista tarkoitetaan sillä charactertaulukkoa josta Level muodostetaan. Kun puhutaan levelistä tarkoitetaan Level-oliota joka sisältää taulukon tasolle, mutta siitä on poistettu pelaaja ja laatikot ja niistä on luotu omat oliot.
 
 
