@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
