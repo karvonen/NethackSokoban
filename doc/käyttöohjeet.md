@@ -26,7 +26,7 @@ It's easy to add maps to the game. However Board.java has hardcoded grid of JLab
 
 The program checks for text files in /levels/ starting with 1.txt incrementing by one after each file until no file is found. So to add a level you need to add exactly 1 to the currently biggest level. After that the levels will loaded automatically and they appear in the menu bar's level selector.
 
-In the text files the first number is the width of the level and the second is the height. There is no checking for the validity of the levels so you need to be sure your level is valid. 
+In the text files the first number is the width of the level and the second is the height.
 
 Here are all the supported characters for creating levels:
 
