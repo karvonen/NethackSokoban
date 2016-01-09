@@ -122,4 +122,9 @@ public class GUI implements Runnable {
         game.update();
     }
 
+    public void errorMessage(String message) {
+        JOptionPane.showMessageDialog(frame, message);
+        System.exit(1);
+    }
+
 }

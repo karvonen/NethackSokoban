@@ -96,6 +96,9 @@ public class Game {
 
         FileScanner levelLoader = new FileScanner();
         ArrayList<char[][]> loadedMaps = levelLoader.loadMaps();
+        if (loadedMaps == null) {
+            gui.errorMessage("Error in loading levels, exiting");
+        }
         for (int i = 0; i < loadedMaps.size(); i++) {
             levels.put(i + 1, loadedMaps.get(i));
         }

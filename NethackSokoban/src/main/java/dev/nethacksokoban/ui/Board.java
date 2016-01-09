@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -34,7 +35,7 @@ public class Board extends JLayeredPane {
         playerAssets = new HashMap<>();
         int iconHeight = 38;
         int iconWidth = 38;
-
+            
         playerAssets.put('.', new ImageIcon(new ImageIcon("assets/PlayerGroundConcrete.png").getImage().getScaledInstance(iconWidth, iconHeight, Image.SCALE_DEFAULT)));
         playerAssets.put('*', new ImageIcon(new ImageIcon("assets/PlayerFilledTrap.png").getImage().getScaledInstance(iconWidth, iconHeight, Image.SCALE_DEFAULT)));
         playerAssets.put('<', new ImageIcon(new ImageIcon("assets/PlayerGoal.png").getImage().getScaledInstance(iconWidth, iconHeight, Image.SCALE_DEFAULT)));

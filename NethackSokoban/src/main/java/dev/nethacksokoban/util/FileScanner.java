@@ -10,6 +10,12 @@ import java.util.Scanner;
  */
 public class FileScanner {
 
+    private boolean valid;
+
+    public FileScanner() {
+        this.valid = true;
+    }
+
     /**
      * Method scans the src/levels/ directory for text files starting from
      * number one and continues to increment the file name by one until a file
@@ -28,6 +34,11 @@ public class FileScanner {
             if (loadedMap == null) {
                 break;
             }
+            MapValidator validator = new MapValidator(loadedMap);
+            if (validator.validate() == false || !valid) {
+                return null;
+            }
+
             loadedMaps.add(loadedMap);
         }
         return loadedMaps;
@@ -38,8 +49,8 @@ public class FileScanner {
      * character array.
      *
      * @param fileName File name of the file being handled.
-     * 
-     * @return ArrayList of the character arrays that will form the levels or 
+     *
+     * @return ArrayList of the character arrays that will form the levels or
      * null if a file corresponding to the file name was not found.
      */
     public char[][] readAndParseFile(String fileName) {
@@ -47,8 +58,11 @@ public class FileScanner {
         try {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
-            int mapWidth = Integer.parseInt(scanner.nextLine());
-            int mapHeight = Integer.parseInt(scanner.nextLine());
+            Integer mapWidth = readNextInt(scanner);
+            Integer mapHeight = readNextInt(scanner);
+            if (mapHeight == null || mapWidth == null) {
+                return null;
+            }
             readMap = new char[mapHeight][mapWidth];
             for (int i = 0; i < mapHeight; i++) {
                 readMap[i] = scanner.nextLine().toCharArray();
@@ -57,6 +71,18 @@ public class FileScanner {
             return null;
         }
         return readMap;
+    }
+
+    private Integer readNextInt(Scanner scanner) {
+        Integer readInt = null;
+        try {
+            String line = scanner.nextLine();
+            readInt = Integer.parseInt(line);
+        } catch (NumberFormatException ex) {
+            valid = false;
+            return null;
+        }
+        return readInt;
     }
 
 }

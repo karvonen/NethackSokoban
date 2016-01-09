@@ -20,7 +20,7 @@ public class Location {
         this.row = row;
         this.col = col;
     }
-
+    
     /**
      * Constructor for copying Location objects.
      *
