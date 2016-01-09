@@ -39,12 +39,12 @@
                 <version>1.1.4</version>
                 <configuration>
                     <targetClasses>
-                        <param>dev.nethacksokoban.Game.*</param>
-                        <param>dev.nethacksokoban.Util.*</param>
+                        <param>dev.nethacksokoban.game.*</param>
+                        <param>dev.nethacksokoban.util.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>dev.nethacksokoban.Game.*</param>
-                        <param>dev.nethacksokoban.Util.*</param>
+                        <param>dev.nethacksokoban.game.*</param>
+                        <param>dev.nethacksokoban.util.*</param>
                     </targetTests>
                 </configuration>
             </plugin>
