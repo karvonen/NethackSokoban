@@ -2,21 +2,8 @@
 
 Java programming project for [Joululabra 2015](https://github.com/javaLabra/Joululabra-2015)
 
-##Movement keys:
-###Numpad
-    7 8 9
-     \|/
-    4- -6
-     /|\
-    1 2 3
+## [Instructions](https://github.com/karvonen/NethackSokoban/blob/master/doc/k%C3%A4ytt%C3%B6ohjeet.md)
 
-
-###Vi keys with added roguelike diagonals
-    y k u
-     \|/
-    h- -l
-     /|\
-    b j n
 
 ###Assets used:
 [Graphic assets](http://opengameart.org/content/sokoban-pack) made by [1001.com](http://www.1001.com/).

@@ -20,6 +20,22 @@ This game follows the movement rules of Nethack which means diagonal movement is
 
 ![example moves] (https://raw.githubusercontent.com/karvonen/NethackSokoban/master/doc/util/DiagonalMoves.png)
 
+
+##Movement keys:
+###Numpad
+    7 8 9
+     \|/
+    4- -6
+     /|\
+    1 2 3
+
+###Vi keys with added roguelike diagonals
+    y k u
+     \|/
+    h- -l
+     /|\
+    b j n
+
 ##Adding levels
 
 It's easy to add maps to the game. However Board.java has hardcoded grid of JLabels for sprites and currently the size is 18 tiles in height and 32 tiles in width. If you want to add a bigger level than this you will need to increase these numbers and the windows size in GUI.java to match.
