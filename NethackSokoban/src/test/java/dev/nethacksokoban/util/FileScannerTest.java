@@ -55,11 +55,11 @@ public class FileScannerTest {
             {'#', '#', '.', '.', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
             {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}};
 
-        assertArrayEquals(expectedMap, fileScanner.readAndParseFile("src/levels/2.txt"));
+        assertArrayEquals(expectedMap, fileScanner.readAndParseFile("levels/2.txt"));
     }
     
     @Test
     public void readAndParseReturnsNullIfNoFileFound() {
-        assertArrayEquals(null, fileScanner.readAndParseFile("src/levels/66.txt"));
+        assertArrayEquals(null, fileScanner.readAndParseFile("levels/66.txt"));
     }
 }

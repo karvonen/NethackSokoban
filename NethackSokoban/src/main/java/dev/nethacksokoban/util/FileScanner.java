@@ -22,7 +22,7 @@ public class FileScanner {
         ArrayList<char[][]> loadedMaps = new ArrayList<>();
         int counter = 1;
         while (true) {
-            String fileName = "src/levels/" + counter + ".txt";
+            String fileName = "levels/" + counter + ".txt";
             counter++;
             char[][] loadedMap = readAndParseFile(fileName);
             if (loadedMap == null) {
