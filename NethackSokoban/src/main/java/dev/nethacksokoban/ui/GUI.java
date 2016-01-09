@@ -48,7 +48,8 @@ public class GUI implements Runnable {
     /**
      * Creates and adds a menu panel to the game window.
      *
-     * @throws java.lang.InterruptedException
+     * @throws java.lang.InterruptedException If something wants to interrupt
+     * the thread.
      */
     public void addMenuPanel() throws InterruptedException {
         menu = new MenuPanel(game, this);

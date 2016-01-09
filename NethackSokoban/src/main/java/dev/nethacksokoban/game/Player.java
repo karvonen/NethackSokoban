@@ -49,7 +49,7 @@ public class Player {
      *
      * @param location Sets player location to parameter.
      */
-    public void setPlayerLocation(Location location) {
+    public void movePlayer(Location location) {
         this.location = location;
         moves++;
     }

@@ -1,7 +1,5 @@
 package dev.nethacksokoban.game;
 
-import dev.nethacksokoban.game.Location;
-import dev.nethacksokoban.game.Player;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,11 +41,11 @@ public class PlayerTest {
     @Test
     public void playerMove() {
         Location move1 = new Location(3, 3);
-        player.setPlayerLocation(move1);
+        player.movePlayer(move1);
         assertEquals(move1, player.getLocation());
         assertEquals(1, player.getMoves());
         Location move2 = new Location(2, 4);
-        player.setPlayerLocation(move2);
+        player.movePlayer(move2);
         assertEquals(move2, player.getLocation());
         assertEquals(2, player.getMoves());
     }

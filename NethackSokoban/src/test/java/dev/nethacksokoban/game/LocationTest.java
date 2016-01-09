@@ -5,7 +5,6 @@
  */
 package dev.nethacksokoban.game;
 
-import dev.nethacksokoban.game.Location;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

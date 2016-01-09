@@ -86,7 +86,7 @@ public class Game {
     }
 
     /**
-     * Method clears HashMap<Integer, char[][]> levels and uses FileScanner to
+     * Method clears levels HashMap and uses FileScanner to
      * load all levels from files.
      *
      * @see FileScanner
@@ -203,11 +203,11 @@ public class Game {
                 if (direction != 0) {
                     Location newBoxLocation = createNewBoxLocation(boxAtNewLocation, direction);
                     if (attemptBoxMove(newBoxLocation, boxAtNewLocation)) {
-                        level.getPlayer().setPlayerLocation(newPlayerLocation);
+                        level.getPlayer().movePlayer(newPlayerLocation);
                     }
                 }
             } else if (level.isTileFreeToBeMovedOn(newPlayerLocation)) {
-                level.getPlayer().setPlayerLocation(newPlayerLocation);
+                level.getPlayer().movePlayer(newPlayerLocation);
             }
         }
     }

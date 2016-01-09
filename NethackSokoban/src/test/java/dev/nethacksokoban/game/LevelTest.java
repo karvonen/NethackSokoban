@@ -105,14 +105,14 @@ public class LevelTest {
     @Test
     public void checkVictoryOnVictoryTile() {
         level = game.getLevel();
-        game.getLevel().getPlayer().setPlayerLocation(new Location(3, 8));
+        game.getLevel().getPlayer().movePlayer(new Location(3, 8));
         assertEquals(true, level.checkVictory(game.getLevel().getPlayer().getLocation()));
     }
 
     @Test
     public void checkVictoryOnNormalTile() {
         level = game.getLevel();
-        game.getLevel().getPlayer().setPlayerLocation(new Location(2, 8));
+        game.getLevel().getPlayer().movePlayer(new Location(2, 8));
         assertEquals(false, level.checkVictory(game.getLevel().getPlayer().getLocation()));
     }
 
@@ -120,7 +120,7 @@ public class LevelTest {
     public void checkVictoryOnFilledTrapTile() {
         level = game.getLevel();
         game.getLevel().fillTrap(new Location(2, 7));
-        game.getLevel().getPlayer().setPlayerLocation(new Location(2, 7));
+        game.getLevel().getPlayer().movePlayer(new Location(2, 7));
         assertEquals(false, level.checkVictory(game.getLevel().getPlayer().getLocation()));
     }
 }

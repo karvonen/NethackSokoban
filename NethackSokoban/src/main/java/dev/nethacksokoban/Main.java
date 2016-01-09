@@ -13,7 +13,7 @@ public class Main {
     /**
      * Starts a new game, creates and attaches a GUI to it.
      *
-     * @param args 
+     * @param args arguments 
      */
     public static void main(String[] args) {
         Game game = new Game();
