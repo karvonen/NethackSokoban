@@ -46,15 +46,15 @@ public class GUI implements Runnable {
     }
 
     /**
-     * Creates and adds a menu panel to the bottom of the game window.
+     * Creates and adds a menu panel to the game window.
      *
+     * @throws java.lang.InterruptedException
      */
     public void addMenuPanel() throws InterruptedException {
         menu = new MenuPanel(game, this);
-//        System.out.println(frame + "  debug: onko null??");
 
-        //Bugi!? Frame on välillä null jos tässä ei odoteta hetken aikaa? Ja
-        //taas välillä toimii... En tajua..
+        //For some reason on some computers frame could be null here and also
+        //for some reason it is fixed by Thread.sleep.
         Thread.sleep(1100);
 
         frame.getContentPane().add(menu, BorderLayout.SOUTH);
