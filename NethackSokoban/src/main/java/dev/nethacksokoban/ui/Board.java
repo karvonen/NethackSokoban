@@ -18,15 +18,17 @@ import javax.swing.JLayeredPane;
  */
 public class Board extends JLayeredPane {
 
-    private Game game;
+    private final Game game;
     private JLayeredPane mapPanel;
     private JLabel[][] mapLabels;
-    private HashMap<Character, ImageIcon> assets;
-    private HashMap<Character, ImageIcon> playerAssets;
-    private int maxHeight = 18;
-    private int maxWidth = 32;
+    private final HashMap<Character, ImageIcon> assets;
+    private final HashMap<Character, ImageIcon> playerAssets;
+    private final int maxHeight;
+    private final int maxWidth;
 
     public Board(Game game) {
+        this.maxWidth = 32;
+        this.maxHeight = 18;
         this.game = game;
         assets = new HashMap<>();
         playerAssets = new HashMap<>();

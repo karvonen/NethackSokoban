@@ -4,12 +4,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * Class listens for keyboard input and calls gate to execute commands based on
- * the inputs.
+ * Class handles keyboard input.
+ * 
  */
 public class KeyboardListener implements KeyListener {
 
-    private GUI gui;
+    private final GUI gui;
 
     /**
      * Keyboardlistener listens for key presses and executes game commands based on 

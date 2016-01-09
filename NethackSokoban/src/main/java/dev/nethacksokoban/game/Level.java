@@ -8,10 +8,10 @@ import java.util.ArrayList;
  */
 public class Level {
 
-    private char[][] map;
-    private ArrayList<Box> boxes;
-    private int height;
-    private int width;
+    private final char[][] map;
+    private final ArrayList<Box> boxes;
+    private final int height;
+    private final int width;
     private Player player;
 
     /**

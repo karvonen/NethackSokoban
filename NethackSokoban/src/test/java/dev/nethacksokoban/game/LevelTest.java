@@ -1,8 +1,5 @@
 package dev.nethacksokoban.game;
 
-import dev.nethacksokoban.game.Level;
-import dev.nethacksokoban.game.Location;
-import dev.nethacksokoban.game.Game;
 import java.util.Arrays;
 import org.junit.After;
 import org.junit.AfterClass;

@@ -14,7 +14,7 @@ import javax.swing.WindowConstants;
 public class GUI implements Runnable {
 
     private JFrame frame;
-    private Game game;
+    private final Game game;
     private Board board;
     private MenuPanel menu;
 

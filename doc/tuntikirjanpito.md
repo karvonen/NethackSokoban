@@ -26,4 +26,5 @@ Päivämäärä | Aika | Kuvaus
 2016-01-06 | 1h | Diagonaalibugikorjaus.
 2016-01-06 | 2h | Testejä lisätty.
 2016-01-06 | 2h | Sekvenssikaavioita, koodikatselmointi.
-Yhteensä | 48h |
+2016-01-07 | 0.5h | Refaktorointia.
+Yhteensä | 48.5h |

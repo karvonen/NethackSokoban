@@ -11,7 +11,7 @@ public class Location {
     private int col;
 
     /**
-     * Constructor for creating Location objects from row/colum coordinate.
+     * Constructor for creating Location objects from row/column coordinate.
      *
      * @param row Row of the new location.
      * @param col Column of the new location.
