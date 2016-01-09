@@ -122,6 +122,11 @@ public class GUI implements Runnable {
         game.update();
     }
 
+    /**
+     * Method shows a message dialog with given error message and exits the program.
+     *
+     * @param message Error message to show.
+     */
     public void errorMessage(String message) {
         JOptionPane.showMessageDialog(frame, message);
         System.exit(1);

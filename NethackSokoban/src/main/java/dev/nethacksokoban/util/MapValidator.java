@@ -18,6 +18,12 @@ public class MapValidator {
         this.map = map;
     }
 
+    /**
+     * Method calls all the validator methods to validate the current map.
+     * 
+     * @return boolean true for valid map, false of invalid.
+     *
+     */
     public boolean validate() {
         return (validateWalls() && validatePlayerStartAndGoal() && validateCharacters());
     }
