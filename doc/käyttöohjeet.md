@@ -18,7 +18,7 @@ Pulling boxes is not allowed.
 
 This game follows the movement rules of Nethack which means diagonal movement is possible as long as you are not squeezing between walls or boxes. Picture illustrates this better than words:
 
-![example moves] (https://raw.githubusercontent.com/karvonen/NethackSokoban/master/util/DiagonalMoves.png)
+![example moves] (https://raw.githubusercontent.com/karvonen/NethackSokoban/master/doc/util/DiagonalMoves.png)
 
 ##Adding levels
 
